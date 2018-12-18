@@ -1,0 +1,158 @@
+<% include template/header %>
+<!--  bundle  Product  starts here-->
+<div class="bnd-products bnd-details" ng-app="myapp" ng-controller="userbundle">
+    <form name="user_bundle" method="POST">
+        <div class="container-fluid create-bundle" style="margin-top: 20px;">
+            <div class="container">
+                <div class="row" id="cBundle-desktop">
+                    <h4>
+                        <img src="img/choose-bundle.png" alt="choose-bundle" /> My bundles</h4>
+                </div>
+
+                <div class="row">
+                    <div class="edit-bundle">
+                        <h5 style="display: inline-block;" ng-bind-html="mybundle_name" ng-hide="edit_title"></h5>
+                        <input type="text" name="bundlename" ng-model="mybundle_name" class="form-control-static title-input"
+                            ng-value="mybundle_name" ng-show="edit_title">
+                        <a ng-click="change_title()">
+                            <img src="img/edit-bundle.png" alt="edit-bundle" />
+                        </a>
+                    </div>
+                    <!--<div class="input-group">
+                        <input type="text" ng-model="mybundle_name" value="" class="form-control Rounded-Rectangle-5">
+                        <span class="input-group-btn" style="right: 23px;">
+                            <button class="Rounded-Rectangle-5" type="button"><img src="img/edit-bundle.png" alt="edit-bundle" /></button>
+                        </span> </div>-->
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid mycart">
+            <div ng-include="'includes/userbundle.html'"></div>
+        </div>
+        <!-- Modal -->
+        <div id="bundleedit" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content" style="background-color: #e8e8e8; border-radius: 0;">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group marg-btm">
+                                    <h3>Are you sure want to Save this Bundle?</h3>
+                                    <p>Bundle Name</p>
+                                    <input type="text" class="form-control form-control1" value="{{mybundle_name}}"
+                                        disabled>
+                                    <!-- <label class="form-control-placeholder" for="name">Name</label> -->
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row" style="margin-bottom: 30px;">
+                            <div class="col-md-3 col-xs-6">
+                                <input type="submit" class="btn btn-proceed" value="Save" />
+                            </div>
+                            <div class="col-md-3 col-xs-6">
+                                <button type="button" data-dismiss="modal" aria-hidden="true" class="close btn btn-proceedc">Cancel</button>
+                            </div>
+                            <div class="col-md-3 col-xs-6">
+                                <a class="removebundle" href="mybundles/delete/{{ub_id}}">
+                                    <p>Remove Bundle</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Ends -->
+        <div id="bundledelete" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content" style="background-color: #e8e8e8; border-radius: 0;">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group marg-btm">
+                                    <h3>Are you sure want to delete this Bundle?</h3>
+                                    <!-- <label class="form-control-placeholder" for="name">Name</label> -->
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row" style="margin-bottom: 30px;">
+                            <div class="col-md-12 text-center">
+                                <a class="btn-recurring btn" href="mybundles/delete/{{ub_id}}">
+                                    <p>Remove Bundle</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="bundledelete" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content" style="background-color: #e8e8e8; border-radius: 0;">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group marg-btm">
+                                    <h3 class="text-center">Are you sure want to remove this Bundle?</h3>
+                                    <!-- <label class="form-control-placeholder" for="name">Name</label> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 30px;">
+                            <div class="col-md-12 text-center">
+                                <a class="btn-recurring btn" href="mybundles/delete/{{ub_id}}">
+                                    <p>Remove Bundle</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div id="bundle_options" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content" style="background-color: #e8e8e8; border-radius: 0;">
+                    <div class="modal-header">                    
+                        <a href="/mybundles" class="close">&times;</a>
+                        <h3 class="text-center modal-title text-success">Bundle Saved Successfully</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" style="margin-bottom: 30px;">
+                            <div class="col-md-12 text-center">
+                                <button type="button" ng-click="bundle_checkout(ub_id)" class="btn btn-lg btn-bundle-options">
+                                    Checkout <span ng-bind-html="mybundle_name"></span>
+                                </button>
+                                <a href="/product-listing" type="button" class="btn btn-lg btn-bundle-options">
+                                    Continue Shopping
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+<script>
+    app.constant("dataset", {
+        'bundleId': <%= bundleId %>
+        });
+</script>
+<!--     Product list ends here-->
+<% include template/footer %>

@@ -1,0 +1,45 @@
+<% include template/header %>
+<div class="container-fluid buildbundle">
+    <div class="container">
+        <form action="/mybundles/createbundle" method="POST">
+            <h4 class="Build-your-own-Bundle">Build your own Bundle</h4>
+            <h5 class="Build-your-own-Bundle-text2">Never miss out on your grocery list and Checkout real quick the next time. By building your own bundle! <br>
+            You can simply add products to your cart and when you checkout that shopping list will be stored as your bundle. You can also schedule your bundle for the next time. Start bundling!
+            </h5>
+            <h6 class="Give-a-name-for-your-bundle">
+                <%= check %>
+            </h6>
+            <input type="text" name="bundlename" value="<%= name %>" required class="form-control Rounded-Rectangle-4" />
+            <p class="Eg-My-Baby-Bundle-My-Monthly-Bundle">Eg., My Baby Bundle. My Monthly Bundle</p>
+            <div class="row mb150">
+                <button class="btn btn-continue" type="submit">Start Now <img src="img/vector-smart-object.png"
+                        srcset="img/vector-smart-object@2x.png 2x,
+               img/vector-smart-object@3x.png 3x"
+                        class="Vector-Smart-Object"></button>
+            </div>
+
+            <div class="row manybundle-row">
+                <div class="col-lg-4 col-md-4 col-xs-12 text-center p-b-25">
+                    <img src="img/1.svg" class="Group-39">
+                    <h4 class="many-bundles-title">Create as many bundles you want</h4>
+                    <p class="many-bundles-subtitle">Eg,. My Baby Bundle, My Monthly Grocery, My Bathing Essentials, My
+                        Tea Time Bundle etc,.</p>
+                </div>
+                <div class="col-lg-4 col-md-4 col-xs-12 text-center p-b-25">
+                    <img src="img/2.svg" class="Group-39">
+                    <h4 class="many-bundles-title">Simple oneclick add to cart</h4>
+                    <p class="many-bundles-subtitle">Add these bundles directly to cart from your bundles list.</p>
+                </div>
+                <div class="col-lg-4 col-md-4 col-xs-12 text-center p-b-25">
+                    <img src="img/3.svg" class="Group-39">
+                    <h4 class="many-bundles-title">Schedule based on frequency required</h4>
+                    <p class="many-bundles-subtitle">Set this for autodelivery based on whenyou need it.Eg,. Weekly,
+                        Monthly etc,.</p>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<% include template/footer %>

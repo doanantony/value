@@ -1,0 +1,50 @@
+<% include template/header %>
+<div class="container-fluid bundlesuccess">
+  <div class="container"> <img src="img/success.png" class="img-responsive bundlesuccessimg" alt="success" />
+    <h4 class="bundlesuccesstitle">Your bundle has been successfully scheduled </h4>
+  </div>
+  <div class="container">
+    <div class="row panelsuccess">
+      <div class="col-md-5  borderirght">
+        <div class="row borderbtm">
+          <div class="col-md-3 col-sm-3 text-center"> 
+			  <img src="img/Vector_Smart_Object2.png" class="img-reponsive bundlenameimg"> 
+			</div>
+          <div class="col-md-9 col-sm-9">
+            <h5 class="Bundle-name">Bundle name</h5>
+			  <h3 class="Bundle-count">“<%= data.ub_name %>”</h3>
+          </div>
+        </div>
+      </div>
+		<div class="col-md-7">
+		<div class="row">
+			 <div class="col-md-4 col-sm-4 borderirght paddleft20"> 
+		  <img src="img/frequency.png" class="img-reponsive frequencyimg">
+        <h5 class="bundsucc-label">Frequency</h5>
+        <h3 class="bundsucc-value"><%= data.ub_time_period %> days</h3>
+      </div>
+      <div class="col-md-4 col-sm-4 borderirght paddleft20"> 
+		<img src="img/duration.png" class="img-reponsive frequencyimg">
+        <h5 class="bundsucc-label">Duration</h5>
+        <h3 class="bundsucc-value"><%= parseInt(data.ub_no_days)/30 %> Months</h3>
+      </div>
+      <div class="col-md-4 col-sm-4 paddleft20">
+		<img src="img/delivery.png" class="img-reponsive frequencyimg">
+        <h5 class="bundsucc-label">Next Delivery</h5>
+        <h3 class="bundsucc-value"><%=moment(data.ub_end_date).format('DD.MM.YYYY');%></h3>
+      </div>
+			</div>
+		</div>
+     
+    </div>
+	   <h5 class="bundlesuc-infotext"><img src="img/info-success.png" class="img-reponsive"> 2 days prior to your next delivery schedule  we will notify you to process the payment.</h5>
+    <div class="row recurrinlink"> <a href="/" class="backtohomelink">Back to home</a> </div>
+  </div>
+</div>
+<script type="text/javascript">
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+            history.go(1);
+        };
+</script>
+<% include template/footer %>

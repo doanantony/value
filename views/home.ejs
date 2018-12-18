@@ -1,0 +1,391 @@
+<% include template/header %>
+    <!--    Carousel strts here-->
+    <div class="container-fluid carouseldiv1 hidden-xs" style="padding-top: 20px;">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <% 
+                let bannerList= data.response.banner;
+                bannerList.sort(function(a, b){
+                    return a.hb_order - b.hb_order;
+                });
+                var no=0;
+                if (bannerList) {
+                    bannerList.forEach(function(slides){
+                        if(slides.hb_image)
+                %>
+                    <li data-target="#myCarousel" data-slide-to="<%= no++%>" class="<%= (no==1)?'active':'';%>"></li>
+                    <%
+                    })
+                }
+               %>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <% 
+                var no=0;
+                if (bannerList) {
+                    bannerList.forEach(function(slides){
+                        if(slides.hb_image)
+                %>
+                    <div class="item <%= (no==0)?'active':'';%>">
+                        <img src="<%= slides.hb_image %>" alt="Los Angeles" style="width: 100%;"> </div>
+                    <%
+                    no++;
+                    })
+                }
+               %>
+            </div>
+
+
+        </div>
+    </div>
+    <!--    Carousel ends here-->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 home-cards valuezonecard">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h1 class="ValuZone-BUNDLES">ValuZone
+                            <br> BUNDLES</h1>
+                        <p class="Choose-from-a-range-of-pre-configured-bundles-and-save-huge">
+                            Choose from a range of pre-configured bundles and save huge
+                        </p>
+                        <a class="btn btn-black" href="/bundle-list">
+                            Shop now
+                            <img src="img/vector-smart-object.png" srcset="img/vector-smart-object@2x.png 2x, img/vector-smart-object@3x.png 3x" class="Vector-Smart-Object">
+                        </a>
+                    </div>
+                    <div class="col-md-6 cardimage">
+                        <img src="img/home-product-1.png" class="img-responsive" alt="" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 home-cards bundlecard">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h1 class="ValuZone-BUNDLES">Build your own
+                            <br>Bundles</h1>
+                        <p class="Choose-from-a-range-of-pre-configured-bundles-and-save-huge">
+                            Create your own bundle from over 10000+ products and save big upto 25%
+                        </p>
+                        <% 
+                    if(cookies){
+                        var userData=JSON.parse(cookies);
+                        if(userData.status=="success"){
+                    %>
+                            <a class="btn btn-black" href="/create-bundle">
+                                Shop now
+                                <img src="img/vector-smart-object.png" srcset="img/vector-smart-object@2x.png 2x,
+                            img/vector-smart-object@3x.png 3x" class="Vector-Smart-Object">
+                            </a>
+                            <% } } else{ %>
+                                <a class="btn btn-black refererLogin" data-referrer="create-bundle" data-toggle="modal" data-target="#myModal">
+                                    Shop now
+                                    <img src="img/vector-smart-object.png" srcset="img/vector-smart-object@2x.png 2x,
+                            img/vector-smart-object@3x.png 3x" class="Vector-Smart-Object">
+                                </a>
+                                <% } %>
+                    </div>
+                    <div class="col-md-6 cardimage">
+                        <img src="img/home-product-2.png" class="img-responsive" alt="" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--    owl carousel starts here-->
+    <div class="container-fluid carousel-mob" ng-app="myapp" ng-controller="home">
+        <!-- <hr class="invis hidden-xs hidden-sm">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-8">
+                    <h1>
+                        <img src="img/valucartbundle.png" class="img-responsive titleimg">Valuzone Bundles</h1>
+                </div>
+                <div class="col-xs-4 text-right p-t-30">
+                    <a  class="viewall">
+                        <p class="text-info f24">View all</p>
+                    </a>
+                </div>
+            </div>
+            <section class="carousel1" id="carousel1">
+                <div class="row">
+                    <div class="large-12 columns">
+                        <div class="owl-carousel owl-theme">
+                            <% 
+                                let bundleCategory= data.response.bundle_category;
+                                bundleCategory.sort(function(a, b){
+                                    return a.hbc_order - b.hbc_order;
+                                });
+                                var no=0;
+                                if (bundleCategory) {
+                                    bundleCategory.forEach(function(cat){
+                                    var catname= cat.c_name;
+                                    var hbc_url= catname.replace(/\s+/g, '-').toUpperCase();
+                            %>
+                            <div class="item">
+                                <div class="panel panel-default productpanel">
+                                    <div class="panel-body text-center">
+                                        <img src="<%= cat.hbc_image; %>" class="img-responsive productimg">
+                                        <h4 class="producttitle"><%= cat.c_name%></h4>
+                                        <h6><%= cat.count==null?0:cat.count;%> Bundles</h6>
+                                        <a href="bundle-list/<%= cat.hbc_c_id+'/'+hbc_url%>">
+                                            <button class="btn btn-info">
+                                            <img src="img/arrow-home.png" alt=""/>
+                                            </button>
+                                        </a>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <%
+                                });
+                            }
+                            %>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <hr class="invis hidden-xs hidden-sm">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-9">
+                    <h1>
+                        <img src="img/buildbundle.png" class="img-responsive titleimg">Build your own bundles</h1>
+                </div>
+                <div class="col-xs-3 text-right p-t-30">
+                    <a href="#" class="viewall">
+                        <p class="text-info f24">View all</p>
+                    </a>
+                </div>
+            </div>
+            <section class="carousel2" id="carousel2">
+                <div class="row">
+                    <div class="large-12 columns">
+                        <div class="owl-carousel owl-theme">
+                            <% 
+                                let category= data.response.category;
+                                category.sort(function(a, b){
+                                    return a.hc_order - b.hc_order;
+                                });
+                                var no=0;
+                                if (category) {
+                                    category.forEach(function(cat){
+                                    var catname= cat.c_name;
+                                    var hc_url= catname.replace(/\s+/g, '-').toUpperCase();
+                            %>    
+                            <div class="item">
+                                <div class="panel panel-default productpanel">
+                                    <div class="panel-body text-center">
+                                        <img src="<%= cat.hc_image; %>" class="img-responsive productimg">
+                                        <div class="overlay-black">&nbsp;</div>
+                                        <h4 class="producttitle"><%= cat.c_name;%></h4>
+                                        <a href="bundle-list/<%= cat.hc_id+'/'+hc_url%>">
+                                            <button class="btn btn-info">
+                                            <img src="img/arrow-home.png" alt=""/>
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <%
+                                });
+                            }
+                            %>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div> -->
+        <hr class="invis hidden-xs hidden-sm">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-8">
+                    <h1>
+                        <img src="img/valucart-exclusive.svg" class="img-responsive titleimg"> ValuCart Exclusives
+                    </h1>
+                </div>
+                <div class="col-xs-4 text-right p-t-30">
+                    <a href="/product-listing/valucartexclusives" class="viewall">
+                        <p class="text-info f24">View all</p>
+                    </a>
+                </div>
+            </div>
+            <section class="carousel3 exclusivs-carousel">
+                <div class="row">
+                    <div class="large-12 columns">
+                        <div class="owl-carousel owl-theme">
+                            <% 
+                            let exclusiveCategory= data.response.exclusive;
+                            var no=0;
+                            if (exclusiveCategory) {
+                                exclusiveCategory.forEach(function(cat){
+                                var pd_name= cat.pd_name;
+                                var pd_url= pd_name.replace(/\s+/g, '-').toUpperCase();
+                        %>
+                                <div class="item">
+                                    <div class="panel panel-default productpanel">
+                                        <div class="panel-body text-center">
+                                            <div class="row mrw15 text-right">
+                                                <button class="wishlistbtn">
+                                                    <div class="wishlist-heart-group">
+                                                        <input name="product-<%= cat.pd_id;%>" id="product-<%= cat.pd_id;%>" data-product-id="<%= cat.pd_id;%>" type="checkbox" data-type="<%=(cat.wishlist)?'remove':'add'%>"
+                                                            ng-checked="<%= cat.wishlist; %>" ng-click="addwish(<%= cat.pd_id;%>,$event.target,$index)"
+                                                        />
+                                                        <label for="product-<%= cat.pd_id;%>" data-hover-text="Wish List">
+                                                            <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                                                                xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg"
+                                                                xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+                                                                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+                                                                version="1.1" x="0px" y="0px" viewBox="0 0 100 100">
+                                                                <g transform="translate(0,-952.36218)">
+                                                                    <path style="color:#494949;enable-background:accumulate;" d="m 34.166665,972.36218 c -11.41955,0 -19.16666,8.91891 -19.16666,20.27029 0,19.45943 15,27.56753 35,39.72973 20.00001,-12.1622 34.99999,-20.2703 34.99999,-39.72973 0,-11.35137 -7.7471,-20.27029 -19.16665,-20.27029 -7.35014,0 -13.39148,4.05405 -15.83334,6.48647 -2.44185,-2.43241 -8.48319,-6.48647 -15.83334,-6.48647 z"
+                                                                        fill="transparent" id="heart-path" stroke="#494949" stroke-width="5"
+                                                                        marker="none" visibility="visible" display="inline" overflow="visible"
+                                                                    />
+                                                                </g>
+                                                            </svg>
+                                                        </label>
+                                                    </div>
+                                                </button>
+                                            </div>
+                                            <img src="<%= cat.p_image %>" class="img-responsive productimg">
+                                            <a href="product-detail/<%= cat.pd_id+'/'+pd_url%>">
+                                                <h4>
+                                                    <%= cat.pd_name;%>
+                                                </h4>
+                                            </a>
+                                            <h5>
+                                                <img src="img/grammeter.png" class="img-responsive gramimg">
+                                                <%= cat.p_quantity;%>
+                                            </h5>
+                                            <h6 class="m-t-40 m-b-40">
+                                                <%= cat.p_price%> AED</h6>
+                                            <div class="productcountdiv button-container m-b-40">
+                                                <button ng-click="qty_minus('qty_',<%= cat.pd_id;%>)" class="btn btn-default productminus cart-qty-minus" value="-">
+                                                    <i class="fa fa-minus"></i>
+                                                </button>
+                                                <!--<p class="productcount">1</p>-->
+                                                <input type="text" name="qty_<%= cat.pd_id;%>" maxlength="12" value="1" class="input-text qty  productcount" disabled />
+                                                <button ng-click="qty_plus('qty_',<%= cat.pd_id;%>)" class="btn btn-default productplus cart-qty-plus" value="+">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </div>
+
+                                            <a data-toggle="modal" data-target="#myModal" ng-if="loggedStatus != true">
+                                                <button class="btn btn-info">
+                                                    <img src="img/addtocart.png" class="img-responsive addtocart"> Add to cart</button>
+                                            </a>
+                                        </div>
+                                        <div class="addtocart-float-btn" ng-if="loggedStatus == true">
+                                            <button class="addtocart col-md-12" ng-click="addtocart(<%= cat.pd_id;%>)" style="width: 100%">
+                                                <img src="img/addtocart.png" class="img-responsive"> Add To Cart
+                                            </button>
+                                            <!-- <button class="addtobundle-dots col-md-2" data-toggle="dropdown">
+                                                <img src="img/menu.png" alt="">
+                                            </button> -->
+                                            <ul class="dropdown-menu addtocartddp" role="menu">
+                                                <li class="addtobundle a-deactive addtobundleTitle">
+                                                    + Add to bundle
+                                                </li>
+                                                <li ng-repeat="bundle in mybundles">
+                                                    <a ng-click="addToBundle($event, bundle.ub_id, <%= cat.pd_id;%>, bundle.product_count)">{{bundle.ub_name}} (
+                                                        <!--<span>{{bundle.product_count}}</span> )--></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <%
+                                });
+                            }
+                            %>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!--    owl carousel ends here-->
+    <!--How it works -->
+    <div class="container-fluid">
+        <div class="container howitworkhd">
+            <h2 class="howitworktitle">How it works</h2>
+        </div>
+    </div>
+    <div class="container-fluid" style="background-color:#ededed">
+        <div class="row">
+            <div class="col-md-6 hidden-xs" style="padding: 0px; background-color: #ededed; overflow:hidden;">
+                <div class="home">
+                    <img src="img/index-bg.jpg" class="img-responsive" alt="" />
+                </div>
+
+            </div>
+            <div class="col-md-6 howitworksbgcolor">
+                <ul class="howitworkslist">
+                    <li>
+                        <div class="row">
+                            <div class="col-md-2 col-xs-3">
+                                <img src="img/step1.png" class="img-responsive">
+                            </div>
+                            <div class="col-xs-9">
+                                <h6 class="purpletext"> STEP 1</h6>
+                                <p>Login/Signup</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="row">
+                            <div class="col-md-2 col-xs-3">
+                                <img src="img/step2.png" class="img-responsive">
+                            </div>
+                            <div class="col-xs-9">
+                                <h6 class="purpletext"> STEP 2</h6>
+                                <p>Browse through catalog</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="row">
+                            <div class="col-md-2 col-xs-3">
+                                <img src="img/step3.png" class="img-responsive">
+                            </div>
+                            <div class="col-xs-9">
+                                <h6 class="purpletext"> STEP 3</h6>
+                                <p>Add to cart</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="row">
+                            <div class="col-md-2 col-xs-3">
+                                <img src="img/step4.png" class="img-responsive">
+                            </div>
+                            <div class="col-xs-9">
+                                <h6 class="purpletext"> STEP 4</h6>
+                                <p>Checkout & pay</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="row">
+                            <div class="col-md-2 col-xs-3">
+                                <img src="img/step5.png" class="img-responsive">
+                            </div>
+                            <div class="col-xs-9">
+                                <h6 class="purpletext"> STEP 5</h6>
+                                <p>Subscribe for your
+                                    <br>weekly/monthly
+                                    <br> requirements</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--How it works ends -->
+    <% include template/footer %>

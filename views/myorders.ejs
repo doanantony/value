@@ -1,0 +1,22 @@
+<% include template/header %>
+    <!--    Breadcrumb-->
+    <div class="container myorderdetail">
+        <ul class="breadcrumb">
+            <li>
+                <a href="/">Home</a>
+            </li>
+            <li class="lastcrumb">
+                My orders
+            </li>
+        </ul>
+    </div>
+    <!--    Breadcrumb-->
+    <div class="container myorderdetail" ng-app="myapp" ng-controller="order_list">
+        <div class="row">
+            <h4 class="cancelquestion">My Orders</h4>
+            <div class="col-md-12" ng-repeat="order in orderData">
+                <div ng-include="'includes/myorders.html'"></div>
+            </div>
+        </div>
+    </div>
+    <% include template/footer %>

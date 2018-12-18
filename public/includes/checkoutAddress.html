@@ -1,0 +1,124 @@
+<div class="panel-group checkout_address" data-ng-init="onloadFOrmElement()">
+    <div class="panel panel-default" ng-if="(addresslist).length>0">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" href="#collapse1" id="select_address" ng-click="savecontinue()">Select
+                    address </a>
+            </h4>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse {{(addresslist).length>0 ? 'in' : ''}} select_address">
+            <div class="panel-body">
+                <div class="row radios">
+
+                    <div class="col-sm-12 pannel_addressbook" ng-repeat="address in addresslist" ng-if="address.a_name && address.a_address_1 && address.a_phone">
+                        <div class="panel1 panel-default1 productpanel1">
+                            <div class="panel-body1">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <h6 class="add-title">
+                                            Address - {{$index+1}}
+                                        </h6>
+                                        <div class="hide" ng-if="address.a_is_default" ng-init="addresschange(address.a_id)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-1 col-xs-2" style="padding-left: 0px;">
+                                        <div class="radios pl-6">
+                                            <input type="radio" id="address{{$index}}" ng-checked="address.a_is_default"
+                                                name="radio-group" ng-model="address_id" ng-change="addresschange(address.a_id)" />
+                                            <label for="address{{$index}}" class="radio"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-11 col-xs-10" style="padding-left: 0px;">
+                                        <h6 class="addname">
+
+                                        </h6>
+                                        <h5 class="add-ress">
+                                            {{address.a_name}} {{address.a_address_1 != null ? ', ' +
+                                            address.a_address_1 : ''}} {{address.a_address_2 != null ? ', '
+                                            + address.a_address_2 : ''}}
+                                            <br>{{address.a_city != null ? address.a_city : ''}} {{address.a_pincode !=
+                                            null
+                                            ? ' - ' + address.a_pincode : ''}} {{(address.a_phone != null) ? ', Ph:' +
+                                            address.a_phone
+                                            : ''}}
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" id="add_address" href="#collapse2" ng-click="continuebtn()">Add new address</a>
+            </h4>
+        </div>
+        <div id="collapse2" class="panel-collapse collapse {{(addresslist).length == 0 ? 'in' : ''}} ">
+            <div class="panel-body">
+                <form id="newAddress" name="newAddress" method="post" style="padding: 1px;background:none">
+                    <div class="form-group marg-btm">
+                        <input type="text" id="address_name" name="address_name" class="form-control form-control1">
+                        <label class="form-control-placeholder" for="name">NAME</label>
+                    </div>
+                    <div class="row form-align">
+                        <div class="col-sm-1 col-xs-2">
+                            <div class="form-group marg-btm">
+                                <label class="label-num" for="phone">+971</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-11 col-xs-10">
+                            <div class="form-group marg-btm" style="margin-top: 35px;">
+                                <input type="text" id="phone" name="phone_no" class="form-control form-control1">
+                                <label class="form-control-placeholder" for="name">PHONE NUMBER</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group marg-btm" style="margin-top: 35px;">
+                        <input type="text" id="street" name="street" class="form-control form-control1">
+                        <label class="form-control-placeholder" for="street">ROAD/STREET</label>
+                    </div>
+                    <div class="form-group marg-btm" style="margin-top: 35px;">
+                        <input type="text" id="flat" name="flat" class="form-control form-control1">
+                        <label class="form-control-placeholder" for="flat">FLOOR/FLAT NO</label>
+                    </div>
+                    <div class="form-group marg-btm1" style="margin-top: 35px;">
+                        <select class="form-control" id="city" name="city_id" ng-model="city_id" ng-change="getarea(city_id)"
+                            ng-init="city_id=<%=oldAdr.a_city_id%>" ng-options="value.city_id as value.city_name for (key, value)  in city">
+                            <option value="">Select City</option>
+                        </select>
+                        <label class="form-control-placeholder" for="city">CITY</label>
+                    </div>
+                    <div class="form-group marg-btm1" style="margin-top: 35px;">
+                        <select class="form-control" id="area" name="area_id" ng-model="area_id" ng-init="area_id=<%=oldAdr.a_area_id%>"
+                            ng-options="value.area_id as value.area_name for (key, value)  in area">
+                            <option value="">Select Area</option>
+                        </select>
+                        <label class="form-control-placeholder" for="area">Area</label>
+                    </div>
+                    <div class="form-group marg-btm" style="margin-top: 35px;">
+                        <input type="text" id="postalcode" name="postalcode" class="form-control form-control1">
+                        <label class="form-control-placeholder" for="postalcode">ZIP Code</label>
+                    </div>
+                    <div class="slide-three margin-top">
+                        <input type="checkbox" name="is_default" id="slide-three" />
+                        <label for="slide-three" class="check-label">Set this as my default address</label>
+                    </div>
+                    <div class="row text-center">
+                        <button id="newAddress_submit" type="submit" class="btn-proceed btnsc">Save and Continue</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row text-center">
+    <button type="button" class="btn-proceed btn-checkout btncontinue {{(addresslist).length==0 ? 'hide' : ''}}"
+        ng-click="ctnpay()" style="margin-bottom: 10px">Continue
+    </button>
+</div>

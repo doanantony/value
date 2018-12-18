@@ -1,0 +1,89 @@
+<% include template/header %>
+    <!--    Breadcrumb-->
+    <div class="container myorderdetail">
+        <ul class="breadcrumb">
+            <li>
+                <a href="#">My accounts</a>
+            </li>
+            <li class="lastcrumb">
+                <a href="#">Edit Profile</a>
+            </li>
+        </ul>
+    </div>
+    <!--    Breadcrumb-->
+    <div class="container myprofile" ng-app="myapp" ng-controller="update_profile">
+        <h4 class="hidden-sm hidden-md hidden-lg">Profile information</h4>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form name="profileForm" id="profileForm">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <h4 class="hidden-xs">Edit Profile</h4>
+                        </div>
+                        <div class="col-sm-6 hidden-xs  text-right">
+                            <!--<a href="#" class="edit">Edit <img src="img/editimg.png" class="img-responsive editimg"></a>-->
+                        </div>
+                    </div>
+                    <div class="row profilerow form-group">
+                        <div class="hidden-xs col-sm-1 text-center">
+                            <img src="img/name.png" class="img-responsive labelimg">
+                        </div>
+                        <div class="col-sm-10 col-xs-12">
+                            <p class="profilelabel">NAME</p>
+                            <input type="text" class="form-control profilename" name="user_name" id="user_name" value="<%=data.username%>">
+
+                        </div>
+                    </div>
+                    <!-- <div class="row profilerow">
+                        <div class="hidden-xs col-sm-1 text-center">
+                            <img src="img/email.png" class="img-responsive labelimg">
+                        </div>
+                        <div class="col-sm-10 col-xs-12">
+                            <p class="profilelabel">EMAIL</p>
+                            <input type="email" class="form-control profilename" name="user_email" id="user_email" value="<%=data.user_email%>">
+                        </div>
+                    </div> -->
+                    <div class="row profilerow">
+                        <div class="hidden-xs col-sm-1 text-center">
+                            <img src="img/mobile.png" class="img-responsive labelimg">
+                        </div>
+                        <div class="col-sm-10 col-xs-12">
+                            <p class="profilelabel">MOBILE</p>
+                            <input type="tel" class="form-control profilename" name="mobile" id="mobile" value="<%=data.user_phone_no%>">
+
+                        </div>
+                    </div>
+                    <div class="row profilerow">
+                        <div class="hidden-xs col-sm-1 text-center">
+                            <img src="img/postalcode.png" class="img-responsive labelimg">
+                        </div>
+                        <div class="col-sm-10 col-xs-12">
+                            <p class="profilelabel">POSTAL CODE</p>
+                            <input type="text" class="form-control profilename" name="postalcode" id="postalcode" value="<%=data.user_postal_code%>">
+
+                        </div>
+                    </div>
+                    <div class="row profilerow">
+                        <div class="hidden-xs col-sm-1 text-center">
+                            <img src="img/city.png" class="img-responsive labelimg">
+                        </div>
+                        <div class="col-sm-10 col-xs-12">
+                            <p class="profilelabel">CITY</p>
+                            <input type="text" class="form-control profilename" name="city" id="city" value="<%=data.user_city%>">
+
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 30px;">
+                        <div class="col-sm-2 col-xs-12">
+                            <button type="submit" class="btn btn-info updatebtn">Update</button>
+                        </div>
+                        <div class="col-sm-2 col-xs-12">
+                            <button type="button" class="btn btn-info cancelbtn">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <% include template/footer %>

@@ -1,0 +1,595 @@
+<%include template/header %>
+    <% 
+let productData= data.response[0]; 
+let products= productData.product;
+%>
+        <!--    Breadcrumb-->
+        <div class="container">
+            <ul class="breadcrumb">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li>
+                    <a href="/bundle-list/<%= productData.c_id +'/'+ productData.c_name.replace(' ','-') %>">
+                        <% if (productData) %>
+                            <%=productData.c_name; %>
+                    </a>
+                </li>
+                <li>
+                    <a href="/bundle-list/<%= productData.c_id +'/'+ productData.c_name.replace(' ','-') + '?sub_cat=' + productData.pb_subcat_id;%>">
+                        <% if (productData) %>
+                            <%=productData.sub_category; %>
+                    </a>
+                </li>
+                <li class="lastcrumb">
+                    <% if (productData) %>
+                        <%= productData.pb_name;%>
+                </li>
+            </ul>
+        </div>
+        <!--    Breadcrumb-->
+
+        <!--    Product list starts here-->
+        <div class="container-fluid bundledetailpage" ng-app="myapp" ng-controller="bundle_details">
+            <div class="container productlistpagec">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 productviewpanel">
+                        <%
+                            if(products.pdt_percentage>0){
+                            %>
+                            <p class="discountprice">
+                                <%=products.pdt_percentage%>%
+                            </p>
+                            <%    
+                            }
+                            %>
+                                <% 
+                        if(cookies){
+                            var userData=JSON.parse(cookies);
+                            if(userData.status=="success"){
+                        %>
+                                    <div class="wishlist-heart-group">
+                                        <input name="1" id="product-1" type="checkbox" data-type="<%=(productData.wishlist)?'remove':'add'%>" ng-click="addwish(<%=productData.pb_id%>, true, $event.target)"
+                                            <%=(productData.wishlist)? 'checked': ''%>                                        />
+                                        <label for="product-1" data-hover-text="Wish List">
+                                            <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                                                xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+                                                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" x="0px"
+                                                y="0px" viewBox="0 0 100 100">
+                                                <g transform="translate(0,-952.36218)">
+                                                    <path style="color:#494949;enable-background:accumulate;" d="m 34.166665,972.36218 c -11.41955,0 -19.16666,8.91891 -19.16666,20.27029 0,19.45943 15,27.56753 35,39.72973 20.00001,-12.1622 34.99999,-20.2703 34.99999,-39.72973 0,-11.35137 -7.7471,-20.27029 -19.16665,-20.27029 -7.35014,0 -13.39148,4.05405 -15.83334,6.48647 -2.44185,-2.43241 -8.48319,-6.48647 -15.83334,-6.48647 z"
+                                                        fill="transparent" id="heart-path" stroke="#494949" stroke-width="5"
+                                                        marker="none" visibility="visible" display="inline" overflow="visible"
+                                                    />
+                                                </g>
+                                            </svg>
+                                        </label>
+                                    </div>
+                                    <%
+                            }
+                        }
+                        %>
+                                        <section class="gallery hidden-xs">
+                                            <div class="carousel">
+                                                <% 
+                                var no=0;
+                                products.forEach(function(pro){     
+                                    if(pro){
+                                        if(pro.pbm_is_alternative==0)
+                                        {
+                                        no++;
+                                     %>
+                                                    <input type="radio" id="image<%=no%>" name="gallery-control" <%=(no==1)? 'checked': ''%>>
+                                                    <%
+                                        }
+                                        else{
+                                            var proAlters= pro.alternatives;
+                                            proAlters.forEach(function (alt){
+                                                no++;
+                                            %>
+                                                        <input type="radio" id="image<%=no%>" name="gallery-control" <%=(no==1)? 'checked': ''%>>
+                                                        <%
+                                        });    
+                                        }
+                                      }
+                                     }); 
+                                    %>
+
+                                                            <input type="checkbox" id="fullscreen" name="gallery-fullscreen-control" />
+
+                                                            <div class="thumbnails">
+                                                                <div class="slider">
+                                                                    <div class="indicator"></div>
+                                                                </div>
+
+                                                                <% 
+                                                                var no=0;
+                                                                products.forEach(function(pro){     
+                                                                    if(pro){
+                                                                        if(pro.pbm_is_alternative==0)
+                                                                        {
+                                                                        no++;
+                                                                %>
+                                                                    <label for="image<%=no%>" class="thumb" style="background-image: url('<%= pro.p_image%>');"></label>
+                                                                    <%
+                                                                }
+                                                                else{
+                                                                    var proAlters= pro.alternatives;
+                                                                    proAlters.forEach(function (alt){
+                                                                        no++;
+                                                                    %>
+                                                                        <label for="image<%=no%>" class="thumb" style="background-image: url('<%= alt.p_image%>');"></label>
+                                                                        <%
+                                                                            });
+                                                                        }
+                                                                    }
+                                                                }); 
+                                                                %>
+                                                            </div>
+                                                            <div class="wrap">
+                                                                <% 
+                                                                var no=0;
+                                                                products.forEach(function(pro){     
+                                                                    if(pro){
+                                                                        if(pro.pbm_is_alternative==0)
+                                                                        {
+                                                                        no++;
+                                                                %>
+                                                                    <figure>
+                                                                        <label for="fullscreen">
+                                                                            <img src="<%= pro.p_image%>" alt="image<%= pro.pd_name%>" />
+                                                                        </label>
+                                                                    </figure>
+                                                                    <%
+                                                                }
+                                                                else{
+                                                                    var proAlters= pro.alternatives;
+                                                                    proAlters.forEach(function (alt){
+                                                                        no++;
+                                                                    %>
+                                                                        <figure>
+                                                                            <label for="fullscreen">
+                                                                                <img src="<%= alt.p_image%>" alt="image<%= alt.pd_name%>" />
+                                                                            </label>
+                                                                        </figure>
+                                                                        <%
+                                                                            });
+                                                                        }
+                                                                    }
+                                                                }); 
+                                                                %>
+
+                                                            </div>
+
+
+                                            </div>
+                                        </section>
+                                        <!--product carousel for mobile view starts-->
+                                        <div id="productCarousel" class="carousel slide hidden-sm hidden-md hidden-lg" data-ride="carousel" style="margin-bottom: 30px;margin-top: 30px;">
+                                            <!-- Indicators -->
+
+                                            <ol class="carousel-indicators">
+                                                <% 
+                                                 var no=0;
+                                                 products.forEach(function(pro){     
+                                                 if(pro.p_image){
+                                                %>
+                                                    <li data-target="#productCarousel" class="<%=(no==0?'active':'');%>" data-slide-to="<%=no++;%>"></li>
+                                                    <%
+                                                }
+                                                }); 
+                                               %>
+                                            </ol>
+
+                                            <!-- Wrapper for slides -->
+                                            <div class="carousel-inner">
+                                                <% 
+                                            var no=0;
+                                            products.forEach(function(pro){     
+                                                if(pro.p_image){
+                                       %>
+                                                    <div class="item <%= (no==0)?'active':'';%>">
+                                                        <img src="<%= pro.p_image%>" alt="" style="height: 250px;margin: auto;">
+                                                    </div>
+                                                    <%
+                                                no++; 
+                                                }
+                                            }); 
+                                        %>
+                                            </div>
+                                        </div>
+
+
+                                        <!--product carousel for mobile view starts-->
+
+
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <div class="panel panel-default productviewpanel white-bg">
+                            <div class="panel-body">
+                                <!-- <i class="fa fa-heart wishheart"></i> -->
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <p>Pack of
+                                            <%= productData.product.length %>
+                                        </p>
+                                        <h4>
+                                            <%= productData.pb_name;%>
+                                        </h4>
+                                        <h5>
+                                            <%= (productData.pb_dec)?(productData.pb_dec).substring(0, 150)+"...":"";%>
+                                        </h5>
+                                        <%
+                                         if(products.pdt_percentage>0){
+                                        %>
+                                            <h5 style="display: inline-block" class="offeredprice">
+                                                <%= productData.pb_price;%> AED
+                                            </h5>
+                                            <% } %>
+                                                <h6 style="display: inline-block; margin-left: 10px">
+                                                    <%= (productData.pdt_price)?productData.pdt_price:productData.pb_price;%> AED
+                                                </h6>
+                                    </div>
+
+
+                                </div>
+                                <div class="row <%= productData.stock_status?'':'avoid-clicks' %>" style="padding-top: 20px">
+                                    <div class="col-md-6 col-xs-12" style="padding:10px 0 0 ">
+                                        <div class="productcountdiv button-container">
+                                            <button class="btn btn-default productminus cart-qty-minus" ng-click="qty_minus('qty_',1)" value="-">
+                                                <i class="fa fa-minus"></i>
+                                            </button>
+                                            <!--<p class="productcount">1</p>-->
+                                            <input type="text" name="qty_1" maxlength="12" value="1" class="input-text qty  productcount" disabled/>
+                                            <button class="btn btn-default productplus cart-qty-plus" ng-click="qty_plus('qty_',1)" value="+">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xs-12 temphide" ng-class="loggedStatus == true?'showele':''" ng-if="loggedStatus == true">
+
+                                        <button ng-click="addtocart(<%= JSON.stringify(productData.product) %>,<%= productData.pb_id %>)" class="btn btn-info btn-add-to-cart">
+                                            <img src="img/addtocart.png" class="img-responsive addtocart"> Add to cart</button>
+
+                                        <button type="button" class="hidden-xs hidden-sm btn btn-primary ebtn bdtd bdtd-toogle" data-toggle="dropdown"><img
+                                                src="img/menu.png" alt=""></button>
+
+                                        <ul class="dropdown-menu addtocartddp" role="menu">
+                                            <li class="addtobundle a-deactive addtobundleTitle">
+                                                + Add to bundle
+                                            </li>
+                                            <li ng-repeat="bundle in mybundles"> <a ng-click="addToBundle($event, bundle.ub_id, bundle.product_count, <%= JSON.stringify(productData.product) %>,<%= productData.pb_id %>)">{{bundle.ub_name}}
+                                                    ( <span>{{bundle.product_count}}</span> )</a>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                                    <div class="col-md-6 col-xs-12 temphide" ng-class="loggedStatus != true?'showele':''" ng-if="loggedStatus != true">
+                                        <button ng-click="addtocartOffline(<%= JSON.stringify(productData.product) %>,<%= productData.pb_id %>)" class="btn btn-info  btn-add-to-cart">
+                                            <img src="img/addtocart.png" class="img-responsive addtocart"> Add to cart</button>
+                                    </div>
+
+                                </div>
+
+                              <!--  <% if(!productData.stock_status){ %>
+                                    <span class="outofstock">Out of Stock</span>
+                                    <% } %> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container bundledetailview">
+                <div class="row">
+                    <% 
+        products.forEach(function(pro){     
+            if(pro){
+                if(pro.pbm_is_alternative!=1){
+        %>
+
+                        <div class="col-md-4 col-sm-6">
+                            <div class="panel panel-default productpanel">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-xs-6" ng-init="c[<%= pro.pd_id %>]=<%= pro.pd_id %>">
+                                            <input type="radio" name="rGroup_<%= pro.pbm_id %>" class="hide" ng-checked="c[<%= pro.pd_id %>]" ng-model="c[<%= pro.pd_id %>]"
+                                            />
+                                            <h4>
+                                                <%=pro.pd_name%>
+                                            </h4>
+                                            <h5>
+                                                <img src="img/grammeter.png" class="img-responsive gramimg">
+                                                <%= pro.p_quantity%> <strong>X <%= pro.pbm_qty;%></strong>
+                                            </h5>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <img src="<%=pro.p_image%>" class="img-responsive productimg">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <% 
+                }
+              }
+            })
+            %>
+                </div>
+            </div>
+            <%
+                products.forEach(function(pro){     
+                    if(pro){
+                        if(pro.pbm_is_alternative==1){
+            %>
+                <div class="container bundledetailvieww">
+                    <h4>Choose from one of the below</h4>
+                    <div class="row radios">
+                        <% 
+                let alterpro= pro.alternatives;
+                var i = 0;
+                    alterpro.forEach(function(alt){
+                        var select= (alt.pba_is_default==1)? true:false;
+                        i++;
+                %>
+                            <div class="col-md-4 col-sm-6">
+                                <input type="radio" name="rGroup_<%= alt.pba_pbm_id %>" value="<%= alt.pd_id;%>" id="r<%= alt.pd_id;%>" ng-model="c[<%= alt.pba_pbm_id %>]"
+                                />
+                                <label class="radio" for="r<%= alt.pd_id;%>">
+                                    <div class="panel panel-default productpanel">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <h4>
+                                                        <%= alt.pd_name;%>
+                                                    </h4>
+                                                    <h5>
+                                                        <img src="img/grammeter.png" class="img-responsive gramimg">
+                                                        <%= alt.p_quantity;%> <strong>X <%= pro.pbm_qty;%></strong>
+                                                    </h5>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <img src="<%= alt.p_image;%>" class="img-responsive productimg">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                            <%
+                    });
+                %>
+                    </div>
+                </div>
+                <%
+                }
+            }
+        });
+        %>
+                    <div class="container productdetail">
+                        <div id="exTab1" class="container">
+                            <div class="tabheader">
+                                <ul class="nav nav-pills">
+                                    <li class="active">
+                                        <a href="#1a" data-toggle="tab">Product details</a>
+                                    </li>
+                                    <!-- <li>
+                            <a href="#2a" data-toggle="tab">Nutrition values</a>
+                        </li> -->
+                                    <li>
+                                        <a href="#3a" data-toggle="tab">Customer review</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-content clearfix">
+                                <div class="tab-pane active" id="1a">
+                                    <%= productData.pb_dec;%>
+                                </div>
+
+                                <!-- <div class="tab-pane" id="2a">
+                        <h5>Allergen Information</h5>
+                        <p>Allergens can be found in the ingredients list<br> Contains Barley, May Contain Gluten, Contains Oats</p>
+
+                        <h5>Ingredients</h5>
+                        <P>Allergy Advice: For allergens see highlighted ingredients<br> Cereal Flours (Rice {50%}, Oat {27%}, Maize {3%}), Sugar, Inulin, Roasted Barley Malt Extract, Salt, Natural Flavouring, Colour (Annatto), Vitamins & Minerals: Calcium Carbonate, Niacin, Iron, Vitamin B6, Vitamin B2 (Riboflavin), Vitamin B1 (Thiamin), Folic Acid, Vitamin D, Vitamin B12</P>
+
+                        <h5>Dietary Information</h5>
+                        <p>Suitable for Vegetarians; Kosher; Halal</p>
+                    </div> -->
+
+                                <div class="tab-pane" id="3a">
+                                    <%
+                        let reviewList= productData.review;
+                        if(reviewList.length!=0){
+                        var rt=0;
+                        reviewList.forEach(function(rev){
+                            rt+= rev.prr_ratting;
+                        });
+                        var ravg= rt/ reviewList.length;
+                    }else{
+                        var ravg= 0
+                    }
+                        %>
+                                        <div class="customerreviews">
+                                            <p class="starcount star">
+                                                <span class="stars">
+                                                    <i class="fa fa-star <%= (ravg >= 1)?" filled ":" "; %>"></i>
+                                                    <i class="fa fa-star <%= (ravg >= 1.5)?" filled ":" "; %>"></i>
+                                                    <i class="fa fa-star <%= (ravg >= 2.5)?" filled ":" "; %>"></i>
+                                                    <i class="fa fa-star <%= (ravg >= 3.5)?" filled ":" "; %>"></i>
+                                                    <i class="fa fa-star <%= (ravg >= 4.5)?" filled ":" "; %>"></i>
+                                                </span>
+                                                <%= ravg.toFixed(1)%> out of 5
+                                            </p>
+                                            <br>
+                                            <%
+                                if(reviewList.length>3){
+                            %>
+                                                <a class="btn btn-link reviewlink">See all
+                                                    <%=reviewList.length%> reviews</a>
+                                                <p class="ortext">or</p>
+                                                <%
+                                }
+                            %>
+                                                    <% 
+                            if(cookies){
+                                var userData=JSON.parse(cookies);
+                                if(userData.status=="success"){
+                                    var myrev=  _.findLastIndex(reviewList, function(o) { return o.prr_user_id == userData.user_id; });
+                                    var myrew=reviewList[myrev];
+                                    if(_.isEmpty(myrew)){
+                                       var myrew=[];
+                                    }
+                            %>
+                                                        <button class="btn reviewbtn" id="reviewbtn">Write a review</button>
+                                                        <%
+                                }else{
+                                    var myrew=[];
+                                }
+                            }
+                            else{
+                                var myrew=[];
+                            %>
+                                                            <button class="btn reviewbtn" data-toggle="modal" data-target="#myModal">Write
+                                                                a review</button>
+                                                            <% 
+                            } 
+                            %>
+                                                                <br>
+                                                                <hr>
+                                                                <%
+                            var rno=0;
+                            if(reviewList.length>0){
+                                reviewList.forEach(function(rev){
+                                    rno++
+                            %>
+                                                                    <div class="review <%= (rno>3)?'more_review hidden':''%> review_<%= rev.prr_user_id%>">
+                                                                        <p class="userdate">
+                                                                            <%= rev.username%>,
+                                                                                <%= moment(rev.prr_added_dt).format('Do MMM YYYY'); %>
+                                                                        </p>
+                                                                        <p class="star">
+                                                                            <span class="stars">
+                                                                                <i class="fa fa-star <%= (rev.prr_ratting >= 1)?" filled ":" "; %>"></i>
+                                                                                <i class="fa fa-star <%= (rev.prr_ratting >= 2)?" filled ":" "; %>"></i>
+                                                                                <i class="fa fa-star <%= (rev.prr_ratting >= 3)?" filled ":" "; %>"></i>
+                                                                                <i class="fa fa-star <%= (rev.prr_ratting >= 4)?" filled ":" "; %>"></i>
+                                                                                <i class="fa fa-star <%= (rev.prr_ratting >= 4.5)?" filled ":" "; %>"></i>
+                                                                            </span>
+                                                                            <%= rev.prr_ratting%> out of 5
+                                                                        </p>
+                                                                        <h5>
+                                                                            <%= rev.prr_title%>
+                                                                        </h5>
+                                                                        <p>
+                                                                            <%= rev.prr_comment%>
+                                                                        </p>
+                                                                    </div>
+                                                                    <%       
+                                });
+                            }else{
+                                %>
+                                                                        <div class="review">
+                                                                        </div>
+                                                                        <%
+                            }
+                            %>
+                                        </div>
+                                        <div class="writereview" style="float: none !important;">
+                                            <h4 class="writereviewtitle">Write a review</h4>
+                                            <span ng-bind-html="postReviewstatus" class="text-success" id="rstatus"></span>
+                                            <form class="reviewform" name="reviewform" ng-submit="submitReviewbundle()">
+                                                <span class="closebtn" id="closebtn">
+                                                    <i class="fa fa-close"></i>
+                                                </span>
+                                                <div>
+                                                    <div class="has-error">{{ratingError}}</div>
+                                                    <fieldset class="rating">
+                                                        <input type="radio" id="stars5" ng-model="rating" value="5" />
+                                                        <label class="full" for="stars5" title="Awesome - 5 stars"></label>
+                                                        <input type="radio" id="stars4half" ng-model="rating" value="4.5" />
+                                                        <label class="half" for="stars4half" title="Pretty good - 4.5 stars"></label>
+                                                        <input type="radio" id="stars4" ng-model="rating" value="4" />
+                                                        <label class="full" for="stars4" title="Pretty good - 4 stars"></label>
+                                                        <input type="radio" id="stars3half" ng-model="rating" value="3.5" />
+                                                        <label class="half" for="stars3half" title="Meh - 3.5 stars"></label>
+                                                        <input type="radio" id="stars3" ng-model="rating" value="3" />
+                                                        <label class="full" for="stars3" title="Meh - 3 stars"></label>
+                                                        <input type="radio" id="stars2half" ng-model="rating" value="2.5" />
+                                                        <label class="half" for="stars2half" title="Kinda bad - 2.5 stars"></label>
+                                                        <input type="radio" id="stars2" ng-model="rating" value="2" />
+                                                        <label class="full" for="stars2" title="Kinda bad - 2 stars"></label>
+                                                        <input type="radio" id="stars1half" ng-model="rating" value="1.5" />
+                                                        <label class="half" for="stars1half" title="Meh - 1.5 stars"></label>
+                                                        <input type="radio" id="stars1" ng-model="rating" value="1" />
+                                                        <label class="full" for="stars1" title="Sucks big time - 1 star"></label>
+                                                        <input type="radio" id="starshalf" ng-model="rating" value="0.5" />
+                                                        <label class="half" for="starshalf" title="Sucks big time - 0.5 stars"></label>
+                                                    </fieldset>
+                                                </div>
+                                                <br>
+                                                <div class="clearfix"></div>
+
+                                                <div class="form-group">
+                                                    <label for="title">TITLE</label>
+                                                    <input type="text" ng-model="title" name="title" class="form-control" id="title" required>
+                                                    <span ng-show="reviewform.title.$dirty && reviewform.title.$invalid">
+                                                        <span ng-show="reviewform.title.$error.required" class="has-error">Username
+                                                            is required.</span>
+                                                    </span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="description">DESCRIPTION</label>
+                                                    <textarea ng-model="review" name="review" class="form-control" id="description" required></textarea>
+                                                    <span ng-show="reviewform.review.$dirty && reviewform.review.$invalid">
+                                                        <span ng-show="reviewform.review.$error.required" class="has-error">Username
+                                                            is required.</span>
+                                                    </span>
+                                                </div>
+                                                <input type="hidden" ng-model="product_id" name="produt_id" id="product_id" value="<%=productData.pb_id%>">
+
+                                                <button type="submit" ngClick="Submit" class="btn btn-info">Submit</button>
+                                            </form>
+
+                                        </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+        </div>
+        <!--     Product list ends here-->
+        <% include template/footer %>
+            <script>
+                $(function () {
+                    $(document).on("click", ".reviewlink", function () {
+                        $(".more_review").each(function () {
+                            $(this).removeClass("hidden");
+                        });
+                    });
+                });
+            </script>
+            <!-- MODAL CONTENT SAMPLE STARTS HERE -->
+            <div class="modal fade" id="lab-slide-bottom-popup" data-keyboard="false" data-backdrop="false" style="background-color: #0000006b;">
+                <div class="lab-modal-body">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                            class="sr-only">Close</span></button>
+                    <h5>+ Add to bundle</h5>
+                    <ul style="list-style-type: none;padding-left: 0px">
+                        <li class="addtobundle a-deactive addtobundleTitle">
+                            + Add to bundle
+                        </li>
+                        <li ng-repeat="bundle in mybundles"> <a ng-click="addToBundle($event, bundle.ub_id, bundle.product_count, <%= JSON.stringify(productData.product) %>,<%= productData.pb_id %>)">{{bundle.ub_name}}
+                                ( <span>{{bundle.product_count}}</span> )</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.modal-body -->
+            </div>
+            <script>
+                app.constant("myrev", {
+                    'data': <%- JSON.stringify(myrew == "" ?  : myrew) %> 
+            });
+            </script>

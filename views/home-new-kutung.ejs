@@ -1,0 +1,370 @@
+<% var home_new = true;%>
+<% include template/header %>
+
+<div class="container-fluid no-pd hm-bg">
+  <div class="v-container">
+    <!-- Slider -->
+    <div class="vc-bn-carousel owl-carousel owl-theme">
+      <% 
+                let bannerList= data.response.banner;
+                bannerList.sort(function(a, b){
+                    return a.hb_order - b.hb_order;
+                });
+                var no=0;
+                if (bannerList) {
+                    bannerList.forEach(function(slides){
+                        if(slides.hb_image)
+                        %>
+      <div class="item">
+        <a href="<%= slides.hb_external_link %>"><img src="<%= slides.hb_image %>" alt="" class="desk"></a>
+        <a href="<%= slides.hb_external_link %>"><img src="<%= slides.hb_image_mobi %>" alt="" class="mob"></a>
+        <!--<img src="img/bn1.png" alt="" class="mob">-->
+      </div>
+      <%
+          })
+      }
+      %>
+    </div>
+
+    <!-- Ad banner -->
+    <div class="col-xs-12 no-pd">
+      <!--<div class="col-lg-6 col-md-6 col-sm-6 vc-ad-box">
+        <a href="/bundle-list">
+          <h2>VALUZONE<br>BUNDLES</h2>
+          <p>Choose from a range of pre-configured bundles and save upto 25%</p>
+          <span class="spn-btn">Shop now</span>
+        </a>
+      </div>
+      <% 
+      if(cookies){
+          var userData=JSON.parse(cookies);
+            if(userData.status=="success"){
+      %>
+      <div class="col-lg-6 col-md-6 col-sm-6 vc-ad-box vc-ad-box-2">
+        <a href="/create-bundle">
+          <h2>BUILD YOUR<br>OWN BUNDLES</h2>
+          <p>Create your own bundle from over 300 products and save big upto 15%</p>
+          <span class="spn-btn">Start now</span>
+        </a>
+      </div>
+      <% } } else{ %>
+      <div class="col-lg-6 col-md-6 col-sm-6 vc-ad-box vc-ad-box-2">
+        <a data-referrer="create-bundle" data-toggle="modal" data-target="#myModal">
+          <h2>BUILD YOUR<br>OWN BUNDLES</h2>
+          <p>Create your own bundle from over 300 products and save big upto 15%</p>
+          <span class="spn-btn">Start now</span>
+        </a>
+      </div>
+      <% } %> -->
+      <div class="pro-hd" style="padding-top: 20px">
+        <h2 class="pr-ttl">ValuZone Bundles</h2>
+        <a href="/bundle-list" class="v-btn">View all</a>
+      </div>
+      <div class="bundle-cr owl-carousel owl-theme">
+        <div class="item">
+          <a href="https://www.valucart.com/bundle-detail/160/himalaya-baby-care-bundle-(6-items)-only-aed-159"><img
+              src="img/Banner-1.png" alt="" /></a>
+        </div>
+        <div class="item">
+          <a href="https://www.valucart.com/bundle-detail/156/taj-cleaning-bundle-(8-items)-only-99"><img src="img/Banner-2.png"
+              alt="" /></a>
+        </div>
+        <div class="item">
+          <a href="https://www.valucart.com/bundle-detail/159/eco-friendly-cleaning-bundle-(4-items)-only-aed-89"><img
+              src="img/Banner-3.png" alt="" /></a>
+        </div>
+        <div class="item">
+          <a href="https://www.valucart.com/bundle-detail/162/filipino-food-bundle-(18-items)-only-aed-179"><img src="img/Banner-4.png"
+              alt="" /></a>
+        </div>
+        <div class="item">
+          <a href="https://www.valucart.com/bundle-detail/158/emirati-food-bundle-(17-items)-only-269"><img src="img/Banner-5.png"
+              alt="" /></a>
+        </div>
+        <div class="item">
+          <a href="https://www.valucart.com/bundle-detail/155/breakfast-bundle-(11-items)-only-139"><img src="img/Banner-6.png"
+              alt="" /></a>
+        </div>
+        <div class="item">
+          <a href="https://www.valucart.com/bundle-detail/154/essential-food-bundle-(13-items)-only-169"><img src="img/Banner-7.png"
+              alt="" /></a>
+        </div>
+      </div>
+    </div>
+    <% 
+    if(cookies){
+      var userData=JSON.parse(cookies);
+        if(userData.status=="success"){
+  %>
+    <div class="col-xs-12 vc-ad-box">
+      <h2 style="display: inline-block;">Build your own Bundle</h2>
+      <img src="img/Build-your-own-bundle-pro.png" alt="Build-your-own-bundle" class="bundle-cat-img" />
+      <a  href="/create-bundle">
+        <span class="spn-btn">Start now</span>
+      </a>
+    </div>
+    <% } } else{ %>
+    <div class="col-xs-12 vc-ad-box">
+    <h2 style="display: inline-block;">Build your own Bundle</h2>
+    <img src="img/Build-your-own-bundle-pro.png" alt="Build-your-own-bundle" class="bundle-cat-img" />
+    <a data-referrer="create-bundle" data-toggle="modal" data-target="#myModal">
+      <span class="spn-btn">Start now</span>
+    </a>
+  </div>
+    <% } %> 
+    <div class="col-xs-12 no-pd">
+      <div class="pro-hd">
+        <h2 class="pr-ttl">Shop by Category</h2>
+        <a href="/bundle-list" class="v-btn">View all</a>
+      </div>
+      <div class="bundle-cr owl-carousel owl-theme">
+        <div class="item">
+          <a href="https://www.valucart.com/product-listing/737/beverages"><img src="img/cat-1.png" alt="" /></a>
+        </div>
+        <div class="item">
+          <a href="https://www.valucart.com/product-listing/897/biscuits"><img src="img/cat-2.png" alt="" /></a>
+        </div>
+        <div class="item">
+          <a href="https://www.valucart.com/product-listing/833/nuts#!?sub_cat=1187"><img src="img/cat-3.png" alt="" /></a>
+        </div>
+        <div class="item">
+          <a href="https://www.valucart.com/product-listing/881/olives-&-pickles"><img src="img/cat-4.png" alt="" /></a>
+        </div>
+        <div class="item">
+          <a href="https://www.valucart.com/product-listing/913/breakfast-cereal"><img src="img/cat-5.png" alt="" /></a>
+        </div>
+        <div class="item">
+          <a href="https://www.valucart.com/product-listing/944/pasta"><img src="img/cat-6.png" alt="" /></a>
+        </div>
+        <div class="item">
+          <a href="https://www.valucart.com/product-listing/845/sauces-&-ketchup"><img src="img/cat-7.png" alt="" /></a>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- <div class="col-xs-12 no-pd">
+      <div class="pro-hd">
+        <h2 class="pr-ttl">ValuCart Exclusives</h2>
+        <a href="" class="v-btn">View all</a>
+      </div>
+      <div class="col-xs-12 no-pd pro-cont">
+        <div class="pro-cr-3 owl-carousel owl-theme pro-cr">
+          <div class="item">
+            <a href="">
+              <img src="img/products/downy.png" alt="Downy soap for cloth washing">
+              <div class="pr-dt">
+                <i>500ml</i>
+                <span>Downy soap for cloth washing</span>
+                <strong>17.40 AED</strong>
+              </div>
+            </a>
+          </div>
+          <div class="item">
+            <a href="">
+              <img src="img/products/tide.png" alt="Tide liquid soap for cloth washing">
+              <div class="pr-dt">
+                <i>500ml</i>
+                <span>Tide liquid soap for cloth washing</span>
+                <strong>17.40 AED</strong>
+              </div>
+            </a>
+          </div>
+          <div class="item">
+            <a href="">
+              <img src="img/products/mango.png" alt="Mango juice mixer">
+              <div class="pr-dt">
+                <i>500ml</i>
+                <span>Mango juice mixer</span>
+                <strong>17.40 AED</strong>
+              </div>
+            </a>
+          </div>
+          <div class="item">
+            <a href="">
+              <img src="img/products/mixed-fruit.png" alt="Mixed fruit syrup">
+              <div class="pr-dt">
+                <i>500ml</i>
+                <span>Mixed fruit syrup</span>
+                <strong>17.40 AED</strong>
+              </div>
+            </a>
+          </div>
+          <div class="item">
+            <a href="">
+              <img src="img/products/hershey.png" alt="Hershley's strawberry syrup">
+              <div class="pr-dt">
+                <i>500ml</i>
+                <span>Hershley's strawberry syrup</span>
+                <strong>17.40 AED</strong>
+              </div>
+            </a>
+          </div>
+          <div class="item">
+            <a href="">
+              <img src="img/products/hartley.png" alt="Hartley's mango jam">
+              <div class="pr-dt">
+                <i>500ml</i>
+                <span>Hartley's mango jam</span>
+                <strong>17.40 AED</strong>
+              </div>
+            </a>
+          </div>
+          <div class="item">
+            <a href="">
+              <img src="img/products/downy.png" alt="Downy soap for cloth washing">
+              <div class="pr-dt">
+                <i>500ml</i>
+                <span>Downy soap for cloth washing</span>
+                <strong>17.40 AED</strong>
+              </div>
+            </a>
+          </div>
+          <div class="item">
+            <a href="">
+              <img src="img/products/tide.png" alt="Tide liquid soap for cloth washing">
+              <div class="pr-dt">
+                <i>500ml</i>
+                <span>Tide liquid soap for cloth washing</span>
+                <strong>17.40 AED</strong>
+              </div>
+            </a>
+          </div>
+          <div class="item">
+            <a href="">
+              <img src="img/products/mango.png" alt="Mango juice mixer">
+              <div class="pr-dt">
+                <i>500ml</i>
+                <span>Mango juice mixer</span>
+                <strong>17.40 AED</strong>
+              </div>
+            </a>
+          </div>
+          <div class="item">
+            <a href="">
+              <img src="img/products/mixed-fruit.png" alt="Mixed fruit syrup">
+              <div class="pr-dt">
+                <i>500ml</i>
+                <span>Mixed fruit syrup</span>
+                <strong>17.40 AED</strong>
+              </div>
+            </a>
+          </div>
+          <div class="item">
+            <a href="">
+              <img src="img/products/hershey.png" alt="Hershley's strawberry syrup">
+              <div class="pr-dt">
+                <i>500ml</i>
+                <span>Hershley's strawberry syrup</span>
+                <strong>17.40 AED</strong>
+              </div>
+            </a>
+          </div>
+          <div class="item">
+            <a href="">
+              <img src="img/products/hartley.png" alt="Hartley's mango jam">
+              <div class="pr-dt">
+                <i>500ml</i>
+                <span>Hartley's mango jam</span>
+                <strong>17.40 AED</strong>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- Our Brands -->
+    <div class="col-xs-12 no-pd">
+      <div class="pro-hd">
+        <h2 class="pr-ttl">Shop by brands</h2>
+        <!-- <a href="" class="v-btn">View all</a> -->
+      </div>
+      <div class="col-xs-12 no-pd pro-cont brand-cr">
+        <div class="pro-cr-1 owl-carousel owl-theme pro-cr">
+          <% 
+            let home_brand= data.response.home_brand;
+            if (home_brand) {
+              home_brand.forEach(function(brand){
+            %>
+          <div class="item">
+            <a href="product-listing/#!?brand=<%= brand.b_id %>"><img src="<%= brand.b_image %>" alt="<%= brand.b_name %>"></a>
+          </div>
+          <%
+        })
+        }
+       %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Download App -->
+    <div class="col-xs-12 no-pd dwn-app">
+      <div class="col-md-6 no-pd text-right mb-src">
+        <img src="img/download-app.png" alt="download-app" class="img-responsive">
+      </div>
+      <div class="col-md-6 no-pd dwn-app-inn">
+        <div class="dwn-app-txt">
+          <h2>Carry your Valucart</h2>
+          <h3>Smart Groceries for smart planners.</h3>
+          <p>ValuCart Android & IOS app<br>Coming soon...</p>
+          <a href=""><img src="img/Google_play.svg" alt="Google_play" width="150"></a>
+          <a href=""><img src="img/App_Store.svg" alt="App_Store" width="150"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- How to -->
+  <div class="col-xs-12 no-pd how-to">
+    <div class="v-container">
+      <div class="col-md-1 no-pd hw-ttl">
+        <div class="pro-hd">
+          <h2 class="pr-ttl">How to ValuCart</h2>
+        </div>
+      </div>
+      <ul class="col-md-11">
+        <li>
+          <img src="img/search-2.svg" alt="Search" width="46">
+          <h3>Browse through Catalog</h3>
+          <span>Step 1</span>
+        </li>
+        <li>
+          <img src="img/bundle.svg" alt="Bundle" width="46">
+          <h3>Create your own Bundle</h3>
+          <span>Step 2</span>
+        </li>
+        <li>
+          <img src="img/shopping-bag.svg" alt="Add to cart" width="46">
+          <h3>Add to cart</h3>
+          <span>Step 3</span>
+        </li>
+        <li>
+          <img src="img/card.svg" alt="Checkout & pay" width="46">
+          <h3>Checkout & pay</h3>
+          <span>Step 4</span>
+        </li>
+        <li>
+          <img src="img/calendar.svg" alt="Subscribe" width="46">
+          <h3>Subscribe for weekly/monthly requirements</h3>
+          <span>Step 5</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+<script>
+  // swal({
+  //   title: 'delivery will start from 12th October!',
+  //   imageUrl: '/img/valucart-alart.png',
+  //   imageWidth: "100%",
+  //   width: 800,
+  //   imageAlt: 'Custom image',
+  //   animation: false,
+  //   showConfirmButton: false,
+  //   timer: 25000
+  //   })
+  //
+</script>
+<% include template/footer %>

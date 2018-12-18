@@ -1,0 +1,86 @@
+<% include template/header %>
+    <!--    Breadcrumb-->
+    <div class="container myorderdetail">
+        <ul class="breadcrumb">
+            <li>
+                <a href="/">Home</a>
+            </li>
+            <li class="lastcrumb">
+                My Profile
+            </li>
+        </ul>
+    </div>
+    <!--    Breadcrumb-->
+    <div class="container myprofile">
+        <h4 class="hidden-sm hidden-md hidden-lg">Profile information</h4>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <h4 class="hidden-xs">My Profile</h4>
+                    </div>
+                    <div class="col-xs-6  text-right">
+                        <a href="edit-profile" class="edit text-info">Edit
+                            <img src="img/editimg.png" class="img-responsive editimg">
+                        </a>
+                    </div>
+                </div>
+                <div class="row profilerow">
+                    <div class="col-xs-2 col-sm-1 text-center">
+                        <img src="img/name.png" class="img-responsive labelimg">
+                    </div>
+                    <div class="col-xs-10">
+                        <p class="profilelabel">NAME</p>
+                        <p class="profilename">
+                            <%=data.username%>
+                        </p>
+                    </div>
+                </div>
+                <div class="row profilerow">
+                    <div class="col-xs-2 col-sm-1 text-center">
+                        <img src="img/email.png" class="img-responsive labelimg">
+                    </div>
+                    <div class="col-xs-10">
+                        <p class="profilelabel">EMAIL</p>
+                        <p class="profilename">
+                            <%=data.user_email%>
+                        </p>
+                    </div>
+                </div>
+                <div class="row profilerow">
+                    <div class="col-xs-2 col-sm-1 text-center">
+                        <img src="img/mobile.png" class="img-responsive labelimg">
+                    </div>
+                    <div class="col-xs-10">
+                        <p class="profilelabel">MOBILE</p>
+                        <p class="profilename">+971
+                            <%=data.user_phone_no%>
+                        </p>
+                    </div>
+                </div>
+                <div class="row profilerow">
+                    <div class="col-xs-2 col-sm-1 text-center">
+                        <img src="img/postalcode.png" class="img-responsive labelimg">
+                    </div>
+                    <div class="col-xs-10">
+                        <p class="profilelabel">POSTAL CODE</p>
+                        <p class="profilename">
+                            <%=data.user_postal_code%>
+                        </p>
+                    </div>
+                </div>
+                <div class="row profilerow">
+                    <div class="col-xs-2 col-sm-1 text-center">
+                        <img src="img/city.png" class="img-responsive labelimg">
+                    </div>
+                    <div class="col-xs-10">
+                        <p class="profilelabel">CITY</p>
+                        <p class="profilename">
+                            <%=data.user_city%>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% include template/footer %>

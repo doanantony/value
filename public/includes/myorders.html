@@ -1,0 +1,166 @@
+<div class="row" style="margin-top:25px; margin-bottom: 15px;">
+    <div class="col-sm-8 col-xs-12">
+        <span class="badge myorderbagde">
+            Order ID
+            <span class="orderid">
+                {{order.o_id}}
+            </span>
+        </span>
+        <p class="myorderitems">Total items :
+            <span class="itemcount">
+                {{order.product.length}}
+            </span>
+        </p>
+    </div>
+    <div class="col-sm-4 text-right viewall hidden-xs">
+        <a href="myorder-details/{{order.o_id}}" class="text-info">View Details</a>
+    </div>
+</div>
+
+<div ng-repeat="product in order.product">
+    <div class="panel panel-default myorderpanel mb-0">
+        <div class="panel-body bg-white">
+            <div class="row">
+                <div class="row rowpadd0">
+                    <p class="dis_price hidden-xs" ng-show="product.ct_discount_percentage > 0">{{product.ct_discount_percentage}}%</p>
+                </div>
+                <div class="col-md-2 col-sm-3 col-xs-4" ng-if="product.ct_is_user_bundle!=true">
+                    <img src={{product.p_image}} class="img-responsive productimg">
+                </div>
+                <div class="col-md-2 col-sm-3 col-xs-4" ng-if="product.ct_is_user_bundle==true">
+                    <img src="img/byob.png" class="img-responsive productimg">
+                </div>
+                <div class=" col-md-4 col-sm-3  text-left">
+                    <h4 class="ordertitle">
+                        {{product.p_name}}
+                    </h4>
+                    <ul class="productdesclist  hidden-xs hide">
+                        <li>- Nutella hazelnut chocolate spread
+                            <span class="productgrade">X 1</span>
+                        </li>
+                        <li> - Kellogg’s frosties
+                            <span class="productgrade">X 1</span>
+                        </li>
+                        <li>- Hershey’s strawberry syrup
+                            <span class="productgrade">X 1</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-3  hidden-xs">
+                    <div class="deliverystate" ng-switch="{{order.o_order_status_id}}">
+                        <div ng-switch-when="11">
+                            <p class="progresstextc order-m40">Delivered</p>
+                        </div>
+                        <div ng-switch-when="10">
+                            <p class="progresstext order-m40">
+                                Near To You
+                            </p>
+                            <!-- <p class="packcount">Estimated Delivery:
+                                <span class="deliverydate">
+                                </span>
+                            </p> -->
+                        </div>
+                        <div ng-switch-when="9">
+                            <p class="progresstext order-m40">
+                                Shipped
+                            </p>
+                            <!-- <p class="packcount">Estimated Delivery:
+                                <span class="deliverydate">
+                                    Aug 27th 2018
+                                </span>
+                            </p> -->
+                        </div>
+                        <div ng-switch-when="8">
+                            <p class="progresstext order-m40">
+                                Cancel request sent
+                            </p>
+                        </div>
+                        <div ng-switch-when="12">
+                            <p class="progresstext order-m40">
+                                Cancelled
+                            </p>
+                        </div>
+                        <div ng-switch-default>
+                            <p class="progresstext order-m40" ng-swith="">
+                                In progress
+                            </p>
+                            <p class="packcount">Estimated Delivery:
+                                <span class="deliverydate">
+                                    {{order.o_delivery_dt}}
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3 text-center" ng-if="product.ct_discount_price!=0 && product.ct_discount_price">
+                    <!-- <h5 class="offeredprice">
+                        {{product.ct_quantity}} X {{product.ct_price}} AED</h5> -->
+
+                    <h6 class="price order-price">
+                        {{product.ct_quantity}} X {{product.ct_discount_price}} AED</h6>
+                </div>
+                <div class="col-sm-3 text-center" ng-if="!product.ct_discount_price || product.ct_discount_price==0">
+
+                    <h6 class="price order-price">
+                        {{product.ct_quantity}} X {{product.ct_price}} AED</h6>
+                </div>
+            </div>
+
+        </div>
+        <hr ng-if="!$last" class="hidden-sm">
+
+        <div class="cancelorder">
+            <div class="deliverystate-mob hidden-sm hidden-md hidden-lg" ng-switch="{{order.o_order_status_id}}">
+                <div ng-switch-when="11">
+                    <p class="progresstextc">Delivered</p>
+                </div>
+                <div ng-switch-when="10">
+                    <p class="progresstext">
+                        Near To You
+                    </p>
+                    <p class="packcount">Estimated Delivery:
+                        <span class="deliverydate">
+                        </span>
+                    </p>
+                </div>
+                <div ng-switch-when="9">
+                    <p class="progresstext">
+                        Shipped
+                    </p>
+                    <p class="packcount">Estimated Delivery:
+                        <span class="deliverydate">
+                            Aug 27th 2018
+                        </span>
+                    </p>
+                </div>
+                <div ng-switch-default>
+                    <p class="progresstext" ng-swith="">
+                        In progress
+                    </p>
+                    <p class="packcount">Estimated Delivery:
+                        <span class="deliverydate">
+                            {{order.o_delivery_dt}}
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <hr class="hidden-sm hidden-md hidden-lg">
+        <div ng-if="$last" class="row">
+            <div class="cancelorder">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-offset-6 col-sm-6" ng-if="((order.o_order_status_id !== 8) && (order.o_order_status_id !== 12)) && (order.o_order_status_id !== 11)">
+                        <a href="/cancel-order/{{order.o_id}}" class="">
+                            <img src="img/cancelimg.png" class="img-responsive cancelimg">Cancel Order</a>
+                    </div>
+                    <div class="col-xs-6 hidden-sm hidden-md hidden-lg">
+                        <a href="myorder-details/{{order.o_id}}" class="trackinglink">
+                            <img src="img/track.png" class="img-responsive cancelimg">Track Package</a>
+                    </div>
+                </div>
+
+                <!-- <hr class="hidden-sm hidden-md hidden-lg"> -->
+            </div>
+        </div>
+    </div>
+</div>

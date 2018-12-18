@@ -1,0 +1,142 @@
+<div class="panel panel-default productpanel" ng-class="product.stock_status?'':'avoid-clicks'">
+    <div class="panel-body">
+        <div class="row mrw15">
+            <div class="col-xs-6">
+                <p class="discountprice" ng-if="product.pdt_percentage">{{product.pdt_percentage}}%</p>
+            </div>
+            <div class="col-xs-6">
+                <button class="wishlistbtn">
+                    <div class="wishlist-heart-group">
+                        <input name="product-{{product.pb_id}}" ng-checked="product.wishlist" id="product-{{product.pb_id}}"
+                            data-product-id="{{product.pb_id}}" type="checkbox" ng-click="addwish(product.pb_id,product.wishlist,$index)" />
+                        <label for="product-{{product.pb_id}}" data-hover-text="Wish List">
+                            <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#"
+                                xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg"
+                                xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+                                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1" x="0px" y="0px"
+                                viewBox="0 0 100 100">
+                                <g transform="translate(0,-952.36218)">
+                                    <path style="color:#494949;enable-background:accumulate;" d="m 34.166665,972.36218 c -11.41955,0 -19.16666,8.91891 -19.16666,20.27029 0,19.45943 15,27.56753 35,39.72973 20.00001,-12.1622 34.99999,-20.2703 34.99999,-39.72973 0,-11.35137 -7.7471,-20.27029 -19.16665,-20.27029 -7.35014,0 -13.39148,4.05405 -15.83334,6.48647 -2.44185,-2.43241 -8.48319,-6.48647 -15.83334,-6.48647 z"
+                                        fill="transparent" id="heart-path" stroke="#494949" stroke-width="5" marker="none"
+                                        visibility="visible" display="inline" overflow="visible" />
+                                </g>
+                            </svg>
+                        </label>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <p class="packcount">Pack of {{product.b_count}}</p>
+                <h4>
+                    <a ng-href="/bundle-detail/{{product.pb_id}}/{{product.pb_name | spaceless}}" ng-bind-html="product.pb_name"></a>
+                </h4>
+            </div>
+            <div class="col-xs-5">
+                <h5 class="offeredprice" ng-if="product.pdt_percentage"> {{product.pb_price}} AED</h5>
+                <h6>
+                    <span ng-if="product.pdt_price">
+                        {{product.pdt_price}} AED
+                    </span>
+                    <span ng-if="!product.pdt_price">
+                        {{product.pb_price}} AED
+                    </span>
+                </h6>
+            </div>
+            <div class="col-xs-7">
+                <img src="{{product.pb_image}}" class="img-responsive productimg"> </div>
+        </div>
+        <div class="row  m-t-48">
+            <div class="col-xs-5 padding0-xs">
+                <div class="productcountdiv button-container">
+                    <button class="btn btn-default productminus cart-qty-minus" ng-click="qty_minus('qty_',product.pb_id)"
+                        value="-">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                    <!--<p class="productcount">1</p>-->
+                    <input type="text" name="qty_{{product.pb_id}}" maxlength="12" value="1" class="input-text qty  productcount"
+                        disabled />
+                    <button class="btn btn-default productplus cart-qty-plus" ng-click="qty_plus('qty_',product.pb_id)"
+                        value="+">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-xs-7">
+                <!-- 
+                <div>
+                    <a ng-href="/bundle-detail/{{product.pb_id}}/{{product.pb_name | spaceless}}" class="pull-right">
+                        <button class="btn btn-info">
+                            <img src="img/addtocart.png" class="img-responsive addtocart"> Add to cart</button>
+                    </a>
+                </div>
+                <div ng-if="loggedStatus != true">
+                    <a href="#" data-toggle="modal" data-target="#myModal">
+                        <button class="btn btn-info">
+                            <img src="img/addtocart.png" class="img-responsive addtocart"> Add to cart</button>
+                    </a>
+                </div> -->
+                <div ng-if="loggedStatus==true">
+                    <div ng-if="liststate!='VCGT'">
+                        <div class="btn-group hidden-xs hidden-sm">
+                            <button class="btn btn-info" ng-click="addtocart(product.pb_id, 1)">
+                                <img src="img/addtocart.png" class="img-responsive addtocart"> Add to cart
+                            </button>
+                            <button type="button" class="btn btn-primary ebtn" data-toggle="dropdown">
+                                <img src="img/menu.png" alt="">
+                            </button>
+                            <ul class="dropdown-menu addtocartddp" role="menu">
+                                <li class="addtobundle a-deactive addtobundleTitle">
+                                    + Add to bundle
+                                </li>
+                                <li ng-repeat="bundle in mybundles">
+                                    <a ng-click="addToBundle($event, bundle.ub_id, product.pb_id, bundle.product_count)">{{bundle.ub_name}}
+                                        <!-- ( <span>{{bundle.product_count}}</span> ) --></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="btn-group hidden-md hidden-lg">
+                            <button type="button" class="btn btn-info" ng-click="addtocart(product.pb_id, 1)">
+                                <img src="img/addtocart.png" class="img-responsive addtocart"> Add to cart</button>
+                            <button type="button" class="btn btn-primary ebtn" data-toggle="modal" data-target="#lab-slide-bottom-popup{{product.pb_id}}">
+                                <img src="img/menu.png" alt="">
+                            </button>
+                        </div>
+                    </div>
+                    <div ng-if="liststate=='VCGT'">
+                        <div class="btn-group">
+                            <button class="btn btn-info logot" ng-click="addToBundleWithoutBundleId($event, product.pb_id)">
+                                <img src="img/addtocart.png" class="img-responsive addtocart"> Add to Bundle
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="loggedStatus != true">
+                    <button class="btn btn-info logot" data-toggle="modal" data-target="#myModal">
+                        <!--ng-click="addtocartOffline(product.pd_id)"-->
+                        <img src="img/addtocart.png" class="img-responsive addtocart"> Add to cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="lab-slide-bottom-popup{{product.pb_id}}" data-keyboard="false" data-backdrop="false" style="background-color: #0000006b;">
+    <div class="lab-modal-body brandlist">
+        <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+            <span class="sr-only">Close</span>
+        </button>
+        <h5>+ Add to bundle</h5>
+        <ul style="list-style-type: none;padding-left: 0px">
+            <li ng-repeat="bundle in mybundles">
+                <a ng-click="addToBundle($event, bundle.ub_id, product.pb_id, bundle.product_count)">{{bundle.ub_name}}
+                    (
+                    <span>{{bundle.product_count}}</span> )</a>
+            </li>
+        </ul>
+    </div>
+    <!-- /.modal-body -->
+</div>
+<span ng-if="!product.stock_status" class="outofstock">Out of Stock</span>

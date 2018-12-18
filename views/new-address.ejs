@@ -1,0 +1,84 @@
+<% include template/header %>
+    <!--    Breadcrumb-->
+    <div class="container">
+        <ul class="breadcrumb">
+            <li>
+                <a href="#">My accounts</a>
+            </li>
+            <li>
+                <a href="#">Settings</a>
+            </li>
+            <li class="lastcrumb">
+                <a href="#">Add New</a>
+            </li>
+        </ul>
+    </div>
+    <!--    Breadcrumb-->
+    <div class="container change-pwd" ng-app="myapp" ng-controller="add_address">
+        <h4>Add new address</h4>
+        <div class="panel1 panel-default">
+            <div class="panel-body">
+                <% 
+                var oldAdr= (data!="")?data.response[0]:"";
+                %>
+                <form style="margin-top: 20px" name="newAddress" id="newAddress">
+                    <div class="form-group marg-btm1">
+                        <input type="hidden" name="address_id" value="<%=address_id;%>">
+                        <input type="text" value="<%=oldAdr.a_name%>" id="address_name" name="address_name" class="form-control form-control1">
+                        <label class="form-control-placeholder" for="name">FULL NAME</label>
+                    </div>
+                    <div class="row form-align  marg-btm1">
+                        <div class="col-sm-1 col-xs-2">
+                            <div class="form-group">
+                                <label class="phone-align" for="phone">+971</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-11 col-xs-10">
+                            <div class="form-group" style="margin-top: 35px;">
+                                <input type="text" value="<%=oldAdr.a_phone%>" id="phno" name="phone_no" class="form-control form-control1">
+                                <label class="form-control-placeholder" for="phno">PHONE NUMBER</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group marg-btm1" style="margin-top: 35px;">
+                        <input type="text" id="flat" value="<%=oldAdr.a_address_1%>" name="flat" class="form-control form-control1">
+                        <label class="form-control-placeholder" for="flat">FLAT/HOUSE/FLOOR/BUILDING</label>
+                    </div>
+                    <div class="form-group  marg-btm1" style="margin-top: 35px;">
+                        <input type="text" value="<%=oldAdr.a_address_2%>" id="street" name="street" class="form-control form-control1">
+                        <label class="form-control-placeholder" for="street">STREET/LOCALITY</label>
+                    </div>
+                    <div class="form-group marg-btm1" style="margin-top: 35px;">
+                    <select class="form-control" id="city" name="city_id" ng-model="city_id" ng-change="getarea(city_id)" ng-init="city_id=<%=oldAdr.a_city_id%>" ng-options="value.city_id as value.city_name for (key, value)  in city">
+                        <option value="">Select City</option>
+                    </select>
+                        <label class="form-control-placeholder" for="city">CITY</label>
+                    </div>
+                    <div class="form-group marg-btm1" style="margin-top: 35px;">
+                    <select class="form-control" id="area" name="area_id" ng-model="area_id" ng-init="area_id=<%=oldAdr.a_area_id%>" ng-options="value.area_id as value.area_name for (key, value)  in area">
+                        <option value="">Select Area</option>
+                    </select>
+                        <label class="form-control-placeholder" for="area">Area</label>
+                    </div>
+                    <div class="form-group marg-btm1" style="margin-top: 35px;">
+                        <input type="text" value="<%=oldAdr.a_pincode%>" id="postalcode" name="postalcode" class="form-control form-control1">
+                        <label class="form-control-placeholder" for="city">POSTAL CODE</label>
+                    </div>
+                    <div class="form-group btn-bottom text-right visible-lg visible-md hidden-sm hidden-xs">
+                        <button type="submit" class="btn-pwd" style="width:200px;margin-right: 10px;">Save</button>
+                        <button type="button" class="btn-cnl" style="width:200px">Cancel</button>
+                    </div>
+                    <div class="form-group btn-bottom visible-xs visible-sm hidden-lg hidden-md">
+                        <button type="submit" class="btn-pwd">Save</button>
+                        <button type="button" class="btn-cnl">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+    app.constant("address", {
+                    'data': <%- JSON.stringify(oldAdr == "" ? "" : oldAdr) %> 
+            });
+    </script>
+<% include template/footer %>

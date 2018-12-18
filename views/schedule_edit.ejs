@@ -1,0 +1,92 @@
+<% include template/header %>
+<div class="container edit-schedule">
+  <h2 class="edit-schedule-title">Edit Schedule “<%= data.ub_name %>” </h2>
+  <div class="row">
+	<div class="col-md-4">
+	  <div class="panel edit-schedule-panel">
+		<div class="row">
+		  <div class="col-xs-4"><img src="img/edit-calender.png" class="img-responsive edit-imgs"></div>
+		  <div class="col-xs-8">
+			<h5 class="edit-schedule-label">Frequency</h5>
+			<h4 class="edit-schedule-value"><%= data.ub_time_period %> days</h4>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	  <div class="col-md-4">
+	  <div class="panel edit-schedule-panel">
+		<div class="row">
+		  <div class="col-xs-4"><img src="img/edit-clock.png" class="img-responsive edit-imgs"></div>
+		  <div class="col-xs-8">
+			<h5 class="edit-schedule-label">Duration</h5>
+			<h4 class="edit-schedule-value"><%= parseInt(data.ub_no_days)/30 %> Months</h4>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	  <div class="col-md-4">
+	  <div class="panel edit-schedule-panel">
+		<div class="row">
+		  <div class="col-xs-4"><img src="img/edit-delivery.png" class="img-responsive edit-imgs"></div>
+		  <div class="col-xs-8">
+			<h5 class="edit-schedule-label">Next Delivery</h5>
+			<h4 class="edit-schedule-value"><%=moment(data.ub_end_date).format('DD.MM.YYYY');%></h4>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	<div class="choosecatagory edit-schedule-ques">
+  <form action="/schedule-bundle/success" method="POST">
+      <div class="row querow">
+        <h6 class="scheduleque">How often do you refill these products?</h6>
+        <div class="row radiorow">
+          <ul class="radio-group">
+          <li>
+          <input type="radio" id="radio_week" name="bundles" value="7" <%= data.ub_time_period==7?"checked":"" %>  />
+          <label for="radio_week" class="bundle-check">Every week</label>
+        </li>
+        <li>
+          <input type="radio" id="radio_15" name="bundles" value="15" <%= data.ub_time_period==15?"checked":"" %> />
+          <label for="radio_15" class="bundle-check">Every 15 days</label>
+        </li>
+        <li>
+          <input type="radio" id="radio_month" name="bundles"  value="30" <%= data.ub_time_period==30?"checked":"" %>/>
+          <label for="radio_month" class="bundle-check">Every month</label>
+        </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row querow">
+        <h6 class="scheduleque">How long would you like to schedule this for ?</h6>
+		  <p class="Specify-the-duration">Specify the duration:</p>
+        <div class="row radiorow">
+          <ul class="radio-group">
+          <li>
+          <input type="radio" id="radio_2mon" name="bundles1" value="60" <%= data.ub_no_days==60?"checked":"" %> />
+          <label for="radio_2mon" class="bundle-check">For next 2 months</label>
+        </li>
+        <li>
+          <input type="radio" id="radio_3mon" name="bundles1" value="90" <%= data.ub_no_days==90?"checked":"" %> />
+          <label for="radio_3mon" class="bundle-check">For next 3 months</label>
+        </li>
+        <li>
+          <input type="radio" id="radio_6mon" name="bundles1"value="180" <%= data.ub_no_days==180?"checked":"" %> />
+          <label for="radio_6mon" class="bundle-check">For next 6 months</label>
+        </li>
+        <li>
+          <input type="radio" id="radio_1yr" name="bundles1" value="360" />
+          <label for="radio_1yr" class="bundle-check">For next 1 year</label>
+        </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row mb150">
+      <input type="hidden" name="ub_id" value="<%= data.ub_id %>" />
+        <button class="btn btn-continue" type="submit">Save</button>
+        <a href="/" class="Or-continue-from-homepage">Cancel</a>
+      </div>
+		</form>
+		</div>
+</div>
+<% include template/footer %>

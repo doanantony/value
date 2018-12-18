@@ -1,0 +1,37 @@
+<% include template/header1.ejs %>
+<style>
+
+.nice-select .option.disabled {
+  display: none !important;
+}
+
+</style>
+<div class="container container1" ng-app="myapp" ng-controller="select_area">
+    <div class="row text-center">
+        <form name="selectArea" method="POST">
+            <div class="text-center">
+                <img src="img/logo.png" alt="ValuCart-logo" class="img-responsive" />
+                <!-- <h4 class="logo-text">ValuCart</h4> -->
+            </div>
+            <h2 class="select-city">Which area do you live in?</h2>
+            <select id="selectedarea" ng-model="area">
+                <option  value="">Select your area</option>
+                <% if (data){ 
+                    data.forEach(function(area){    
+                %>
+                <option value="<%= area.area_id %>">
+                    <%= area.area_name %>
+                </option>
+                <% }) } %>
+            </select>
+
+            <a href="/city">
+                <h5 class="atcc">Change your city?</h5>
+            </a>
+            <div class="text-center">
+                <button class="btn next-btn selectareabtn" type="submit">Start Shopping</button>
+            </div>
+        </form>
+    </div>
+</div>
+<% include template/footer1.ejs %>

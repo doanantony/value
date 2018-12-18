@@ -1,0 +1,35 @@
+<% include template/header %>
+
+<div ng-app="myapp" ng-controller="createUserBundle" class="bnd-products bnd-details">
+    <form name="createBundle" method="POST">
+        <div class="container-fluid">
+            <div class="container">
+                <div class="row" id="cBundle-desktop">
+                    <h4 class="confirm-products-for-you-bundle"> Confirm products for you bundle</h4>
+                    <h6 class="this-is-your-bundle-name">Give a name for your bundle</h6>
+                    <div class="input-group">
+                        <input type="text" ng-model="mybundle_name" value="" class="form-control Rounded-Rectangle-5">
+                        <span class="input-group-btn" style="right: 23px;">
+                            <button class="Rounded-Rectangle-5" type="button"><img src="img/edit-bundle.png" alt="edit-bundle" /></button>
+                        </span> </div>
+                    <!-- /input-group -->
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="order_id" value="<%= order_id %>">
+        <div class="container-fluid confirm-product" style="margin-top: 60px;">
+            <div ng-include="'includes/createuserbundle_new.html'"></div>
+        </div>
+    </form>
+</div>
+
+
+
+<script>
+    app.constant("order_id", {
+        'order_id': <%= order_id %>
+        });
+</script>
+
+
+<% include template/footer %>

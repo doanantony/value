@@ -1,0 +1,60 @@
+<% include template/header %>
+<div class="container-fluid choosecatagory">
+<div class="container">
+  <h4 class="Scheduletitle">Schedule your bundle “<%= data.ub_name %>”</h4>
+  <form action="/schedule-bundle/success" method="POST">
+    <div class="row querow">
+      <h6 class="scheduleque">How often do you refill these products?</h6>
+      <div class="row radiorow">
+        <ul class="radio-group">
+          <li>
+            <input type="radio" id="radio_week" name="bundles" value="7" checked />
+            <label for="radio_week" class="bundle-check">Every week</label>
+          </li>
+          <li>
+            <input type="radio" id="radio_15" name="bundles" value="15" />
+            <label for="radio_15" class="bundle-check">Every 15 days</label>
+          </li>
+          <li>
+            <input type="radio" id="radio_month" name="bundles"  value="30" />
+            <label for="radio_month" class="bundle-check">Every month</label>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row querow">
+      <h6 class="scheduleque">How long would you like to schedule this for ?</h6>
+        <p class="Specify-the-duration">Specify the duration:</p>
+      <div class="row radiorow">
+        <ul class="radio-group">
+          <li>
+            <input type="radio" id="radio_2mon" name="bundles1" value="60" checked />
+            <label for="radio_2mon" class="bundle-check">For next 2 months</label>
+          </li>
+          <li>
+            <input type="radio" id="radio_3mon" name="bundles1" value="90" />
+            <label for="radio_3mon" class="bundle-check">For next 3 months</label>
+          </li>
+          <li>
+            <input type="radio" id="radio_6mon" name="bundles1"value="180" />
+            <label for="radio_6mon" class="bundle-check">For next 6 months</label>
+          </li>
+          <li>
+            <input type="radio" id="radio_1yr" name="bundles1" value="360" />
+            <label for="radio_1yr" class="bundle-check">For next 1 year</label>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row mb150">
+    <input type="hidden" name="ub_id" value="<%= data.ub_id %>" />
+      <button class="btn btn-continue" type="submit">Continue <img src="img/vector-smart-object.png"
+   srcset="img/vector-smart-object@2x.png 2x,
+           img/vector-smart-object@3x.png 3x"
+   class="Vector-Smart-Object"></button>
+      <a href="#" class="Or-continue-from-homepage">No thanks. I don’t want to schedule now</a>
+    </div>
+  </form>
+</div>
+</div>
+<% include template/footer %>

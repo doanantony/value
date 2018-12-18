@@ -1,0 +1,74 @@
+<% var home_new = 1;%>
+  <% include template/header %>
+
+    <section class="home-full-width">
+      <div class="left left-home">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-12 col-md-11 col-lg-9 pull-right landing-offer">
+              <h1 class="ValuZone-BUNDLES">ValuZone
+                <br> BUNDLES</h1>
+              <img src="img/home-product-1.png" class="img-responsive" alt="" />
+              <p class="Choose-from-a-range-of-pre-configured-bundles-and-save-huge">Choose from a range of pre-configured ValuZone bundles and save huge</p>
+              <a class="btn btn-black" href="/bundle-list">Shop now
+                <img src="img/vector-smart-object.png" srcset="img/vector-smart-object@2x.png 2x,
+             img/vector-smart-object@3x.png 3x" class="Vector-Smart-Object">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="right right-home">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-11 col-lg-9 landing-offer">
+              <h1 class="ValuZone-BUNDLES" style="color: #000000;">Build your own
+                <br>Bundles</h1>
+              <img src="img/home-product-2.png" class="img-responsive" alt="" />
+              <p style="color: #000000;" class="Choose-from-a-range-of-pre-configured-bundles-and-save-huge">Create your own bundle from over 10000+ products and save big upto 25% </p>
+              <% 
+            if(cookies){
+                var userData=JSON.parse(cookies);
+                  if(userData.status=="success"){
+            %>
+                <a class="btn btn-black" href="/create-bundle">Shop now
+                  <img src="img/vector-smart-object.png" srcset="img/vector-smart-object@2x.png 2x,
+             img/vector-smart-object@3x.png 3x" class="Vector-Smart-Object">
+                </a>
+                <% } } else{ %>
+                  <a class="btn btn-black refererLogin" data-referrer="create-bundle" data-toggle="modal" data-target="#myModal">Shop now
+                    <img src="img/vector-smart-object.png" srcset="img/vector-smart-object@2x.png 2x,
+             img/vector-smart-object@3x.png 3x" class="Vector-Smart-Object">
+                  </a>
+                  <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row" style="background-image:url(img/home-row-pattern.png); background-size: cover;">
+          <div class="col-md-6 home-orange-bg">
+            <h1 class="Explore-our-Selectives-section">Explore our
+              <br> Selectives section</h1>
+            <p class="Valucart-brings">Valucart brings to you exotic collection of exquisites picked from world over. Exclusively now available. </p>
+            <a class="Shop-now" href="/product-listing/valucartexclusives">Shop now
+              <img src="img/vector-smart-object.png" srcset="img/vector-smart-object@2x.png 2x,
+             img/vector-smart-object@3x.png 3x" class="Vector-Smart-Object">
+            </a>
+          </div>
+          <div class="col-md-6 home-orange-bg1">
+            <h1 class="Explore-our-Selectives-section" style="color: #000000;">Simply Cart it Choose from over 10000+ products
+            </h1>
+            <p class="Valucart-brings" style="color: #000000;">Avail the best online prices and shop from the convenience of your home. </p>
+            <a class="btn btn-blue" href="/product-listing/">
+              Shop now
+              <img src="img/vector-smart-object.png" srcset="img/vector-smart-object@2x.png 2x,
+             img/vector-smart-object@3x.png 3x" class="Vector-Smart-Object">
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="clearfix"></div>
+
+    <% include template/footer %>

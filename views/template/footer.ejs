@@ -1,0 +1,381 @@
+<!--Footer starts here-->
+<section class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <img src="img/logo.png" class="img-responsive footer-logo">
+                <ul class="footerlist">
+                    <li><a href="about-us">About us</a></li>
+                    <li><a href="terms-and-conditions">Terms & Conditions</a></li>
+                    <li><a href="privacy-policy">Privacy policy</a></li>
+                    <li><a href="return-policy">Return policy</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h4>Help</h4>
+                <ul class="footerlist">
+                    <li><a href="faq">FAQ</a></li>
+                    <li><a>Contact us</a></li>
+                </ul>
+            </div>
+            <div class="col-md-5">
+                <h4>Follow us on:</h4>
+                <ul class="footerlist list-inline">
+                    <a href="https://www.instagram.com/valucartme/" target="_blank">
+                        <li class="social">
+                            <i class="fa fa-instagram"></i>
+                        </li>
+                    </a>
+                    <a href="https://www.facebook.com/ValuCartME-240963780089440/" target="_blank">
+                        <li class="social">
+                            <i class="fa fa-facebook"></i>
+                        </li>
+                    </a>
+                    <a href="https://twitter.com/valucartme" target="_blank">
+                        <li class="social">
+                            <i class="fa fa-twitter"></i>
+                        </li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <h5>© 2018 ValuCart. All rights reserved.</h5>
+    </footer>
+</section>
+<!--Footer ends here-->
+
+<!-- Modal -->
+<div class="modal fade profile-modal" id="myModal" role="dialog">
+    <div class="modal-dialog profile-modal">
+
+        <!-- Modal content-->
+        <div class="modal-content profile-modal">
+            <div class="modal-header profile-modal">
+                <button type="button" class="close" data-dismiss="modal">
+                    <img src="img/close-icon-black.svg" alt="">
+                </button>
+                <!-- <h4 class="modal-title">Modal Header</h4> -->
+            </div>
+            <div class="modal-body profile-modal">
+                <div class="row ">
+                    <div class="col-md-12">
+                        <div class="panel panel-login">
+                            <div class="panel-heading">
+                                <div class="row m-b-40">
+                                    <div class="col-xs-6">
+                                        <a href="javascript:void(0)" class="active" id="register-form-link" data-toggle="tab">Register</a>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <a href="javascript:void(0)" id="login-form-link" data-toggle="tab">Sign in</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <form id="register-form" name="register_form" role="form" method="post" style="display: block;margin-top: 20px;">
+                                            <!-- <p id="reg_error" style="color: red;" class="fa-2x marg-btm text-center"></p> -->
+                                            <input type="hidden" class="referrerInput" name="referrer" value="">
+                                            <div class="form-group marg-btm" id="r_uname">
+                                                <input type="text" name="uname" id="uname" class="form-control form-control1">
+                                                <label class="form-control-placeholder uname" for="name">name</label>
+                                            </div>
+                                            <div class="form-group marg-btm" id="r_email">
+                                                <input type="text" name="email" id="email" class="form-control form-control1">
+                                                <label class="form-control-placeholder email" for="email">E-mail id</label>
+                                            </div>
+                                            <div class="form-group marg-btm" id="r_phone">
+                                                <input type="text" name="phone" id="phone" class="form-control form-control1">
+                                                <label class="form-control-placeholder phone" for="phone">phone number</label>
+                                            </div>
+                                            <div class="form-group" id="r_pwd">
+                                                <input type="password" name="pwd" id="pwd" class="form-control form-control1">
+                                                <label class="form-control-placeholder pwd" for="pwd">password</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-sm-12" style="margin-top: 20px;">
+                                                        <button type="submit" name="register-submit" id="register-submit"
+                                                            tabindex="4" class="form-control btn btn-register">Submit</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 no-pad">
+                                                <h5 style="display: inline-block;">or signup with</h5>
+                                                <div style="float:right">
+                                                    <img src="img/fb.png" alt="google-plus" style="margin-right: 10px;"
+                                                        onclick="fbLogin(0)" id="fbLink" />
+                                                    <a id="googleSignIn" class="gmlr">
+                                                        <img src="img/google+.png" />
+                                                    </a>
+
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <form id="login-form" class="loginform" role="form">
+                                            <div class="login-action-msg err-msg">
+                                            </div>
+                                            <input type="hidden" class="referrerInput" name="referrer" value="">
+                                            <div class="form-group  marg-btm" id="l_uname">
+                                                <input type="text" id="usr" class="form-control form-control1 login_username">
+                                                <label class="form-control-placeholder" for="usr">Email</label>
+                                            </div>
+                                            <div class="form-group" id="l_pwd">
+                                                <input type="password" id="lpwd" class="form-control form-control1 login_password">
+                                                <label class="form-control-placeholder" for="lpwd">password</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <button type="submit" name="login-submit" id="login-submit"
+                                                            tabindex="4" class="form-control btn btn-register">Sign in
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 p0">
+                                                <a id="forgot_pass">
+                                                    <span>forgot password?</span>
+                                                </a>
+                                                <h5 style="display: inline-block;">or signin with</h5>
+                                                <div style="float:right">
+                                                    <img src="img/fb.png" alt="google-plus" style="margin-right: 10px;"
+                                                        onclick="fbLogin(1)" id="fbLink" />
+                                                    <a id="googleSignup" class="gmlr">
+                                                        <img src="img/google+.png" />
+                                                    </a>
+
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<!-- Forgot password -->
+<div class="modal fade profile-modal" id="forgot_password" role="dialog">
+    <div class="modal-dialog profile-modal">
+
+        <!-- Modal content-->
+        <div class="modal-content profile-modal">
+            <div class="modal-header profile-modal">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <!-- <h4 class="modal-title">Modal Header</h4> -->
+            </div>
+            <div class="modal-body profile-modal">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-login">
+                            <div class="panel-heading">
+                                <div class="row m-b-40">
+                                    <div class="col-xs-12">
+                                        <a href="#" class="active" id="register-form-link">Forgot Password</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <form id="forgotpwd_form" name="forgotpwd_form" role="form" method="post" style="display: block;margin-top: 20px;">
+                                            <p id="forgotpwd_error" style="color: red;" class="fa-1x marg-btm text-center"></p>
+                                            <div class="form-group marg-btm row">
+                                                <div class="col-md-8">
+                                                    <input type="email" name="f-email" id="f-email" autocomplete="off"
+                                                        class="form-control form-control1">
+                                                    <label class="form-control-placeholder email" for="email">
+                                                        E-mail id</label>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <button type="button" class="btn btn-info" id="genarate_pin">
+                                                        Genarate Pin </button>
+                                                </div>
+                                            </div>
+                                            <div class="avoid-clicks" id="pinin">
+                                                <div class="form-group marg-btm">
+                                                    <input type="text" name="pin" id="pin" autocomplete="off" class="form-control form-control1">
+                                                    <label class="form-control-placeholder phone" for="phone">pin from
+                                                        email
+                                                    </label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="password" name="f-pwd" id="f-pwd" autocomplete="off"
+                                                        class="form-control form-control1">
+                                                    <label class="form-control-placeholder pwd" for="pwd">new password</label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-12" style="margin-top: 20px;">
+                                                            <button type="submit" name="forgotpwd-submit" id="forgotpwd-submit"
+                                                                tabindex="4" class="form-control btn btn-register">Submit</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <a id="signin_again">
+                                                    <h5 style="display: inline-block;">or signin
+                                                    </h5>
+                                                </a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<!--<script>
+    var city_name = localStorage.getItem('city_name');
+    if (city_name != '') {
+        $(".current_city").html(city_name);
+    }
+</script>-->
+<script>
+    // var city = localStorage.getItem('city');
+    // var area = localStorage.getItem('area');
+    // if (city == null || area == null) {
+    //     window.location.replace("<%= process.env.PROTOCOL+baseURL %>/city");
+    // }
+    $('#forgot_pass').click(function () {
+        $('#myModal').modal('hide');
+        $('#forgot_password').modal('show');
+    })
+    $('#signin_again').click(function () {
+        $('#forgot_password').modal('hide');
+        $('#myModal').modal('show');
+    })
+</script>
+<!--    Includes all functions-->
+<script src="js/main.js"></script>
+
+<!--    owlcarousel js-->
+<script src="js/owlcarousel.js"></script>
+<!--    nav js-->
+<script src="js/jquery.touchSwipe.min.js"></script>
+<script src="js/line.js"></script>
+<script src="js/classie.js"></script>
+<script src="js/register.js"></script>
+<script src="js/uisearch.js"></script>
+<script src="js/search.js"></script>
+<script src="js/integrate.js"></script>
+<script src="https://apis.google.com/js/platform.js?onload=onLoadGoogleCallback" async defer></script>
+<script>
+    new UISearch(document.getElementById('sb-search'));
+</script>
+<script>
+    $('.radio-group .radio').click(function () {
+        $(this).parent().find('.radio').removeClass('selected');
+        $(this).addClass('selected');
+        var val = $(this).attr('data-value');
+        //alert(val);
+        $(this).parent().find('input').val(val);
+    });
+    if ("<%= flashdata.success %>") {
+        toastr.success("<%= flashdata.success %>");
+    }
+    if ("<%= flashdata.warning %>") {
+        toastr.info("<%= flashdata.warning %>");
+    }
+</script>
+<script>
+    //Modal toggle 
+    $(function () {
+        if ($.cookie("vcartAuth")) {
+            let token = JSON.parse($.cookie("vcartAuth"));
+            if (token.is_email_verified == false) {
+                location.href = "/otp"
+            }
+            $.ajax({
+                type: 'GET',
+                contentType: 'application/json',
+                url: '<%= process.env.APIURL %>/cart/listV2',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + token.token);
+                }
+            }).done(function (resp) {
+                if (resp.results.status == "200") {
+                    if (resp.results.response.pendingBundle.length > 0) {
+                        $("#bundleicon").removeClass("hide");
+                        localStorage.bundleCount = (resp.results.response.pendingBundle[0].c > 0) ?
+                            resp.results.response.pendingBundle[0].c : 0;
+                        var cartCount = (resp.results.response.pendingBundle[0].c > 0) ? resp.results.response
+                            .pendingBundle[0].c : 0;
+                        $("#bundleicon a").attr("href", "/mybundles/view/" + resp.results.response.pendingBundle[
+                            0].ub_id)
+                        $(".cart-label").text(cartCount);
+                    } else {
+                        $("#carticon").removeClass("hide");
+                        var cartList = resp.results.response.cartItems;
+                        var cartCount = (typeof cartList != "undefined") ? cartList.length : 0;
+                        localStorage.cartCount = (cartCount > 0) ? cartCount : 0;
+                        $(".cart-label").text(cartCount);
+                    }
+                }
+            }).fail(function (r) {
+                console.log(JSON.stringify(r));
+                toastr.error(r.responseJSON.error);
+            });
+        }
+
+        $(".refererLogin").on("click", function () {
+            var referrer_uri = $(this).data("referrer");
+            $(".referrerInput").val(referrer_uri);
+        });
+
+        $('#register-form-link').click(function (e) {
+            $("#register-form").delay(100).fadeIn(100);
+            $("#login-form").fadeOut(100);
+            $('#login-form-link').removeClass('active');
+            $(this).addClass('active');
+            e.preventDefault();
+        });
+
+        $('#login-form-link').click(function (e) {
+            $("#login-form").delay(100).fadeIn(100);
+            $("#register-form").fadeOut(100);
+            $('#register-form-link').removeClass('active');
+            $(this).addClass('active');
+            e.preventDefault();
+        });
+        // var note=localStorage.getItem('notified');
+        // if(!note){
+        //     localStorage.setItem('notified',1);
+        // swal({
+        //     title: 'delivery will start from 12th October!',
+        //     imageUrl: '/img/valucart-alart.png',
+        //     imageWidth: "100%",
+        //     width: 800,
+        //     imageAlt: 'Custom image',
+        //     animation: false,
+        //     showConfirmButton: false,
+        //     timer: 25000
+        //     })
+        // }
+    });
+</script>
+<% include login_post %>
+<script>
+    window.fcWidget.init({
+        token: "b4a84e2b-fc95-45e1-84fe-b707f5593fd7",
+        host: "https://wchat.freshchat.com"
+    });
+</script>
+</body>
+
+</html>

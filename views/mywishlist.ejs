@@ -1,0 +1,83 @@
+<% include template/header %>
+    <!--    Breadcrumb-->
+    <div class="container">
+        <ul class="breadcrumb">
+            <li>
+                <a href="/">Home</a>
+            </li>
+            <li class="lastcrumb">
+                <a>My Wishlist</a>
+            </li>
+        </ul>
+        <h3>My Wishlist</h3>
+    </div>
+    <!--    Breadcrumb-->
+    <!--    Product list starts here-->
+    <div class="container-fluid mycart" ng-app="myapp" ng-controller="mywishlist">
+        <div class="container productlistpagec">
+            <div class="row">
+                <div class="col-md-12 no-pad">
+                    <div class="panel panel-default hidden empty-panel">
+                        <div class="panel-body">
+                            <h4>Empty Wishlist</h4>
+                        </div>
+                    </div>
+                    <% 
+                    let wishList= data.results; 
+                    if(wishList!=""){
+                        wishList.forEach(function(pro){
+                    %>
+                        <div class="panel panel-default productpanel">
+                            <div class="panel-body">
+                                <div class="row bg-white" style="padding-top:40px; padding-bottom: 48px">
+                                    <div class="col-xs-4">
+                                        <!-- <p class="discountprice">-10%</p> -->
+                                        <img src="<%= pro.p_image %>" class="img-responsive productimg">
+                                        <div class="col-xs-6 favourite wishpage">
+                                            <i class="fa fa-trash-o trash" data-type="remove" ng-click="removeWish(<%=pro.w_product_id%>, <%=pro.w_is_bundle%>, $event.target)"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-8">
+                                        <%
+                                    var proUrl= (pro.w_is_bundle)?"bundle-detail":"product-detail";
+                                    var pro_name= pro.pd_name.replace(/\s+/g, '-').toUpperCase();
+                                    var product_url=proUrl+"/"+pro.w_product_id+"/"+pro_name;
+                                    %>
+                                            <h4>
+                                                <a href="<%= product_url%>">
+                                                    <%= pro.pd_name%>
+                                                </a>
+                                            </h4>
+                                            <div class="col-xs-12">
+                                                <h6 class="rate">
+                                                    <%= pro.p_price%> AED
+                                                </h6>
+                                            </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <%
+                        });
+                    }
+                    else{
+                    %>
+                            <h4>"NO Wishlist Records Found"</h4>
+                            <%
+                    }
+                    %>
+                                <div id="shop-desktop">
+                                    <a href="/">
+                                        <h5 class="continue-text">
+                                            <i class="fa fa-chevron-left" aria-hidden="true" style="margin-right: 5px"></i>
+                                            continue shopping</h5>
+                                    </a>
+                                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--     Product list ends here-->
+    <% include template/footer %>

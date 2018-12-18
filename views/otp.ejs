@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="eng">
+
+<head>
+    <title>ValuCart</title>
+    <!-- for-mobile-apps -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <base href="<%= process.env.PROTOCOL+baseURL %>/">
+    <link rel="icon" href="img/favicon.png" sizes="16x16" type="image/png">
+    <!-- <link rel="stylesheet" href="css/bootstrap.min.css">  -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/integrate.css">
+    <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+    <script>
+        APIURL = "<%= process.env.APIURL %>"
+    </script>
+    <script src="js/modernizr.custom.js"></script>
+    <script src="js/jquery-3.3.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+   
+    <% if(angular){ %>
+        <!-- angular Libraries -->
+        <script src="angular/lib/angular.min.js"></script>
+        <script src="angular/lib/angular-route.min.js"></script>
+        <script src="angular/lib/angular-aria.min.js"></script>
+        <script src="angular/lib/angular-messages.min.js"></script>
+        <script src="angular/lib/angular-sanitize.min.js"></script>
+        <%  } %>
+            <% if(customjs){ 
+    jslist.forEach(function(js){ %>
+                <script src="<%- js %>"></script>
+                <% })
+    } %>
+</head>
+
+<body class="otp" style="overflow-y: hidden !important;">
+    <div class="container-fluid fullbg text-center" ng-app="myapp" ng-controller="otpVerify">
+        <!-- <p class="text-right text-info">don't have code?
+            <a class="vcartLogout text-white">logout</a>
+        </p> -->
+        <h3>Verification Code</h3>
+
+        <p>Please type the verification code sent to
+            <span ng-bind-html="email"></span>
+        </p>
+        <form class="form-inline mob-inline" name="formOtp" style="margin-top: 40px;">
+            <div class="form-group">
+                <input type="tel" name="otpvalue" class="form-control otpvalue" maxlength="1" autofocus>
+            </div>
+            <div class="form-group">
+                <input type="tel" name="otpvalue" class="form-control otpvalue" maxlength="1">
+            </div>
+            <div class="form-group">
+                <input type="tel" name="otpvalue" class="form-control otpvalue" maxlength="1">
+            </div>
+            <div class="form-group">
+                <input type="tel" name="otpvalue" class="form-control otpvalue" maxlength="1">
+            </div>
+            <div class="form-group">
+                <input type="tel" name="otpvalue" class="form-control otpvalue" maxlength="1">
+            </div>
+            <div class="form-group">
+                <input type="tel" name="otpvalue" class="form-control otpvalue" maxlength="1">
+            </div>
+            <button class="btn btn-info submitbtn" type="submit">Submit</button>
+            <p class="otp-bottom">
+                <a class="text-white resend-btn submitbtn" ng-click="resendotp()">Resend OTP</a> |
+                <a class="vcartLogout text-white submitbtn">Logout</a>
+            </p>
+        </form>
+        
+    </div>
+    <footer>
+        <h5>© 2018 Valucart. All rights reserved.</h5>
+    </footer>
+    <script src="js/bootstrap.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+</body>
+
+</html>
+<script>
+//   otp function
+$(document).ready(function () {
+   $('.otpvalue').keyup(function(e){
+    var key = event.which;
+        if ((key == 8 || key == 46) && $(this).text() =='') {
+            $(this).parent("div").prev(".form-group").find("input").focus();
+        } else if ((key == 8 || key == 46)) {
+            $(this).val("");
+            $(this).parent("div").prev(".form-group").find("input").focus();
+            event.preventDefault();
+        } else {
+             $(this).parent("div").next(".form-group").find("input").focus();
+        }
+    });
+});
+
+    $(".vcartLogout").on("click", function () {
+        $.removeCookie('vcartAuth', { path: '/' });
+
+        /* var cookies = $.cookie();
+        for(var cookie in cookies) {
+            $.removeCookie(cookie);
+        } */
+
+        location.reload(true);
+    });
+</script>
+

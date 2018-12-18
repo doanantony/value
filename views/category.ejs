@@ -1,0 +1,49 @@
+<% include template/header %>
+    <div class="container-fluid choosecatagory">
+        <div class="container">
+            <h4 class="Choose-category">Choose any one category</h4>
+            <h5 class="Choose-category-text2">
+            </h5>
+            <form>
+                <div class="row radiorow">
+                    <ul>
+                        <% if(!(_.isEmpty(menudataa)))
+                                { 
+                                    menudataa.forEach(function(cat){ 
+                                        var cname= cat.c_name;
+                                        var cat_url_name = cname.trim().replace(/\s+/g,'-').toUpperCase();
+                                        var catUrl= '/'+pageto+'/'+cat.c_id+'/'+cat_url_name; 
+                                %>
+                            <li>
+                                <input type="radio" id="cat_<%= cat.c_id %>" name="cat_sel" cat_url="<%= catUrl %>" value="<%= cat.c_id %>" />
+                                <label for="cat_<%= cat.c_id %>" class="bundle-check">
+                                    <%= cname %>
+                                </label>
+                            </li>
+
+                            <%  }) 
+                            } %>
+                    </ul>
+                </div>
+                <div class="row mb150">
+                    <button onclick=gotolist() class="btn btn-continue" type="button">Continue Shopping
+                        <img src="img/vector-smart-object.png" srcset="img/vector-smart-object@2x.png 2x,
+                         img/vector-smart-object@3x.png 3x" class="Vector-Smart-Object">
+                    </button>
+                    <a href="/" class="Or-continue-from-homepage">Or continue from homepage</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        function gotolist() {
+            var cat_id = $("input[name='cat_sel']:checked").val();
+            if (cat_id) {
+                var url = $("#cat_" + cat_id).attr('cat_url');
+                window.location.href = url;
+            } else {
+                toastr.error("Select Category!!");
+            }
+        }
+    </script>
+    <% include template/footer %>

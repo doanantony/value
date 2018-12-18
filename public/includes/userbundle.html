@@ -1,0 +1,121 @@
+<div class="container container1">
+    <div class="row">
+        <div class="col-md-8 no-pad mybunedit" ng-init="stotal=0">
+            <div class="panel panel-default productpanel" ng-repeat="bundle in mybundle">
+                <div class="panel-body">
+                    <div class="row" style="padding-top:40px;  padding-bottom: 48px">
+                        <div class="col-xs-1">
+                            <div class="checkbox checkbox-info check-align">
+                                <input id="brand_{{bundle.ubp_id}}" type="checkbox" checked>
+                                <label for="brand_{{bundle.ubp_id}}">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-xs-3 mobright">
+                            <p class="discountprice hidden-xs" ng-if="bundle.pdt_percentage">{{bundle.pdt_percentage}}%</p>
+                            <img src="{{bundle.p_image}}" class="img-responsive productimg" alt="">
+                        </div>
+                        <div class="col-md-7 col-xs-6">
+                            <p class="discountprice mob-dprice hidden-sm hidden-md hidden-lg" ng-if="bundle.pdt_percentage">{{bundle.pdt_percentage}}%</p>
+                            <h4 ng-if="bundle.ubp_p_is_bundle==1"><a ng-href="/bundle-detail/{{bundle.ubp_pd_id}}/{{bundle.pd_name | spaceless}}">{{bundle.pd_name}}</a></h4>
+                            <h4 ng-if="bundle.ubp_p_is_bundle==0"><a ng-href="/product-detail/{{bundle.ubp_pd_id}}/{{bundle.pd_name | spaceless}}">{{bundle.pd_name}}</a></h4>
+                            <h5 ng-if="bundle.ubp_p_is_bundle!=1"><img src="img/grammeter.png" class="img-responsive gramimg">{{bundle.p_qty}}</h5>
+
+                            <div ng-if="bundle.ubp_p_is_bundle==true">
+                                <h6 class="detail-text" ng-repeat="bp in bundle.product">-
+                                    {{bp.pd_name}} (<strong> {{bp.ubbp_qty}}</strong>)
+                                </h6>
+                            </div>
+                            <div class="col-xs-4 col-sm-6 col-md-4 col-lg-6 mobile-pad no-pad">
+                                <div class="productcountdiv button-container userbundlebtn">
+                                    <button type="button" class="btn btn-default productminus cart-qty-minus" ng-click="qty_minus('qty_',bundle.ubp_id)"
+                                        value="-">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                    <!--<p class="productcount">1</p>-->
+                                    <input type="text" name="qty_{{bundle.ubp_id}}" maxlength="12" value="{{bundle.ubp_qty}}"
+                                        class="input-text qty productcount" data-qty="{{bundle.ubp_qty}}" data-price="{{bprice= (bundle.pdt_price) ? bundle.pdt_price : bundle.price}}"
+                                        disabled />
+                                    <button type="button" class="btn btn-default productplus cart-qty-plus" ng-click="qty_plus('qty_',bundle.ubp_id)"
+                                        value="+">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-8 col-lg-6">
+                                <h6 class="rate" ng-if="bundle.pdt_percentage">
+                                    <span>{{bundle.price}} AED</span> {{bundle.pdt_price}} AED</h6>
+                                <h6 class="rate" ng-if="!bundle.pdt_percentage">
+                                    {{bundle.price}} AED</h6>
+                            </div>
+                            <span class="hidden" ng-init="$parent.stotal = $parent.stotal + (bprice * bundle.ubp_qty)"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="shop-desktop">
+                <a href="/product-listing">
+                    <h5 class="continue-text">+ Add more products</h5>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-4 mybundleit" style="margin-top: 10px;" id="">
+            <div class="summary bnd-products">
+                <h4 class="order">Bundle Summary</h4>
+                <div id="subtotal">
+                    <h5 class="total">Total</h5>
+                    <h5 class="total subTotal" style="float: right;">{{stotal.toFixed(2) }} AED</h5>
+
+                </div>
+                <div id="delivery" class="hide">
+                    <h5 class="total">Delivery Charges</h5>
+                    <h5 class="total" style="float: right;">10.00 AED</h5>
+                </div>
+                <!-- 
+                    <div id="savings" style="margin-top: 20px">
+                        <h5 class="total">
+                            <strong>savings</strong>
+                        </h5>
+                        <h5 class="total" style="float: right;">
+                            <strong>7.50 AED</strong>
+                        </h5>
+                    </div>
+                     -->
+                <div id="total" style="margin-top: 20px" class="hide">
+                    <h5 class="total">
+                        <strong>Grand total</strong>
+                        <br>
+                        <span>(inclusive of 5%VAT)</span>
+                    </h5>
+                    <h5 class="total" style="float: right;">
+                        <strong class="grandTotal">{{ stotal + (10)|number:2 }} AED</strong>
+                        <strong ng-show="grand" ng-bind-html="(grandTotal |number:2) + (' AED')"></strong>
+                    </h5>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-proceed">Save</button>
+            <!-- <button type="button" class="btn-proceed" data-toggle="modal" data-target="#bundleedit">Save</button> -->
+            <button type="button" class="btn-cancel" data-toggle="modal" data-target="#bundledelete">Cancel</button>
+            <div ng-if="mybundle_detail.ub_is_subscribed == '0' && mybundle_detail.ob_is_completed!=0">
+                <a href="/schedule-bundle/create/{{ub_id}}" class="btn btn-block btn-lg btn-success">Schedule</a>
+                <a ng-click="bundle_addtocart(ub_id)" class="btn btn-block btn-lg btn-success">Add To Cart</a>
+            </div>
+            <div ng-if="mybundle_detail.ub_is_subscribed == '1' && mybundle_detail.ob_is_completed!=0"">
+                <a confirmed-click="
+                bundle_unsbuscribe(ub_id)" ng-confirm-click="Do you want to unschedule this bundle?" class="btn btn-block btn-lg btn-danger">Un
+                Schedule</a>
+                <a href="/schedule-bundle/create/{{ub_id}}" class="btn btn-block btn-lg btn-danger">Reshedule</a>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="summary-mobile">
+        <div class="col-md-4 no-pad summary summary1">
+            <div class="btn-align">
+                <button type="button" data-toggle="modal" data-target="#bundledelete" class="btn-cancel">Cancel</button>
+                <button type="button" class="btn-proceed" data-toggle="modal" data-target="#bundleedit">Save</button>
+                <!-- <button type="button" class="btn-proceed" data-toggle="modal" data-target="#bundleedit">Save</button> -->
+            </div>
+        </div>
+    </div>
+</div>

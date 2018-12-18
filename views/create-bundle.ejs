@@ -1,0 +1,82 @@
+<% include template/header %>
+    <hr class="invis1">
+    <div class="container-fluid create-bundle">
+        <div class="container">
+            <form action="/create-bundle/next/product#!/" method="GET">
+                <div class="row" id="cBundle-desktop">
+                    <h4>
+                        <img src="img/choose-bundle.png" alt="choose-bundle" /> Build your bundle</h4>
+                    <p>You can now build your own bundle and subscribe to it . Answer a few questions to help us serve you at
+                        the right time.</p>
+                </div>
+                <div class="row" id="cBundle-mobile">
+                    <div class="col-xs-3">
+                        <img src="img/choose-bundle.png" alt="choose-bundle" />
+                    </div>
+                    <div class="col-xs-9">
+                        <h4>Build your bundle</h4>
+                        <p>You can now build your own bundle and subscribe to it . Answer a few questions to help us serve you
+                            at the right time.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="edit-bundle">
+                        <input type="text"  name="bundlename" placeholder="Bundle Name" class="form-control-static title-input" required>
+                    </div>
+                </div>
+                <h5>How often do you refill these products?</h5>
+                <div class="row" style="margin-bottom: 30px;">
+                    <div class="col-sm-3 col-xs-4">
+                        <input type="radio" id="radio_everyday" name="time_interval" value="1" checked />
+                        <label for="radio_everyday" class="bundle-check">Everyday</label>
+                    </div>
+                    <div class="col-sm-3 col-xs-4">
+                        <input type="radio" id="radio_1Weeks" name="time_interval" value="7" />
+                        <label for="radio_1Weeks" class="bundle-check">1 Weeks</label>
+                    </div>
+                    <div class="col-sm-3 col-xs-4">
+                        <input type="radio" id="radio_2Weeks" name="time_interval" value="14" />
+                        <label for="radio_2Weeks" class="bundle-check">2 Weeks</label>
+                    </div>
+                    <div class="col-sm-3 col-xs-4">
+                        <input type="radio" id="radio_days" name="time_interval" value="15" />
+                        <label for="radio_days" class="bundle-check">15 days</label>
+                    </div>
+                    <div class="col-sm-3 col-xs-4">
+                        <input type="radio" id="radio_1month" name="time_interval" value="30" />
+                        <label for="radio_1month" class="bundle-check">1 month</label>
+                    </div>
+                    <div class="col-sm-3 col-xs-4">
+                        <input type="radio" id="radio_2month" name="time_interval" value="60" />
+                        <label for="radio_2month" class="bundle-check">3 months</label>
+                    </div>
+                </div>
+
+                <h5>How long do you want the recurring to happen?</h5>
+                <div class="row">
+                    <div class="col-sm-3 col-xs-4">
+                        <input type="radio" id="radio_3month" name="end_period" value="90" checked />
+                        <label for="radio_3month" class="bundle-check">3 months</label>
+                    </div>
+                    <div class="col-sm-3 col-xs-4">
+                        <input type="radio" id="radio_6month" name="end_period" value="180" />
+                        <label for="radio_6month" class="bundle-check">6 months</label>
+                    </div>
+                    <div class="col-sm-3 col-xs-4">
+                        <input type="radio" id="radio_9month" name="end_period" value="270" />
+                        <label for="radio_9month" class="bundle-check">9 months</label>
+                    </div>
+                    <div class="col-sm-3 col-xs-4">
+                        <input type="radio" id="radio_year" name="end_period" value="360" />
+                        <label for="radio_year" class="bundle-check">1 year</label>
+                    </div>
+                </div>
+                <div class="mobile-block-btn">
+                    <input type="hidden" name="order_id" value="<%= order_id.order_id %>" />
+                    <button type="submit" class="btn btn-info btn-block  crbnextbtn">Next</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <% include template/footer %>

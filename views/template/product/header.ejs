@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Valucart</title>
+    <link rel="icon" href="img/favicon.png" sizes="16x16" type="image/png">
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <!-- main css-->
+    <link href="css/main.css" rel="stylesheet">
+    <!--    nav css-->
+    <link href="css/line.css" rel="stylesheet">
+    <!--    owl carousel css-->
+    <link href="css/OwlCarousel.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/component.css" />
+    <script src="js/modernizr.custom.js"></script>
+    <!-- fontawesome-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+
+<body>
+    <!--Header Desktop / this will hide on mobile -->
+    <div class="container-fluid headertop">
+        <div class="container">
+            <ul class="list-inline headerlist">
+                <li style="border-right: 1px solid #fff; margin-bottom: 10px;">
+                    <a href="#">
+                        <p style="margin: 0px;padding-right: 5px;">
+                            <img class="img-responsive topnavlocationimg" src="img/phone.png">+91-9876543210</p>
+                    </a>
+                </li>
+                <li style="border-right: 1px solid #fff; margin-bottom: 10px;">
+                    <a href="#">
+                        <p style="margin: 0px;padding-right: 5px;">
+                            <img class="img-responsive topnavlocationimg" src="img/locationtop.png"> Al Karama, Dubai
+                            <i class="fa fa-chevron-down"></i>
+                        </p>
+                    </a>
+                </li>
+                <li style="margin-bottom: 10px;">
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img class="img-responsive topnavlocationimg" src="img/user.png">Faheen Ahmed
+                            <i class="fa fa-chevron-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#">My orders</a>
+                            </li>
+                            <li>
+                                <a href="#">Profile</a>
+                            </li>
+                            <li>
+                                <a href="#">Setting</a>
+                            </li>
+                            <li>
+                                <a href="#">Shopping list</a>
+                            </li>
+                            <li>
+                                <a href="#">My bundles</a>
+                            </li>
+                            <li>
+                                <a href="#">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--    Header-->
+    <!--    Navigation starts here-->
+    <!--    Navigation starts here-->
+    <div class="container-fluid navtop">
+        <div class="container">
+            <div class="row">
+                <div class="hidden-md hidden-sm hidden-lg vivible-xs col-xs-3">
+                    <span style="font-size:30px;cursor:pointer;" onclick="openNav()">
+                        <i class="fa fa-ellipsis-v"></i>
+                    </span>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <a href="/">
+                        <img src="img/logo.png" class="img-responsive navbar-brand" alt="valucart-logo">
+                    </a>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-3">
+                    <ul class="list-inline navlist">
+                        <li class="hidden-xs">
+                            <a href="#">
+                                <img src="img/wishlist.png" class="img-responsive navbar-brand" alt="valucart-logo"
+                                    style="margin-right: 10px;">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="img/cart.png" class="img-responsive navbar-brand" alt="valucart-logo">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid navtop2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-4 hidden-xs">
+                    <nav class="navbar navbar-static-top line-navbar-two">
+                        <div class="container" style="padding-left: 0px;">
+                            <!-- Collect the nav links, forms, and other content for toggling -->
+                            <div class="collapse navbar-collapse" id="line-navbar-collapse-2">
+                                <ul class="nav navbar-nav lnt-nav-mega">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                            aria-expanded="false">
+                                            Categories
+                                            <span class="caret">
+                                                <i class="fa fa-chevron-down"></i>
+                                            </span>
+                                        </a>
+                                        <div class="dropdown-menu" role="menu">
+                                            <div class="lnt-dropdown-mega-menu">
+                                                <!-- List of categories -->
+                                                <ul class="lnt-category list-unstyled">
+                                                    <li class="active">
+                                                        <a href="#subcategory-home">New & trending</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#subcategory-sports">Holiday shop</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#subcategory-music">Chilled</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#subcategory-books">Food cupboard</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#subcategory-fashion">Drinks</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#subcategory-movies">Health & beauty</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#subcategory-movies">Baby & toddler</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#subcategory-movies">Household</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#subcategory-movies">Pet</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#subcategory-movies">Home & outdoor</a>
+                                                    </li>
+                                                </ul>
+                                                <!-- Subcategory and carousel wrap -->
+                                                <div class="lnt-subcategroy-carousel-wrap container-fluid">
+                                                    <div id="subcategory-home" class="active">
+                                                        <!-- Sub categories list-->
+                                                        <div class="lnt-subcategory col-sm-6 col-md-6">
+                                                            <!--                                                            <h3 class="lnt-category-name">Home, garden and tools</h3>-->
+                                                            <ul class="list-unstyled col-sm-12">
+                                                                <li>
+                                                                    <a href="#">Cooking oil</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Breakfast cereals</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Biscuits & crackers</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Crisps, nuts & spices</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Jams, honey & spreads</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Rice, pasta & noodles</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Cooking sauces</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Sugar & home baking</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a style="color: #14bdcd; text-decoration: underline; font-weight: 500;"
+                                                                        href="#">See all New & trending</a>
+                                                                </li>
+                                                            </ul>
+
+                                                        </div>
+                                                        <!-- Carousel -->
+                                                        <div class="col-sm-6 col-md-6">
+                                                            <img src="img/ramadanoffer.png" class="img-responsive menuimg">
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.subcategory-home -->
+                                                    <div id="subcategory-sports">
+                                                        <!-- Sub categories list-->
+                                                        <div class="lnt-subcategory col-sm-6 col-md-6">
+                                                            <!--                                                            <h3 class="lnt-category-name">Sports and outdoors</h3>-->
+                                                            <ul class="list-unstyled col-sm-12">
+                                                                <li>
+                                                                    <a href="#">Cooking oil</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Breakfast cereals</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Biscuits & crackers</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Crisps, nuts & spices</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Jams, honey & spreads</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Rice, pasta & noodles</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Cooking sauces</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Sugar & home baking</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a style="color: #14bdcd; text-decoration: underline; font-weight: 500;"
+                                                                        href="#">See all Holiday shop</a>
+                                                                </li>
+                                                            </ul>
+
+                                                        </div>
+                                                        <!-- Carousel -->
+                                                        <div class="col-sm-6 col-md-6">
+                                                            <img src="img/ramadanoffer.png" class="img-responsive menuimg">
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.subcategory-sports -->
+                                                    <div id="subcategory-music">
+                                                        <!-- Sub categories list-->
+                                                        <div class="lnt-subcategory col-sm-6 col-md-6">
+                                                            <!--                                                            <h3 class="lnt-category-name">Digital music</h3>-->
+                                                            <ul class="list-unstyled col-sm-12">
+                                                                <li>
+                                                                    <a href="#">Cooking oil</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Breakfast cereals</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Biscuits & crackers</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Crisps, nuts & spices</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Jams, honey & spreads</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Rice, pasta & noodles</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Cooking sauces</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Sugar & home baking</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a style="color: #14bdcd; text-decoration: underline; font-weight: 500;"
+                                                                        href="#">See all Chilled</a>
+                                                                </li>
+                                                            </ul>
+
+                                                        </div>
+                                                        <!-- Carousel -->
+                                                        <div class="col-sm-6 col-md-6">
+                                                            <img src="img/ramadanoffer.png" class="img-responsive menuimg">
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.subcategory-music -->
+                                                    <div id="subcategory-books">
+                                                        <div class="lnt-subcategory col-sm-6 col-md-6">
+                                                            <!--                                                            <h3 class="lnt-category-name">Books</h3>-->
+                                                            <ul class="list-unstyled col-sm-12">
+                                                                <li>
+                                                                    <a href="#">Cooking oil</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Breakfast cereals</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Biscuits & crackers</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Crisps, nuts & spices</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Jams, honey & spreads</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Rice, pasta & noodles</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Cooking sauces</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Sugar & home baking</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a style="color: #14bdcd; text-decoration: underline; font-weight: 500;"
+                                                                        href="#">See all food cupboard</a>
+                                                                </li>
+                                                            </ul>
+
+                                                        </div>
+                                                        <!-- Carousel -->
+                                                        <div class="col-sm-6 col-md-6">
+                                                            <img src="img/ramadanoffer.png" class="img-responsive menuimg">
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.subcategory-books -->
+                                                    <div id="subcategory-fashion">
+                                                        <!-- Sub categories list-->
+                                                        <div class="lnt-subcategory col-sm-6 col-md-6">
+                                                            <!--                                                            <h3 class="lnt-category-name">Fashion and beauty</h3>-->
+                                                            <ul class="list-unstyled col-sm-12">
+                                                                <li>
+                                                                    <a href="#">Cooking oil</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Breakfast cereals</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Biscuits & crackers</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Crisps, nuts & spices</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Jams, honey & spreads</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Rice, pasta & noodles</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Cooking sauces</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Sugar & home baking</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a style="color: #14bdcd; text-decoration: underline; font-weight: 500;"
+                                                                        href="#">See all Drinks</a>
+                                                                </li>
+                                                            </ul>
+
+                                                        </div>
+                                                        <!-- Carousel -->
+                                                        <div class="col-sm-6 col-md-6">
+                                                            <img src="img/ramadanoffer.png" class="img-responsive menuimg">
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.subcategory-fashion -->
+                                                    <div id="subcategory-movies">
+                                                        <!-- Sub categories list-->
+                                                        <div class="lnt-subcategory col-sm-6 col-md-6">
+                                                            <!--                                                            <h3 class="lnt-category-name">Movies and games</h3>-->
+                                                            <ul class="list-unstyled col-sm-12">
+                                                                <li>
+                                                                    <a href="#">Cooking oil</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Breakfast cereals</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Biscuits & crackers</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Crisps, nuts & spices</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Jams, honey & spreads</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Rice, pasta & noodles</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Cooking sauces</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">Sugar & home baking</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a style="color: #14bdcd; text-decoration: underline; font-weight: 500;"
+                                                                        href="#">See all Health & beauty</a>
+                                                                </li>
+                                                            </ul>
+
+                                                        </div>
+                                                        <!-- Carousel -->
+                                                        <div class="col-sm-6 col-md-6">
+                                                            <img src="img/ramadanoffer.png" class="img-responsive menuimg">
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.category-movies -->
+                                                </div>
+                                                <!-- /.lnt-subcategroy-carousel-wrap -->
+                                            </div>
+                                            <!-- /.lnt-dropdown-mega-menu -->
+                                        </div>
+                                        <!-- /.dropdown-menu -->
+                                    </li>
+                                    <!-- /.dropdown -->
+                                </ul>
+                                <!-- /.lnt-nav-mega -->
+                                <!-- /.lnt-search-form -->
+                                <!-- /.lnt-shopping-cart -->
+                            </div>
+                            <!-- /.navbar-collapse -->
+                        </div>
+                        <!-- /.container -->
+                    </nav>
+                    <!--nav navbar-nav-->
+                </div>
+                <div class="col-md-5 col-sm-4 hidden-xs text-left" style="padding-top: 8px; z-index: 1000;">
+                    <a href="#">
+                        <img src="img/exclusive.png" class="img-responsive exclusiveimg" alt="ValuCart Exclusives">
+                        ValuCart Exclusives</a>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-6" style="z-index: 1000;">
+                    <div id="sb-search" class="sb-search column hidden-md hidden-sm hidden-lg">
+                        <form class="mobsearchform">
+                            <input class="sb-search-input" placeholder="Enter your search term..." type="text" value=""
+                                name="search" id="search">
+                            <input class="sb-search-submit" type="submit" value="">
+                            <span class="sb-icon-search"></span>
+                        </form>
+                    </div>
+
+                    <div class="input-group hidden-xs">
+                        <input type="text" class="form-control desktopsearch" placeholder="Search for...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">
+                                <img src="img/searchicon.png" class="img-responsive searchicon" /> </button>
+                        </span>
+                    </div>
+                </div>
+                <div class="hidden-md hidden-sm hidden-lg vivible-xs col-xs-6">
+                    <a href="#">
+                        <p class="navlocation">
+                            <img class="img-responsive navlocationimg" src="img/location.png"> Al Karama, Dubai</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- mobile menu -->
+    <div id="mobileview" class="mobileview1" style="display: none">
+        <div id="mySidenav" class="sidenav" style="overflow-y: scroll;">
+            <div class="sideheader">
+                <img src="img/blacklogo.png" class="img-responsive navbar-brand-mob" alt="valucart-logo">
+                <a href="javascript:void(0)" style="display: inline-block;" class="closebtn" onclick="closeNav()">&times;</a>
+            </div>
+            <div class="tab">
+                <button class="tablinks button1" onclick="openCity(event, 'account')" id="defaultOpen">
+                    <img class="svg" src="img/user.svg" alt="" />
+                    <br>My Account</button>
+                <button class="tablinks button1" onclick="openCity(event, 'categories')">
+                    <img class="svg" src="img/shop.svg" alt="" />
+                    <br>Categories</button>
+                <button class="tablinks button1" onclick="openCity(event, 'offers')">
+                    <img class="svg" src="img/valucart.svg" alt="" />
+                    <br>ValuCart Exclusives</button>
+            </div>
+
+            <div id="account" class="tabcontent">
+                <a href="#">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title panels"> Login
+                                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                            </h4>
+                        </div>
+                    </div>
+                </a>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title panels"> Sign up
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </h4>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title panels"> My cart
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </h4>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title panels"> Wishlist
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="categories" class="tabcontent">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title panels"> News & Trending
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </h4>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title panels">Holiday shop
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </h4>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title panels"> Chilled
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </h4>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title panels"> Food & Cupboard
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </h4>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title panels"> Drinks
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </h4>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title panels"> health & Beauty
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </h4>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title panels"> Baby & toddler
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </h4>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title panels"> household
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </h4>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title panels"> pet
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </h4>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title panels"> Home & Outdoor
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+
+            <div id="offers" class="tabcontent">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title panels"> News & Trending
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </h4>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title panels">Holiday shop
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </h4>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title panels"> Chilled
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </h4>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title panels"> Food & Cupboard
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </h4>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title panels"> Drinks
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </h4>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title panels"> health & Beauty
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </h4>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title panels"> Baby & toddler
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </h4>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title panels"> household
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </h4>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title panels"> pet
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </h4>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title panels"> Home & Outdoor
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--    Navigation ends here-->

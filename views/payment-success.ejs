@@ -1,0 +1,70 @@
+<% include template/header %>
+<% data=1;if(data==0){%>
+<div class="container-fluid recurring">
+  <div class="container-fluid successdiv">
+    <div class="container">
+      <img src="img/success.png" class="img-responsive recurringimg" alt="success" />
+      <h4 class="recurringtitle">Your order has been<br>successfully placed</h4>
+      <h5 class="recurringpara">You can now track your orders in the ‘My Orders’ section.
+        Your order will be delivered within 48 hours<br>
+        You would have also received an email notification to your registered email ID.</h5>
+    </div>
+  </div>
+  <div class="container recuurdiv hide">
+    <div class="row">
+      <div class="col-md-6 text-center">
+        <img src="img/orderplaced.png" srcset="img/orderplaced@2x.png 2x,
+               img/orderplaced@3x.png 3x"
+          class="Group-39 recurringimgcal">
+      </div>
+      <div class="col-md-6 btncenter">
+        <h3 class="recurringtitle2">Would you like to make this as
+          your bundle?</h3>
+        <h5 class="recurringexample">Choose products from the list you just shopped
+          and make this your bundle for a easy checkout
+          next time.</h5>
+        <a class="btn btn-recurring" href="create-bundle/process/<%= params.order_id %>">Create a bundle</a>
+      </div>
+    </div>
+    <div class="row recurrinlink">
+      <a href="/" class="backtohomelink">Back to home</a>
+    </div>
+  </div>
+</div>
+<% }else{ %>
+<div class="container-fluid recurring">
+  <div class="container-fluid successdiv">
+    <div class="container">
+      <img src="img/success.png" class="img-responsive recurringimg" alt="success" />
+      <h4 class="recurringtitle">Your order has been<br>successfully placed</h4>
+      <h5 class="recurringpara">You can now track your orders in the ‘My Orders’ section.
+        Your order will be delivered within 48 hours<br>
+        You would have also received an email notification to your registered email ID.</h5>
+    </div>
+  </div>
+  <div class="container recuurdiv ">
+    <div class="row">
+      <div class="col-md-6 text-center">
+        <img src="img/group-calender.png" class="Group-39 recurringimgcal">
+      </div>
+      <div class="col-md-6 btncenter">
+        <h3 class="recurringtitle2">Need this bundle on a regular basis? Schedule it now.</h3>
+        <h5 class="recurringexample">Set your own delivery schedule.<br>
+          <span>Eg,. Every week, Every month etc,..</span></h5>
+        <a class="btn btn-recurring" href="schedule-detail/create-process/<%= params.order_id %>">Schedule Now</a>
+      </div>
+    </div>
+    <div class="row recurrinlink">
+      <a href="" class="backtohomelink">Back to home</a>
+    </div>
+  </div>
+</div>
+<% }%>
+<script type="text/javascript">
+  history.pushState(null, null, location.href);
+  window.onpopstate = function () {
+    history.go(1);
+  };
+</script>
+
+<% include template/footer %>

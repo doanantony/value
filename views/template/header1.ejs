@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="eng">
+
+<head>
+    <title>ValuCart</title>
+    <!-- for-mobile-apps -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <base href="<%= process.env.PROTOCOL+baseURL %>">
+    <link rel="icon" href="img/favicon.png" sizes="16x16" type="image/png">
+    <!-- <link rel="stylesheet" href="css/bootstrap.min.css">  -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/nice-select.css">
+    <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css'>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script>
+            APIURL = "<%= process.env.APIURL %>"
+        </script>
+    <% if(angular){ %>
+        <!-- angular Libraries -->
+        <script src="angular/lib/angular.min.js"></script>
+        <script src="angular/lib/angular-route.min.js"></script>
+        <script src="angular/lib/angular-aria.min.js"></script>
+        <script src="angular/lib/angular-messages.min.js"></script>
+        <script src="angular/lib/angular-sanitize.min.js"></script>
+        <%  } %>
+            <% if(customjs){ 
+    jslist.forEach(function(js){ %>
+                <script src="<%- js %>"></script>
+                <% })
+    } %>
+                    
+</head>
+
+<body class="fullwidth">

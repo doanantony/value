@@ -1,0 +1,219 @@
+<script type="text/javascript" src="js/jquery.cookie.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        //console.log($.cookie("vcartAuth"));
+        //console.log($.cookie());
+
+        $('#login-form').submit(function (e) {
+            $(".login-action-msg").html("").addClass("has-error");
+            e.preventDefault();
+            var username = $(".login_username").val();
+            var password = $(".login_password").val();
+
+            if (username == "") {
+                $("#l_uname").addClass("required");
+                $(".login_username").focus();
+            } else {
+                $("#l_uname").removeClass("required");
+            }
+
+            if (password == "") {
+                $("#l_pwd").addClass("required");
+                $(".login_password").focus();
+            } else {
+                $("#l_pwd").removeClass("required");
+            }
+
+            if (username != "" && password != "") {
+                var data = { username, password };
+                var refferrerUrl = $(".referrerInput").val();
+
+                $.ajax({
+                    type: 'POST',
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    url: '<%= process.env.APIURL %>/auth/login'
+                }).done(function (resp) {
+                    if (resp.status == "success") {
+                        resp.useremail = resp.email;
+                        $.cookie('vcartAuth', JSON.stringify(resp), { expires: 7, path: '/' });
+                        if (!resp.is_email_verified) {
+                            var base_url = window.location.origin;
+                            window.location.replace(base_url + "/otp");
+                        }
+                        else {
+                            if (refferrerUrl != "") {
+                                window.location.replace(refferrerUrl);
+                            }
+                            else {
+                                location.reload(true);
+                            }
+                        }
+                    }
+                    else {
+                        $(".login-action-msg").html(resp.responseJSON.error).addClass("has-error");
+                        // toastr.error("Invalid Username/Password");
+                    }
+                }).fail(function (r) {
+                    console.log(JSON.stringify(r));
+                    $(".login-action-msg").addClass("form-group pb-5 text-center");
+                    $(".login-action-msg").html(r.responseJSON.error).addClass("has-error");
+                    // toastr.error(r.responseJSON.error);
+                });
+            }
+        });
+
+        $(".vcartLogout").on("click", function () {
+            $.removeCookie('vcartAuth', { path: '/' });
+
+            /* var cookies = $.cookie();
+            for(var cookie in cookies) {
+                $.removeCookie(cookie);
+            } */
+
+            location.reload(true);
+        });
+
+        /* var vCook= $.cookie("vcartAuth");
+        if(vCook){
+            var emailVerify = JSON.parse(vCook).is_email_verified;
+            if(!emailVerify)
+                window.location.href="/otp";
+        } */
+
+
+        /* forgot password scripts
+         */
+        $('#genarate_pin').on("click", function () {
+            var email = $('#f-email').val();
+            if (email == "") {
+                toastr.error("Email Required!!");
+            }
+            if (email != "") {
+                $.ajax({
+                    type: 'GET',
+                    url: '<%= process.env.APIURL %>/auth/forgetpassword?email=' + email
+                }).done(function (resp) {
+                    if (resp.result != "") {
+                        $("#forgotpwd_error").html(resp.result).addClass("text-green");
+                        $("#pinin").removeClass("avoid-clicks");
+                        console.log("success itseems");
+                        $("")
+                    }
+                    else {
+                        $("#forgotpwd_error").html(resp.result).addClass("has-error");
+                        console.log("Result is not expected");
+                    }
+                }).fail(function (r) {
+                    console.log(JSON.stringify(r));
+                    $("#forgotpwd_error").html("Request failed").addClass("has-error");
+                });
+            }
+        });
+
+        $('#forgotpwd_form').submit(function (e) {
+            e.preventDefault();
+            var email = $("#f-email").val();
+            var pin = $("#pin").val();
+            var password = $("#f-pwd").val();
+
+            if (email == "") {
+                toastr.error("Name Required!!");
+            }
+            if (pin == "") {
+                toastr.error("Pin Required!!");
+            }
+            if (password == "") {
+                toastr.error("Password Required!!");
+            }
+
+            if (email != "" && password != "" && pin != "") {
+                var data = { "email": email, "password": password, "pin": pin };
+
+                $.ajax({
+                    type: 'POST',
+                    data: JSON.stringify(data),
+                    contentType: 'application/json',
+                    url: '<%= process.env.APIURL %>/auth/forgetpassword'
+                }).done(function (resp) {
+                    if (resp.result != "") {
+                        toastr.success("Your password has been changed. Please log in, to continue shopping.");
+                        // $("#forgotpwd_error").html(resp.result).addClass("has-error");
+                        $('#forgotpwd_form').trigger("reset");
+                        $('#myModal').modal('show');
+                        $('#forgot_password').modal('hide');
+                    } else {
+                        toastr.error("Something went wrong. Please try later");
+                        // $("#forgotpwd_error").html("Itseems workes fine").addClass("has-error");
+                    }
+                }).fail(function (r) {
+                    console.log(r.responseJSON.error)
+                    toastr.error(r.responseJSON.error);
+                    // $("#forgotpwd_error").html(r.error).addClass("has-error");
+                });
+            }
+        });
+    });
+    function onLoadGoogleCallback() {
+        gapi.load('auth2', function () {
+            auth2 = gapi.auth2.init({
+                client_id: '937569373900-g6jtmi0c9e4jjvh9shnclpfehiqkcpn2.apps.googleusercontent.com',
+                cookiepolicy: 'single_host_origin',
+                scope: 'profile email'
+            });
+
+            auth2.attachClickHandler(element1, {},
+                function (googleUser) {
+                    ssoprocess(googleUser)
+                });
+            auth2.attachClickHandler(element, {},
+                function (googleUser) {
+                    ssoprocess(googleUser)
+                });
+        });
+        function ssoprocess(googleUser) {
+            let gdata = googleUser.getBasicProfile();
+            let gtoken = googleUser.getAuthResponse().id_token;
+            $.ajax({
+                type: "POST",
+                data: JSON.stringify({
+                    username: gdata.ig,
+                    user_id: gdata.Eea,
+                    user_phone_no: "",
+                    user_email: gdata.U3,
+                    user_first_name: gdata.ofa,
+                    user_last_name: gdata.wea,
+                    user_city: "",
+                    user_area: "",
+                    token: gtoken,
+                    sso_type: 1
+                }),
+                contentType: "application/json",
+                url: "<%= process.env.APIURL %>/auth/sso",
+                success: function (resp) {
+                    if (resp.status == "success") {
+                        resp.useremail = resp.email;
+                        console.log(JSON.stringify(resp));
+
+                        $.cookie("vcartAuth", JSON.stringify(resp), {
+                            expires: 7,
+                            path: "/"
+                        });
+                        if (!resp.is_email_verified) {
+                            var base_url = window.location.origin;
+                            window.location.replace(base_url + "/otp");
+                        } else location.reload(true);
+                    } else {
+                        console.log("Invalid Account");
+                        toastr.error("Invalid Account");
+                    }
+                },
+                error: function (error) {
+                    toastr.error(error.responseJSON.error);
+                }
+            })
+        }
+        element = document.getElementById('googleSignIn');
+        element1 = document.getElementById('googleSignup');
+    }
+</script>

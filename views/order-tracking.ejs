@@ -1,0 +1,155 @@
+<% include template/header %>
+    <!--    Breadcrumb-->
+    <div class="container myorderdetail">
+        <ul class="breadcrumb">
+            <li>
+                <a href="#">My account</a>
+            </li>
+            <li>
+                <a href="#">My orders</a>
+            </li>
+            <li class="lastcrumb">
+                <a href="#">Track Package</a>
+            </li>
+        </ul>
+
+    </div>
+    <!--    Breadcrumb-->
+    <div class="container ordertracking">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="badge" style="margin-bottom: 15px;">
+                    <p> Order ID
+                        <span class="orderid">AB-123456789-125845</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container myorderdetail">
+
+
+        <!--        progress starts here-->
+        <div class="myorderprogress ">
+            <ol class="progress" data-steps="4">
+                <li class="done">
+                    <span class="step">
+                        <span>&#10003;</span>
+                    </span>
+                    <span class="name">29 May 2018</span>
+                    <span class="subname">Your order successfully placed</span>
+                </li>
+                <li class="done">
+                    <span class="step">
+                        <span>&#10003;</span>
+                    </span>
+                    <span class="name">30 May 2018</span>
+                    <span class="subname">Shipped Your order</span>
+                </li>
+                <li class="">
+                    <span class="step">
+                        <span>&#10003;</span>
+                    </span>
+                    <span class="name">Near you</span>
+                    <span class="subname"></span>
+                </li>
+                <li class="">
+                    <span class="step">
+                        <span>&#10003;</span>
+                    </span>
+                    <span class="last name">3 june 2017</span>
+                    <span class="subname">Estimated delivery</span>
+                </li>
+            </ol>
+
+            <!--            payment and shipping details-->
+            <div class="row">
+                <div class="col-sm-6 hidden-xs">
+                    <div class="panel panel-default paymentdiv">
+                        <h5 class="paytitle">Payment Details</h5>
+                        <div class="row">
+                            <div class="col-xs-6 text-left">
+                                <p class="paylabel">Invoice no</p>
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <p class="payvalue">HHS-125854-12587</p>
+                            </div>
+                            <div class="col-xs-6 text-left">
+                                <p class="paylabel">Payment Method</p>
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <p class="payvalue">Credit Card</p>
+                            </div>
+                            <div class="col-xs-6 text-left">
+                                <p class="paylabel">Orders items</p>
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <p class="payvalue">10</p>
+                            </div>
+                            <div class="col-xs-6 text-left">
+                                <p class="paylabel">Sub total</p>
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <p class="payvalue">320.00 AED</p>
+                            </div>
+                            <div class="col-xs-6 text-left">
+                                <p class="paylabel">Delivery charge</p>
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <p class="payvalue">0.00 AED</p>
+                            </div>
+                            <div class="row savingdiv">
+                                <div class="col-xs-6 text-left savinglabel">
+                                    <p class="">Savings</p>
+                                </div>
+                                <div class="col-xs-6 text-right savinglabel">
+                                    <p>20.00 AED</p>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 text-left">
+                                <p class="total">Grand total (inclusive of VAT)</p>
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <p class="total">300.00 AED</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-6">
+                    <div class="panel panel-default shippingdiv">
+                        <h5 class="paytitle">Shipping address </h5>
+                        <p class="deliveryname">Faheen Ahmed</p>
+                        <p class="deliveryadd">1st Floor, Mehta Al Owais,
+                            <br> House # 105,
+                            <br> Al Shuwaihean, Sharjah, Dubai
+                            <br> Landmark: Building of UAE Exchange
+                            <br>
+                            <br>+975 055 6060535
+                            <br>faheen@gmail.com
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <h5 class="paytitle">Order info </h5>
+                    <div class="panel panel-default myorderpanel">
+                        <div class="panel-body" style="border-bottom: 1px solid #ddd;">
+                            <a href="myorder-details" class="text-info">View Order Details
+                                <i class="fa fa-chevron-right" style="float: right;"></i>
+                            </a>
+                        </div>
+                        <!--                        <hr>-->
+                        <div class="panel-body">
+                            <a href="cancel-order" class="text-info">Cancel Order
+                                <i class="fa fa-chevron-right" style="float: right;"></i>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <% include template/footer %>

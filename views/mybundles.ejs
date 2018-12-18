@@ -1,0 +1,190 @@
+<% include template/header %>
+<!--  bundle  Product  starts here-->
+<div class="container-fluid create-bundle" style="margin-top: 20px;">
+    <div class="container">
+        <div class="row" id="cBundle-desktop">
+            <h4><img src="img/choose-bundle.png" alt="choose-bundle" /> My bundles <a href="/create-bundle" class="text-anchor title-anchor-btn pull-right">Create
+                    Your Bundle</a></h4>
+        </div>
+    </div>
+</div>
+<div ng-app="myapp" ng-controller="myBundles">
+    <div class="container hidden-xs">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Bundle Name</th>
+                            <th style="text-align:center;">No. of Items</th>
+                            <th style="text-align:center;">Subscriptions</th>
+                            <th style="text-align:center;">Next Date</th>
+                            <th style="text-align:center;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if(data!=""){
+                            var no=1; var btntype= "";
+                            data.forEach(function(mybundle){    
+                        %>
+                        <tr>
+                            <td>
+                                <%=no++ %>
+                            </td>
+                            <td>
+                                <%= mybundle.ub_name %>
+                            </td>
+                            <td style="text-align:center;">
+                                <%= mybundle.product_count %>
+                            </td>
+                            <td style="text-align:center;">
+                                <% if(mybundle.ub_is_subscribed == 0){ btntype= "success"; %>
+                                <a href="/schedule-bundle/create/<%= mybundle.ub_id %>" class="btn btn-<%=btntype%> btn-fixed">Schedule</a>
+                                <a ng-click="bundle_addtocart(<%= mybundle.ub_id %>)" class="btn btn-<%=btntype%> btn-fixed">Add
+                                    To Cart</a>
+                                <% } else { btntype= "danger"; %>
+                                <a confirmed-click="bundle_unsbuscribe(<%= mybundle.ub_id %>)" ng-confirm-click="Do you want to unschedule this Bundle?"
+                                    class="btn btn-<%=btntype%> btn-fixed">Un Schedule</a>
+                                <a href="/schedule-bundle/create/<%= mybundle.ub_id %>" class="btn btn-<%=btntype%> btn-fixed">Re
+                                    Shedule</a>
+                                <% } %>
+                            </td>
+                            <td style="text-align:center;">
+                                <%=(mybundle.ub_end_date!=null)? moment(mybundle.ub_end_date).format('DD.MM.YYYY'):"N-A"; %>
+                            </td>
+                            <td style="text-align:center;"><a href="/mybundles/view/<%= mybundle.ub_id %>" class="text-anchor">View
+                                    Details</a></td>
+                        </tr>
+                        <% })
+                        } else{ %>
+                        <tr>
+                            <td class="text-center" colspan="6">
+                                <br>
+                                <h4 class="text-center">No Bundle List!!</h4> <br>
+                            </td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <!--     Product list ends here-->
+
+    <!--<div class="container-fluid mybundles">
+        <div class="container">
+            <div class="row text-center">
+                <h4>
+                    <img src="img/mybundles.png" class="hidden-xs" alt="mybundles" /> My bundles</h4>
+            </div>
+            <div class="row" id="mybnd-desktop">
+                <% if(data!=""){
+                data.forEach(function(mybundle){     
+            %>
+                    <div class="col-md-9 bn-list">
+                        <h5>
+                            <%= mybundle.ub_name %> (
+                                <%= mybundle.product_count %> items)</h5>
+                    </div>
+                    <div class="col-md-3 bn-img">
+                        <a href="/mybundles/view/<%= mybundle.ub_id %>" class="bundlebtn">
+                            <img src="img/bn-edit.png" alt="bn-edit" />
+                        </a>
+                        <a href="/mybundles/delete/<%= mybundle.ub_id %>" class="bundlebtn">
+                            <img src="img/bn-del.png" alt="bn-edit" />
+                        </a>
+                    </div>
+                    <% })
+            } else{ %>
+                        <br>
+                        <h4 class="text-center">No Bundle List!!</h4>
+                        <br>
+                        <% } %>
+            </div>
+            <div class="row" id="mybnd-mobile">
+                <% if(data.length>0){
+                data.forEach(function(mybundle){     
+            %>
+                    <div class="col-xs-12 bn-list">
+                        <h5>
+                            <%= mybundle.ub_name %> (
+                                <%= mybundle.product_count %> items)</h5>
+                        <a href="/mybundles/view/<%= mybundle.ub_id %>">
+                            <img src="img/bnd-list.png" alt="bnd-list" />
+                        </a>
+                    </div>
+
+                    <% })
+            }else{ %>
+                        <br>
+                        <h4 class="text-center">No Bundle List!!</h4>
+                        <br>
+                        <% } %>
+            </div>
+            <a href="">
+                <p class="end-text">Back to home</p>
+            </a>
+        </div>
+    </div>
+    </div>-->
+
+    <div class="container mob-mybundle visible-xs hidden-sm hidden-md hidden-lg">
+    <div class="container">
+        </div>
+        <% if(data!=""){
+        var no=1; var btntype= "";
+        data.forEach(function(mybundle){    
+    %>
+        <div class="panel">
+            <div class="row">
+                <div class="col-xs-10">
+                    <h4>
+                        <%= mybundle.ub_name %>
+                    </h4>
+                    <h6>No. of Items(
+                        <%= mybundle.product_count %>)</h6>
+                </div>
+                <div class="col-xs-2">
+                    <a href="/mybundles/view/<%= mybundle.ub_id %>"><img src="img/right-arrow.png" class="img-responsive"
+                            alt="Arrow-img" /></a>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-xs-7">
+                    <h4>Subscriptions</h4>
+                    <h6>Next Date </h6>
+                    <h5>
+                        <%=(mybundle.ub_end_date!=null)? moment(mybundle.ub_end_date).format('DD.MM.YYYY'):"N-A"; %>
+                    </h5>
+                </div>
+                <div class="col-xs-5">
+                    <% if(mybundle.ub_is_subscribed == 0){ btntype= "success"; %>
+                    <a href="/schedule-bundle/create/<%= mybundle.ub_id %>" class="btn btn-<%=btntype%> btn-fixed">Schedule</a>
+                    <a ng-click="bundle_addtocart(<%= mybundle.ub_id %>)" class="btn btn-<%=btntype%> btn-fixed">Add
+                        To Cart</a>
+                    <% } else { btntype= "danger"; %>
+                    <a confirmed-click="bundle_unsbuscribe(<%= mybundle.ub_id %>)" ng-confirm-click="Do you want to unschedule this Bundle?"
+                        class="btn btn-<%=btntype%> btn-fixed">Un Schedule</a>
+                    <a href="/schedule-bundle/create/<%= mybundle.ub_id %>" class="btn btn-<%=btntype%> btn-fixed">Re
+                        Shedule</a>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+        <% })
+    } else{ %>
+        <br>
+        <h4 class="text-center">No Bundle List!!</h4> <br>
+        <% 
+    }%>
+    </div>
+</div>
+
+
+
+
+
+<% include template/footer %>

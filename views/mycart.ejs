@@ -1,0 +1,353 @@
+<% include template/header  %>
+<!--    Breadcrumb-->
+<div class="container">
+    <ul class="breadcrumb">
+        <li>
+            <a href="/">Home</a>
+        </li>
+        <li class="lastcrumb">
+            <a>My Cart</a>
+        </li>
+    </ul>
+    <h3 class="mycart-text">My Cart</h3>
+</div>
+<!--    Breadcrumb-->
+<div class="container-fluid mycart" ng-app="myapp" ng-controller="cart">
+    <div class="container productlistpagec">
+        <% if(pendingBundle.length>0){ %>
+        <h6 class="Give-a-name-for-your-bundle" id="mybnd-desktop-text">
+            Your bundle name
+        </h6>
+        <div id="mybnd-desktop" class="row pendingcart temphide" ng-class="showele" style="padding: 15px 0;border: 1px #333333 solid;margin:0">
+            <div class="col-md-9 col-sm-9 col-xs-8 bn-list">
+                <form name="updateBundleName" method="POST">
+                    <h5 style="display: inline-block;" class="newBundleName" ng-hide="edit_title">
+                        <%= pendingBundle[0].ub_name %>
+                    </h5>
+                    <input type="text" name="bundlename" class="form-control-static title-input" value="<%= pendingBundle[0].ub_name %>"
+                        ng-show="edit_title">
+                    <input type="hidden" name="bundleid" value="<%= pendingBundle[0].ub_id %>">
+                    <input type="submit" id="submiteditn" style="display:none">
+                </form>
+            </div>
+
+
+            <div class="col-md-3 col-sm-3 col-xs-4 bn-img text-right">
+                <a ng-hide="edit_title" ng-click="change_title()" style="margin-right:20px">
+                    <img src="img/edit-bundle.png" alt="edit-bundle" />
+                </a>
+                <a ng-show="edit_title" ng-click="save_title()" style="margin-right:20px">
+                    <img src="img/edit-bundle.png" alt="edit-bundle" />
+                </a>
+                <a confirmed-click="deleteBundle(<%= pendingBundle[0].ub_id %>,this)" ng-confirm-click="Do you want to remove this bundle.?"
+                    class="bundlebtn">
+                    <img src="img/bn-del.png" alt="bn-edit">
+                </a>
+            </div>
+        </div>
+        <% } %>
+        <div class="row">
+            <div class="col-lg-7 col-md-7 no-pad">
+                <div class="panel panel-default <%=(data!='undefined' && data.length>0)?'hidden':'';%> empty-panel">
+                    <div class="panel-body">
+                        <h4>No Items In Cart</h4>
+                    </div>
+                </div>
+                <% if(data!="undefined"){
+                            data.forEach(function(cart){ 
+                            %>
+                <div class="panel panel-default productpanel cart_panel_<%=cart.cart_id%>">
+                    <div class="panel-body">
+                        <div class="row ">
+                            <div class="col-xs-4">
+                                <% if(cart.discount>0){  %>
+                                <p class="discountprice">
+                                    <%= cart.discount %>%
+                                </p>
+                                <% } else{  %>
+                                <p class="no-discountprice"></p>
+                                <%
+                                                    } %>
+                                <% if(cart.is_userbundle!=true){ %>
+                                <img src="<%= cart.product_image %>" class="img-responsive productimg">
+                                <% }else{ %>
+                                <img src="img/byob.png" class="img-responsive productimg">
+                                <% } %>
+                                <div class="col-xs-12 favourite <%=cart.is_userbundle==true?'hide-fav':''; %>">
+                                    <button class="btn btn-favourite" confirmed-click="removeCart(<%=cart.cart_id%>, <%=cart.is_bundle%>, $event.target)"
+                                        ng-confirm-click="Do you want to remove this from cart?">
+                                        <i class="fa fa-trash-o trash" aria-hidden="true"></i>
+                                    </button>
+                                    <div class="wishlist-heart-group <%=cart.is_userbundle==true?'hide':''; %>">
+                                        <input name="product-<%= cart.product_id %>" id="product-<%= cart.product_id %>"
+                                            data-product-id="<%= cart.product_id %>" type="checkbox" data-type="<%=(cart.wishlist)?'remove':'add'%>"
+                                            ng-click="addwish(<%=cart.product_id%>, <%=cart.is_bundle%>, $event.target)"
+                                            <%=(cart.wishlist)? 'checked' : '' %> />
+                                        <label for="product-<%= cart.product_id %>" data-hover-text="Wish List">
+                                            <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#"
+                                                xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg"
+                                                xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+                                                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" version="1.1"
+                                                x="0px" y="0px" viewBox="0 0 100 100">
+                                                <g transform="translate(0,-952.36218)">
+                                                    <path style="color:#494949;enable-background:accumulate;" d="m 34.166665,972.36218 c -11.41955,0 -19.16666,8.91891 -19.16666,20.27029 0,19.45943 15,27.56753 35,39.72973 20.00001,-12.1622 34.99999,-20.2703 34.99999,-39.72973 0,-11.35137 -7.7471,-20.27029 -19.16665,-20.27029 -7.35014,0 -13.39148,4.05405 -15.83334,6.48647 -2.44185,-2.43241 -8.48319,-6.48647 -15.83334,-6.48647 z"
+                                                        fill="transparent" id="heart-path" stroke="#494949"
+                                                        stroke-width="5" marker="none" visibility="visible" display="inline"
+                                                        overflow="visible" />
+                                                </g>
+                                            </svg>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-8 m-t-50">
+                                <% 
+                                        let href=(cart.is_bundle==true)?"bundle-detail/":"product-detail/";
+                                        let hbc_name= cart.product_name.replace(/\s+/g, '-');                            
+                                        %>
+                                <h4>
+                                    <% if(cart.is_userbundle!=true){ %>
+                                    <a href="/<%= href+cart.product_id %>/<%= hbc_name %>">
+                                        <%= cart.product_name %>
+                                    </a>
+                                    <% }else{ %>
+                                    <a href="mybundles/view/<%=cart.product_id %>/">
+                                        <%= cart.product_name %>
+                                    </a>
+                                    <% } %>
+                                </h4>
+                                <% if(cart.is_userbundle==true){
+                                                        cart.bundleData.forEach(function(mybundleD){   
+                                                            if(mybundleD.pd_name){     
+                                                    %>
+                                <h6 class="detail-text">-
+                                    <%= mybundleD.pd_name%> <strong>X
+                                        <%= mybundleD.ubp_qty%></strong>
+                                </h6>
+                                <% }})}else if(cart.is_bundle==true){
+                                                     cart.bundleData.forEach(function(mybundleD){   
+                                                     if(mybundleD.pd_name){      
+                                                    %>
+                                <h6 class="detail-text">-
+                                    <%= mybundleD.pd_name%> <strong>X
+                                        <%= mybundleD.ctb_qty%></strong>
+                                </h6>
+                                <%}
+                                           })
+                                          }else{
+                                         %>
+                                <h5><img src="img/grammeter.png" class="img-responsive gramimg">
+                                    <%= cart.p_quantity %>
+                                </h5>
+                                <%}%>
+                                <div class="col-xs-4 col-sm-6 col-md-4 mobile-pad no-pad">
+                                    <div class="productcountdiv button-container">
+                                        <button class="btn btn-default productminus cart-qty-minus" ng-click="qty_minus('qty_',<%= cart.cart_id %>)"
+                                            value="-">
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                        <!--<p class="productcount">1</p>-->
+                                        <input type="text" name="qty_<%= cart.cart_id %>" maxlength="12" data-qty="<%= cart.quantity %>"
+                                            data-price="<%= cart.price %>" value="<%= cart.quantity %>" class="input-text qty productcount"
+                                            disabled />
+                                        <button class="btn btn-default productplus cart-qty-plus" ng-click="qty_plus('qty_',<%= cart.cart_id %>)"
+                                            value="+">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-8">
+                                    <h6 class="rate">
+                                        <%= cart.price %> AED
+                                    </h6>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% })
+                } %>
+                <div id="shop-desktop">
+                    <a href="#">
+                        <h5 class="continue-text">
+                            <i class="fa fa-chevron-left" aria-hidden="true" style="margin-right: 5px"></i>
+                            Continue Shopping
+                        </h5>
+                    </a>
+                </div>
+            </div>
+            <% if(data.length>0){ %>
+            <div id="order_summary_box" class="col-lg-4 col-md-4 col-sm-12 hidden-xs col-md-offset-1 col-lg-offset-1"
+                style="margin-top: 10px;">
+                <div class="summary temphide" ng-class="subGrand?'showsum':''">
+                    <h4 class="order">Order Summary</h4>
+                    <div class="row" ng-if="subGrand<minOrderAmt">
+                        <div class="col-md-1 col-sm-1 col-xs-1 color-warn">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                        </div>
+                        <div class="col-md-11 col-sm-11 col-xs-11 p-l-10">
+                            <p>Minimum order amound is <span class="color-warn">{{minOrderAmt}} AED</span>.<br> Add
+                                more items to complete your order</p>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="subGrand<deliveryFreePrice && subGrand>=minOrderAmt && dc!=0">
+                        <div class="col-md-1 col-sm-1 col-xs-1 color-ok">
+                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                        </div>
+                        <div class="col-md-11 col-sm-11 col-xs-11 p-l-10">
+                            <p>Add <span class="color-ok">{{(deliveryFreePrice-subGrand) | number:2}} AED</span> worth
+                                of products to qualify for FREE delivery</p>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="subGrand>=deliveryFreePrice && dc!=0">
+                        <div class="col-md-1 col-sm-1 col-xs-1 color-success">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                        </div>
+                        <div class="col-md-11 col-sm-11 col-xs-11 p-l-10 color-success">
+                            <p>Your order is eligible for FREE Delivary</p>
+                        </div>
+                    </div>
+                    <div id="subtotal">
+                        <h5 class="total">Subtotal</h5>
+                        <h5 class="total" style="float: right;">
+                            <span class="c_subtotal" ng-bind-html="subGrand">
+                            </span> AED</h5>
+                        <hr>
+                    </div>
+                    <div id="delivery">
+                        <h5 class="total">Delivery Charges</h5>
+                        <h5 class="total" style="float: right;" ng-bind-html="dc+' AED'">15.00 AED</h5>
+                    </div>
+                    <div id="savings" style="margin-top: 20px" ng-if="cartsaving" class="">
+
+                        <h5 class="total">
+                            <strong>savings</strong>
+                        </h5>
+                        <h5 class="total" style="float: right;">
+                            <strong ng-bind-html="cartsaving+' AED'">7.50 AED</strong>
+                        </h5>
+                    </div>
+                    <div id="total" style="margin-top: 20px">
+                        <h5 class="total">
+                            <strong>Grand total</strong>
+                            <br>
+                            <span>(inclusive of 5%VAT)</span>
+                        </h5>
+                        <h5 class="total" style="float: right;">
+                            <strong class="c_gtotal" ng-bind-html="cartGrand">
+                            </strong>
+                            <strong> AED</strong>
+                        </h5>
+                    </div>
+                </div>
+                <form action="checkout" id="cartsubmit" method="POST">
+                    <% if(data!="undefined"){
+                                    data.forEach(function(cart){ 
+                                    %>
+                    <input type="hidden" name="cart_id" value="<%=cart.cart_id%>" class="cart_panel_<%=cart.cart_id%>" />
+                    <% })}%>
+                    <% if(pendingBundle.length>0){ %>
+                    <input type="hidden" name="ub_id" class="ub_idd" value="<%= pendingBundle[0].ub_id %>" />
+                    <% }%>
+                    <input type="hidden" name="subtotal" value="{{subGrand}}" />
+                    <input type="hidden" name="total" value="{{cartGrand}}" />
+                    <input type="hidden" name="coupon" value="{{coupon}}" />
+                    <input type="hidden" name="dc" value="{{dc}}">
+                    <span class="nt-txt-2">No Deliveries On Friday</span>
+                    <button type="button" ng-click="checkorder_value(subGrand)" class="btn-proceed btn-checkout" style="margin-bottom: 10px">Proceed
+                        to checkout</button>
+                </form>
+            </div>
+            <% }%>
+            <% if(data.length>0){ %>
+            <div class="col-md-4 no-pad summary summary1 temphide" ng-class="subGrand?'showsum':''" id="summary-mobile">
+                <div class="row" ng-if="subGrand<minOrderAmt">
+                    <div class="col-md-1 col-sm-1 col-xs-1 color-warn">
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                    </div>
+                    <div class="col-md-11 col-sm-11 col-xs-11 p-l-10">
+                        <p>Minimum order amound is <span class="color-warn">{{minOrderAmt}} AED</span>.<br> Add more
+                            items to complete your order</p>
+                    </div>
+                </div>
+                <div class="row" ng-if="subGrand<deliveryFreePrice && subGrand>=minOrderAmt">
+                    <div class="col-md-1 col-sm-1 col-xs-1 color-ok">
+                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                    </div>
+                    <div class="col-md-11 col-sm-11 col-xs-11 p-l-10">
+                        <p>Add <span class="color-ok">{{(deliveryFreePrice-subGrand) | number:2}} AED</span> of
+                            products on your to quality for FREE Delivary</p>
+                    </div>
+                </div>
+                <div class="row" ng-if="subGrand>=deliveryFreePrice">
+                    <div class="col-md-1 col-sm-1 col-xs-1 color-success">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                    </div>
+                    <div class="col-md-11 col-sm-11 col-xs-11 p-l-10 color-success">
+                        <p>Your order is eligible for FREE Delivary</p>
+                    </div>
+                </div>
+                <div id="subtotal">
+                    <h5 class="total">Subtotal</h5>
+                    <h5 class="total" style="float: right;"><strong ng-bind-html="subGrand |number : 2"></strong>
+                        AED</h5>
+                </div>
+                <hr>
+                <div id="delivery">
+                    <h5 class="total">Delivery Charges</h5>
+                    <h5 class="total" style="float: right;" ng-bind-html="dc+' AED'"></h5>
+                </div>
+                <div id="savings" style="margin-top: 20px" class="hidden">
+                    <h5 class="total">
+                        <strong>savings</strong>
+                    </h5>
+                    <h5 class="total" style="float: right;">
+                        <strong>7.50 AED</strong>
+                    </h5>
+                </div>
+                <div id="total" style="margin-top: 20px">
+                    <h5 class="total">
+                        <strong>Grand total</strong>
+                        <span>(inclusive of 5%VAT)</span>
+                    </h5>
+                    <h5 class="total" style="float: right;">
+                        <strong ng-bind-html="((cartGrand))|number : 2"></strong><strong> AED</strong>
+                    </h5>
+                </div>
+                <a href="">
+                    <h5 class="shop-text">
+                        <i class="fa fa-chevron-left" aria-hidden="true" style="margin-right: 5px"></i>
+                        Continue Shopping
+                    </h5>
+                </a>
+                <form action="/checkout" method="POST">
+
+                    <% if(typeof data!="undefined"){
+                                    data.forEach(function(cart){ 
+                                    %>
+                    <input type="hidden" name="cart_id" value="<%=cart.cart_id%>">
+                    <% })}%>
+                    <% if(pendingBundle.length>0){ %>
+                    <input type="hidden" name="ub_id" id="ub_idd" value="<%= pendingBundle[0].ub_id %>" />
+                    <% }%>
+                    <input type="hidden" name="subtotal" value="{{subGrand}}" />
+                    <input type="hidden" name="total" value="{{cartGrand}}" />
+                    <input type="hidden" name="coupon" value="{{coupon}}" />
+                    <input type="hidden" name="dc" value="{{dc}}">
+                    <span class="nt-txt-2">No Deliveries On Friday</span>
+                    <button type="button" ng-click="checkorder_value(subGrand)" class="btn-proceed btn-checkout" style="margin-bottom: 10px">Proceed
+                        to checkout</button>
+                </form>
+            </div>
+            <% } %>
+        </div>
+    </div>
+</div>
+<script>
+    app.constant("cartData", {
+        'cartSum': <%= cart_sum %>
+    });
+</script>
+<!--     Product list ends here-->
+<% include template/footer %>

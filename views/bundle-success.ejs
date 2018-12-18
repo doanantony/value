@@ -1,0 +1,37 @@
+<% include template/header %>
+  <div class="container-fluid recurring">
+  <div class="container-fluid successdiv"> 
+	  <div class="container">
+	  <img src="img/success.png" class="img-responsive recurringimg" alt="success" />
+    <h4 class="recurringtitle">Your Bundle “<%= data.ub_name %>” has been successfully saved</h4>
+    <h5 class="recurringpara">You can anytime modify your bundle items by visiting 'MY Bundles'
+      section available in the 'My Account section'.</h5>
+	  </div>
+  </div>
+  <div class="container recuurdiv">
+    <div class="row">
+      <div class="col-md-6 text-center"> 
+		  <img src="img/group-calender.png"
+     class="Group-39 recurringimgcal"> 
+		</div>
+      <div class="col-md-6">
+        <h3 class="recurringtitle2">Would you need these regularly?
+          You can schedule your bundle "<%= data.ub_name %>"?</h3>
+        <h5 class="recurringexample">Set your own delivery schedule.<br>
+          <span>Eg,. Every week, Every month etc,..</span></h5>
+        <a class="btn btn-recurring" href="schedule-bundle/create/<%= params.bundle_id %>" >Schedule Now</a>
+      </div>
+    </div>
+	  <div class="row recurrinlink">
+	      <a href="" class="backtohomelink">Back to home</a>
+	  </div>
+   </div>
+</div>
+    <script type="text/javascript">
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+            history.go(1);
+        };
+    </script>
+
+    <% include template/footer %>

@@ -1,0 +1,58 @@
+<% include template/header %>
+<div class="container edit-schedule">
+  <h2 class="edit-schedule-title">Create Schedule “Schedule_<%= data %>” </h2>
+
+  <div class="choosecatagory edit-schedule-ques">
+    <form action="/schedule-detail/create" method="POST">
+      <div class="row querow">
+        <h6 class="scheduleque">How often do you refill these products?</h6>
+        <div class="row radiorow">
+          <ul class="radio-group">
+            <li>
+              <input type="radio" id="radio_week" name="time_period" value="7" />
+              <label for="radio_week" class="bundle-check">Every week</label>
+            </li>
+            <li>
+              <input type="radio" id="radio_15" name="time_period" value="15" />
+              <label for="radio_15" class="bundle-check">Every 15 days</label>
+            </li>
+            <li>
+              <input type="radio" id="radio_month" name="time_period" value="30" />
+              <label for="radio_month" class="bundle-check">Every month</label>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row querow">
+        <h6 class="scheduleque">How long would you like to schedule this for ?</h6>
+        <p class="Specify-the-duration">Specify the duration:</p>
+        <div class="row radiorow">
+          <ul class="radio-group">
+            <li>
+              <input type="radio" id="radio_2mon" name="no_days" value="60" />
+              <label for="radio_2mon" class="bundle-check">For next 2 months</label>
+            </li>
+            <li>
+              <input type="radio" id="radio_3mon" name="no_days" value="90" />
+              <label for="radio_3mon" class="bundle-check">For next 3 months</label>
+            </li>
+            <li>
+              <input type="radio" id="radio_6mon" name="no_days" value="180" />
+              <label for="radio_6mon" class="bundle-check">For next 6 months</label>
+            </li>
+            <li>
+              <input type="radio" id="radio_1yr" name="no_days" value="360" />
+              <label for="radio_1yr" class="bundle-check">For next 1 year</label>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row mb150">
+        <input type="hidden" name="order_id" value="<%= data %>" />
+        <button class="btn btn-continue" type="submit">Save</button>
+        <a href="/" class="Or-continue-from-homepage">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+<% include template/footer %>

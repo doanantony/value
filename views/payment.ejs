@@ -1,0 +1,151 @@
+<% include template/header  %>
+    <div class="container-fluid mycart" style="margin-bottom: 40px" ng-app="myapp" ng-controller="checkout">
+        <div class="container payment">
+            <div class="row">
+                <div class="col-md-6 col-sm-12 no-pad">
+                    <div id="exTab1">
+                        <div class="tabheader">
+                            <ul class="nav nav-pills">
+                                <li class="active shipping">
+                                    <a href="#a1" data-toggle="tab" class="shipping ship">Shipping</a>
+                                </li>
+                                <li class="bill" ng-if="address_id!=''">
+                                    <a href="#a2" data-toggle="tab" class="bill pay">Payment</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-content clearfix">
+                            <div class="tab-pane active" id="a1">
+                                <div ng-include="'includes/checkoutAddress.html'"></div>
+                            </div>
+                            <div class="tab-pane" id="a2">
+                                <p class="paymentmobtitle hidden-md hidden-sm hidden-lg">Payment options</p>
+                                <p class="paymentmobsubtitle hidden-md hidden-sm hidden-lg">2 items, To pay: 120AFD</p>
+                                <form>
+                                    <div class="card-mode" style="display:none">
+                                        <div class="radio">
+                                            <input type="radio" id="test1" value="1" ng-model="disabled" name="radio-group" />
+                                            <label for="test1">Credit/Debit card</label>
+                                        </div>
+                                    </div>
+                                    <div style="padding: 15px 25px;display:none">
+                                        <div class="form-group marg-btm" style="margin-top: 30px;">
+                                            <input type="text" id="card" class="form-control form-control1">
+                                            <label class="form-control-placeholder" for="name">CARD NUMBER</label>
+                                        </div>
+                                        <div class="row form-align">
+                                            <div class="col-sm-6 col-xs-6">
+                                                <div class="form-group marg-btm" style="margin-top: 35px;">
+                                                    <input type="text" id="valid" class="form-control form-control1">
+                                                    <label class="form-control-placeholder" for="name">valid through(mm/yy)</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-xs-6">
+                                                <div class="form-group marg-btm" style="margin-top: 35px;">
+                                                    <input type="text" id="cardcvv" class="form-control form-control1">
+                                                    <label class="form-control-placeholder" for="name">CVV</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group marg-btm" style="margin-top: 35px;">
+                                            <input type="text" id="name" class="form-control form-control1">
+                                            <label class="form-control-placeholder" for="name">Name as on card</label>
+                                        </div>
+                                    </div>
+                                    <div class="card-mode" style="margin-top: 30px;margin-bottom: 30px;">
+                                        <div class="radio">
+                                            <input type="radio" value="2" ng-model="disabled" id="test2" name="radio-group">
+                                            <label for="test2">Cash on Delivery / Card on Delivery</label>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-offset-1 col-md-4 col-sm-6" style="margin-top: 70px" id="summary-desktop1">
+                    <div class="summary">
+                        <h4 class="order">Order Summary</h4>
+                        <h6>Have a coupon code? Enter below to redeem</h6>
+                        <div class="input-group" style="margin-top: 20px;margin-bottom: 20px" ng-show="applied">
+                            <input type="text" class="form-control" placeholder="Enter Code" ng-model="coupon">
+                            <div class="input-group-btn">
+                                <button type="button" ng-click="verifyToken(coupon)" class="btn btn-coupon">Apply</button>
+                            </div>
+                            <!-- /btn-group -->
+                        </div>
+                        <div id="couponapplied" class="col-12 hide" ng-hide="applied">
+                            <h3 class=""><span ng-bind-html="coupon"></span>
+                                <i class="fa fa-trash-o trash text-danger" aria-hidden="true" ng-click="removeCoupon()"></i>
+                            </h3>
+                           <!-- <article class="coupon-success" ng-bind-html="couponInfo"></article>-->
+                        </div>
+                        <div id="subtotal">
+                            <h5 class="total">Subtotal</h5>
+                            <h5 class="total" style="float: right;">
+                                <span class="c_subtotal" ng-bind-html="subTotal|number : 2">
+                                </span> AED</h5>
+                            </h5>
+                            <hr>
+                        </div>
+                        <div id="delivery">
+                            <h5 class="total">Delivery Charges</h5>
+                            <h5 class="total" style="float: right;" ng-bind-html="dc+' AED'">15.00 AED</h5>
+                        </div>
+                        <div id="savings" style="margin-top: 20px" ng-if="cartsaving" class="">
+                            <h5 class="total">
+                                <strong>Savings</strong>
+                            </h5>
+                            <h5 class="total" style="float: right;">
+                                <strong> - </strong> <strong ng-bind-html="cartsaving+' AED'"> 7.50 AED</strong>
+                            </h5>
+                        </div>
+                        <div id="total" style="margin-top: 20px">
+                            <h5 class="total">
+                                <strong>Grand total</strong>
+                                <br>
+                                <span>(inclusive of 5%VAT)</span>
+                            </h5>
+                            <h5 class="total" style="float: right;">
+                                <strong class="c_gtotal" ng-bind-html="(cartGrand + dc)|number : 2"></strong>
+                                <strong> AED</strong>
+                            </h5>
+                        </div>
+                    </div>
+                    <form action="/checkout/process" id="cartsubmit" method="POST">
+
+                        <% if(typeof data!="undefined"){
+                        data.cart_id.forEach(function(cart){ 
+                                %>
+                            <input type="hidden" name="cart_ids" value="<%= cart %>">
+                            <% }) 
+                            if(typeof data.ub_id!=undefined &&  data.ub_id!=""){
+                            %>
+                            <input type="hidden" name="pendingBundle_id" value="<%= data.ub_id%>">
+                             <% }} %>
+                                <input type="hidden" name="shipping_address_id" value="{{address_id}}">
+                                <input type="hidden" name="order_type" value="{{disabled}}">
+                                <input type="hidden" name="coupon" value="{{coupon}}">
+                                <input type="hidden" name="dc" value="{{dc}}">
+                                <button ng-if="disabled!=''" type="button" ng-click="checkorder_value(cartGrand)" class="btn-proceed btn-checkout" style="margin-bottom: 10px">Proceed
+                                    to checkout</button>
+
+                    </form>
+                </div>
+
+                <div class="col-md-4 no-pad hidden summary summary1" id="summary-mobile">
+                    <button class="btn-proceed" style="margin-bottom: 10px">Continue</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        app.constant("cartData", {
+            'cartSum': <%= data.subtotal %> ,
+            'dc': <%= data.dc %> 
+            });
+    </script>
+    <% include template/footer %>

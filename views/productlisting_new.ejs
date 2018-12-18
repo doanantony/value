@@ -1,0 +1,395 @@
+<% include template/header %>
+<!--    Breadcrumb-->
+<div class="container">
+    <ul class="breadcrumb">
+        <li>
+            <a href="/">Home</a>
+        </li>
+        <li class="lastcrumb">
+            <a>ValuCart Products
+                <!--<% if(typeof data.product_config["cat_filter"]!="undefined"){ %>
+                        <%= data.product_config["cat_filter"].cat %>
+                            <% } %>-->
+            </a>
+        </li>
+    </ul>
+</div>
+<!--    Breadcrumb-->
+<!--    Carousel strts here-->
+<div class="container carouseldiv hidden-xs">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <% 
+            let bannerList= banner.response.banner;
+            bannerList.sort(function(a, b){
+                return a.hb_order - b.hb_order;
+            });
+            var no=0;
+            if (bannerList) {
+                bannerList.forEach(function(slides){
+                    if(slides.hb_image)
+            %>
+            <li data-target="#myCarousel" data-slide-to="<%= no++%>" class="<%= (no==1)?'active':'';%>"></li>
+            <%
+                })
+            }
+           %>
+        </ol>
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <% 
+                var no=0;
+                if (bannerList) {
+                    bannerList.forEach(function(slides){
+                        if(slides.hb_image)
+                %>
+            <div class="item <%= (no==0)?'active':'';%>">
+            <a href="<%= slides.hb_external_link %>"><img src="<%= slides.hb_image %>" alt="Los Angeles" style="width: 100%;"></a> </div>
+            <%
+                    no++;
+                    })
+                }
+               %>
+        </div>
+
+    </div>
+
+</div>
+<!--    Carousel ends here-->
+
+<!--    Product list starts here-->
+<div class="container-fluid productlistpage product-listing-page" ng-app="myapp" ng-controller="product_listing">
+    <% if(typeof data.product_config.cat_filter!="undefined"){ %>
+    <div class="container productlistpagec">
+        <div class="row">
+            <div class="col-md-3 col-sm-4 hidden-xs" style="padding-top: 30px;">
+                <% if(typeof data.product_config.cat_filter!= "undefined"){ %>
+                <div class="panel-group" id="accordion">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                Category
+                            </h4>
+                        </div>
+                        <span class="clearfilter1" ng-if="show==1" ng-click="clearFilter('cat')">clear all</span>
+                    </div>
+
+                    <div class="panel panel-default list-group">
+                        <div class="panel-body pl0">
+                            <div class="brandlist">
+                                <% if(data.product_config.cat_filter.length>0){
+                                            data.product_config.cat_filter.forEach(function(cat){ 
+                                            %>
+                                <a data-toggle="collapse" ng-click="filters('cat',<%= cat.main_cat_id %>)">
+                                    <div class="panel-heading" style="background: none">
+                                        <h4 class="panel-title">
+                                            <%= cat.main_cat_name %>
+                                        </h4>
+                                    </div>
+                                </a>
+                                <div id="collapsea<%= cat.main_cat_id %>" class="panel-collapse">
+                                    <div class="panel-body" style="padding-left: 20px;">
+                                        <ul class="list-group">
+                                            <% if(cat.subcat.length>0){
+                                                            cat.subcat.forEach(function(subcat){ 
+                                                                %>
+                                            <li class="list-group-item {{sub_cat_active==<%= subcat.subcat_id %>?'active':''}}">
+                                                <a ng-click="filters('sub_cat',<%= subcat.subcat_id %>)">
+                                                    <%= subcat.subcat_name %>
+                                                    (
+                                                    <%= subcat.c %>)
+                                                </a>
+                                            </li>
+                                            <% })
+                                                            } %>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <% })
+                                        } %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <a data-toggle="collapse" href="#collapse2">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    Brand
+                                </h4>
+                            </div>
+                        </a>
+                        <div id="collapse2" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <input class="brandsearch" type="text" id="searchInput" onkeyup="searchFunction()"
+                                    placeholder="Search by brand" title="Type in a name" style="border: none;
+        width: 100%;margin-bottom: 10px;outline: none;">
+                                <ul class="list-group brandlist" id="brandlist">
+                                    <% if(data.product_config.brand_filter!=""){
+                                                data.product_config.brand_filter.forEach(function(brand){ 
+                                                %>
+                                    <li class="list-group-item">
+                                        <div class="checkbox checkbox-info">
+                                            <input id="brand_<%= brand.b_id %>" type="checkbox" name="brand" ng-checked="c[<%= brand.b_id %>]"
+                                                ng-model="c[<%= brand.b_id %>]" ng-false-value="" ng-true-value="<%= brand.b_id %>"
+                                                ng-change="filters('brand')">
+                                            <label for="brand_<%= brand.b_id %>">
+                                                <%= brand.b_name %>
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <% })
+                                        } %>
+                                    <p id="notfound" style="display: none;padding: 10px 20px;color: #dddddd;">No other
+                                        items found</p>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <a data-toggle="collapse" href="#collapse3">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    Price
+                                </h4>
+                            </div>
+                        </a>
+                        <span class="clearfilter" ng-click="clearFilter('price')">clear all</span>
+                        <div id="collapse3" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                                <ul class="list-group brandlist">
+                                    <% if(data.product_config.price_filter!=""){
+                                                var i=0;
+                                                data.product_config.price_filter.forEach(function(price){ 
+                                                if(price.end!==0){
+                                                %>
+                                    <li class="list-group-item">
+                                        <div class="checkbox checkbox-info radio">
+                                            <input id="price1_<%= i %>" type="checkbox" name="price" class="pri_<%= price.start %>_<%= price.end %>"
+                                                ng-click="filters('price',<%= price.start!=''?price.start:0 %>,<%= price.end!=''?price.end:0 %>)">
+                                            <label for="price1_<%= i %>">
+                                                <%=price.start==""?"Less than ":"" %>
+                                                <%=price.end==""?"More than ":"" %>
+                                                <%= price.start %>
+                                                <%= (price.start == "" || price.end == "")?"":" - " %>
+                                                <%= price.end %> AED
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <% }
+                                                    i++;
+                                                    })
+                                                } %>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="panel panel-default">
+                                    <a data-toggle="collapse" href="#collapse4">
+                                        <div class="panel-heading ">
+                                            <h4 class="panel-title ">
+                                                Discounts
+                                            </h4>
+                                        </div>
+                                    </a>
+                                    <span class="clearfilter" ng-click="clearFilter('discount')">clear all</span>
+                                    <div id="collapse4" class="panel-collapse collapse in">
+                                        <div class="panel-body ">
+                                            <ul class="list-group brandlist">
+                                                <% if(data.product_config.discount_filter!=""){
+                                                    let j=0;
+                                                    data.product_config.discount_filter.forEach(function(discount){ 
+                                                        %>
+                                                    <li class="list-group-item ">
+                                                        <div class="checkbox checkbox-info radio">
+                                                            <input id="discount1_<%= j %>" type="radio" name="discount" class="dis_<%= discount.start %>_<%= discount.end %>" ng-click="filters('discount',<%= discount.start!=''?discount.start:0 %>,<%= discount.end!=''?discount.end:0 %>)">
+                                                            <label for="discount1_<%= j %>">
+                                                                <%=discount.start==""?"Less than":"" %>
+                                                                    <%=discount.end==""?"More than":"" %>
+                                                                        <%= discount.start %>
+                                                                            <%= (discount.start == "" || discount.end == "")?"":" - " %>
+                                                                                <%= discount.end %> %
+                                                            </label>
+                                                        </div>
+                                                    </li>
+                                                    <% j++; })
+                                        } %>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>-->
+                </div>
+                <% } %>
+            </div>
+            <div class="col-md-9 col-sm-8 col-xs-12">
+                <div class="row">
+                    <div class="col-md-8 col-sm-9 hidden-xs" style="padding-top: 26px;">
+                        <h4 class="productlisttitle">
+                            <%= data.product_type %> Products</h4>
+                        <!--<h4 class="productlisttitle">
+                                    <% if(typeof data.product_config["cat_filter"]!="undefined"){ %>
+                                        <%= data.product_config["cat_filter"].cat %>
+                                            <% }%>
+                                                <span class="titlecount">(
+                                                    <span ng-bind-html="productData.length"></span>)</span>
+                                </h4>-->
+                    </div>
+
+                    <div class="col-md-4 col-sm-3  col-xs-6 " style="">
+                        <select class="sortselect" ng-change="filters('sort',sort)" ng-model="sort">
+                            <option value="">
+                                <img src="img/sort.png" class="img-responsive sortimg"> SORT</option>
+                            <option value="Popularity" style="background-image:url(img/popularity.png);">Popularity</option>
+                            <option value="date">Latest</option>
+                            <!-- <option value="discount">Discount</option> -->
+                            <option value="price_lh">Price (Low to High)</option>
+                            <option value="price_hl">Price (High to Low)</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-6 hidden-sm hidden-md hidden-lg" style="">
+                        <div class="dropdown sortdropdown">
+                            <button class="btn btn-default sortbtn dropdown-toggle" type="button" id="menu1"
+                                data-toggle="dropdown">
+                                <img src="img/filter.png" class="img-responsive filterimg">FILTER
+
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                <% if(typeof data.product_config.cat_filter!="undefined"){ %>
+                                <li role="presentation" style="padding-left: 10px">Catagory</li>
+                                <li class="divider"></li>
+                                <div class="brandlist">
+                                    <% if(data.product_config.cat_filter.length>0){
+                                                data.product_config.cat_filter.forEach(function(cat){ 
+                                            %>
+                                    <li role="presentation" style="padding-left: 10px">
+                                        <%= cat.main_cat_name %>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <% if(cat.subcat.length>0){
+                                                                        cat.subcat.forEach(function(subcat){ 
+                                                                            %>
+                                    <li role="presentation">
+                                        <a role="menuitem" ng-click="filters('sub_cat',<%= subcat.subcat_id %>)">
+                                            <%= subcat.subcat_name %>
+                                            (
+                                            <%= subcat.c %>)
+                                        </a>
+                                    </li>
+                                    <%  })
+                                                            } %>
+                                    <%  })
+                                            } %>
+                                </div>
+                                <li class="divider"></li>
+                                <li role="presentation" style="padding-left: 10px">Brand</li>
+                                <li role="presentation" style="margin-top: 10px">
+                                    <input class="brandsearch" type="text" id="searchInputt" onkeyup="mobsearchFunction()"
+                                        placeholder="Search by brand" title="Type in a name" style="border: none;
+        width: 100%;margin-bottom: 10px;outline: none;">
+                                </li>
+                                <ul class="list-group brandlist" id="brandlistt">
+                                    <% if(data.product_config.brand_filter!="")
+                                    {
+                                            data.product_config.brand_filter.forEach(function(brand){ 
+                                                %>
+                                    <li class="list-group-item">
+                                        <div class="checkbox checkbox-info">
+                                            <input id="brand__<%= brand.b_id %>" type="checkbox" name="brand"
+                                                ng-checked="c[<%= brand.b_id %>]" ng-model="c[<%= brand.b_id %>]"
+                                                ng-false-value="" ng-true-value="<%= brand.b_id %>" ng-change="filters('brand')">
+                                            <label for="brand__<%= brand.b_id %>">
+                                                <%= brand.b_name %>
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <%  })
+                                    } %>
+                                    <p id="notfoundd" style="display: none;padding: 10px 20px;color: #dddddd;">No other
+                                        items found</p>
+                                </ul>
+
+                                <li role="presentation" style="padding-left: 10px">Price</li>
+                                <ul class="list-group brandlist">
+
+                                    <% if(data.product_config.price_filter!=""){
+                                        let i=0;
+                                        data.product_config.price_filter.forEach(function(price){ 
+                                            if(price.end!==0){
+                                            %>
+                                    <li class="list-group-item">
+                                        <div class="checkbox checkbox-info radio">
+                                            <input id="price1__<%= i %>" type="checkbox" name="price" class="pri_<%= price.start %>_<%= price.end %>"
+                                                ng-click="filters('price',<%= price.start!=''?price.start:0 %>,<%= price.end!=''?price.end:0 %>)">
+                                            <label for="price1__<%= i %>">
+                                                <%=price.start==""?"Less than ":"" %>
+                                                <%=price.end==""?"More than ":"" %>
+                                                <%= price.start %>
+                                                <%= (price.start == "" || price.end == "")?"":" - " %>
+                                                <%= price.end %> AED
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <% }i++;})
+                                     } %>
+                                </ul>
+                                <!--<li role="presentation" style="padding-left: 10px">Discounts</li>
+                                <ul class="list-group brandlist">
+                                    <% if(data.product_config.discount_filter!=""){
+                                        let j=0;
+                                                data.product_config.discount_filter.forEach(function(discount){ 
+                                                    %>
+                                    <li class="list-group-item ">
+                                        <div class="checkbox checkbox-info radio">
+                                            <input id="discount1__<%= j %>" type="radio" name="discount1" class="dis_<%= discount.start %>_<%= discount.end %>"
+                                                ng-click="filters('discount',<%= discount.start!=''?discount.start:0 %>,<%= discount.end!=''?discount.end:0 %>)">
+                                            <label for="discount1__<%= j %>">
+                                                <%=discount.start==""?"Less than":"" %>
+                                                <%=discount.end==""?"More than":"" %>
+                                                <%= discount.start %>
+                                                <%= (discount.start == "" || discount.end == "")?"":" - " %>
+                                                <%= discount.end %> %
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <% j++; })
+                                    } %>
+                                </ul>-->
+                                <% }%>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6  col-sm-12 pl0" ng-repeat="product in productData">
+                        <div ng-include="'includes/product_list.html'"></div>
+                    </div>
+                </div>
+                <div class="row text-center" ng-show="loadon">
+                    <img src="/img/25.gif" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <% }else{ %>
+    <div class="container productlistpagec m-t-50">
+        <h1 class="text-center">Oops!No product found in this category!!</h1>
+    </div>
+    <% } %>
+
+</div>
+<script>
+    app.constant("valuecartex", {
+        'data': 0
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('select').niceSelect();
+    });
+    $("input:radio").on("click", function () {
+        $(this).closest(".panel").find(".clearfilter").show(200);
+    });
+</script>
+<!--     Product list ends here-->
+<% include template/footer %>

@@ -1,0 +1,45 @@
+<% include template/header %>
+<style>
+body {
+	background-image: url(img/mycart-bg1.png);
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+	.bnd-products .checkbox
+	{
+		margin-top: 20px;
+	}
+</style>
+    <!--  bundle  Product  starts here-->
+    <div class="bnd-products bnd-details" ng-app="myapp" ng-controller="createUserBundle">
+        <form name="createBundle" method="POST">
+            <div class="container-fluid create-bundle" style="margin-top: 20px;">
+                <div class="container">
+                    <div class="row" id="cBundle-desktop">
+                        <h4>
+                            <img src="img/choose-bundle.png" alt="choose-bundle" /> My bundles</h4>
+                    </div>
+                    <div class="row" id="cBundle-mobile">
+                        <p>My bundles
+                            <img src="img/info.png" alt="information" />
+                        </p>
+                    </div>
+                    <div class="row">
+                        <div class="edit-bundle">
+                            <h5 style="display: inline-block;" ng-bind-html="mybundle_name" ng-hide="edit_title"></h5>
+                            <input type="text" name="bundlename" ng-model="mybundle_name" class="form-control-static title-input" ng-value="mybundle_name"
+                                ng-show="edit_title">
+                            <a ng-click="change_title()">
+                                <img src="img/edit-bundle.png" alt="edit-bundle" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid mycart">
+                <div ng-include="'includes/createuserbundle.html'"></div>
+            </div>
+        </form>
+    </div>
+    <!--     Product list ends here-->
+    <% include template/footer %>

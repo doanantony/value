@@ -1,0 +1,59 @@
+<% include template/header1.ejs %>
+    <div class="container container1" ng-app="myapp">
+        <div class="row" ng-controller="select_city">
+            <form name="selectCity" method="post">
+                <div class="text-center">
+                    <img src="img/logo.png" alt="ValuCart-logo" class="img-responsive" />
+                    <!-- <h4 class="logo-text">ValuCart</h4> -->
+                </div>
+                <h2 class="select-city">Which city are you from?</h2>
+                <!-- <div> -->
+                    <ul class="select-your-city row">
+                        <% if (data) {
+                        data.forEach(function(city){
+                            if(city.city_is_avavilable)
+                    %>
+                            <li class="col-md-6 m30 pad0">
+                                <input type="radio" ng-model="city_selected" id="city_<%= city.city_id %>" ng-value="'<%= city.city_id %>-<%= city.city_name %>'" name="city">
+                                <label for="city_<%= city.city_id %>" class="radio-label">
+                                    <%= city.city_name %>
+                                </label>
+                                <div class="check"></div>
+                            </li>
+                            <% })
+                     } 
+                    %>
+                    </ul>
+                <!-- </div> -->
+                <!-- <div class="col-md-6 m30 pad0">
+                    <ul class="select-your-city">
+                        <li>
+                            <input type="radio" id="abu-dhabi" name="selector">
+                            <label for="abu-dhabi" class="radio-label">Abu Dhabi
+                                <br>
+                                <span>coming soon...</span>
+                            </label>
+
+                            <div class="check"></div>
+                        </li>
+
+                        <li>
+                            <input type="radio" id="khaimah" name="selector">
+                            <label for="khaimah" class="radio-label">Ras Al Khaimah
+                                <br>
+                                <span>coming soon...</span>
+                            </label>
+
+                            <div class="check">
+                                <div class="inside"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div> -->
+                <div class="text-center">
+                    <button class="btn next-btn" type="submit" ng-click="test()">Next</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <% include template/footer1.ejs %>

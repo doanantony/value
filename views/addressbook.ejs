@@ -1,0 +1,98 @@
+<% include template/header %>
+    <!--    Breadcrumb-->
+    <div class="container myorderdetail">
+        <ul class="breadcrumb">
+            <li>
+                <a href="/">Home</a>
+            </li>
+            <li class="lastcrumb">
+                Address Book
+            </li>
+        </ul>
+    </div>
+    <!--    Breadcrumb-->
+
+    <!--<address container-->
+    <div class="container addressdiv" ng-app="myapp" ng-controller="change_default_address">
+        <div class="row">
+            <div class="col-sm-4 col-xs-12">
+                <a href="new-address">
+                    <button class="btn add-btn">
+                        <i class="fa fa-plus" style="margin-right: 5px"></i>Add a new address</button>
+                </a>
+            </div>
+
+        </div>
+        <form name="defaultAddress" id="defaultAddress">
+            <h4>Your Address</h4>
+            <div class="addressp">
+                <div class="row radios">
+                    <% 
+                let addressList= data.response; 
+                var no=1;
+                if(addressList!=""){
+                    addressList.forEach(function(adr){
+                %>
+                        <div class="col-md-4 pannel_addressbook">
+                            <div class="panel panel-default productpanel">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <h6 class="add-title">
+                                                <%= (adr.a_is_default)?"Default Address":"Address - "+ no++; %>
+                                            </h6>
+                                        </div>
+                                        <div class="col-xs-6 text-right">
+                                            <a href="new-address/<%=adr.a_id%>">
+                                                <img src="img/editimg.png" class="img-responsive addeditimg" />
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-2" style="padding-left: 0px;">
+                                            <input type="radio" name="address_id" value="<%=adr.a_id%>" id="r<%=adr.a_id%>" <%=( adr.a_is_default)? "checked": ""; %>                                            />
+                                            <label class="radio" for="r<%=adr.a_id%>"></label>
+                                        </div>
+                                        <div class="col-xs-10" style="padding-left: 0px;">
+                                            <h6 class="addname">
+                                                <%=adr.name%>
+                                            </h6>
+                                            <h5 class="add-ress">
+                                                <%=(adr.a_address_1)?adr.a_address_1:""%>
+                                                    <%=(adr.a_address_2)?adr.a_address_2:""%>
+                                                        <br>
+                                                        <%=(adr.a_city)?adr.a_city:""%>
+                                                            <%=(adr.a_pincode)? adr.a_pincode:""%>
+                                                                <br>
+                                                                <%=adr.a_phone%>
+                                            </h5>
+                                            <a class="text-info" ng-click="removeAddress(<%=adr.a_id%>, $event.target)">Delete
+                                                this address</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <%
+                    });
+                }
+                %>
+
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-4 col-xs-12">
+                    <button type="submit" class="btn add-btn btn-info">Set as default address</button>
+                </div>
+                <div class="col-sm-3 col-xs-12">
+                    <a href="#">
+                        <button class="btn add-btn">Cancel</button>
+                    </a>
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <!--<address container-->
+    <% include template/footer %>
